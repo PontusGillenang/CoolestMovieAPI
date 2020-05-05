@@ -13,5 +13,6 @@ namespace CoolestMovieAPI.Models
         public string Country { get; set; }
 
         public List<MovieDirector> movieDirectors { get; set; }
+
     }
 }

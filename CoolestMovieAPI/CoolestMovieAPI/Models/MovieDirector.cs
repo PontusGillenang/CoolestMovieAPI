@@ -7,6 +7,7 @@ namespace CoolestMovieAPI.Models
 {
     public class MovieDirector
     {
+        public int ID { get; set; }
         public int MovieID { get; set; }
         public Movie Movie { get; set; }
 

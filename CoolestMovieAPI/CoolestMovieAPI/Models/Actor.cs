@@ -12,5 +12,8 @@ namespace CoolestMovieAPI.Models
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
         public string Country { get; set; }
+
+        public List<MovieActor> MovieActors { get; set; }
+
     }
 }
