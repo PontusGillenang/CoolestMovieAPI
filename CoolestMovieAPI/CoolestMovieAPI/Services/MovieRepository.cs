@@ -1,4 +1,5 @@
-﻿using CoolestMovieAPI.Models;
+﻿using CoolestMovieAPI.DTO;
+using CoolestMovieAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -16,9 +17,11 @@ namespace CoolestMovieAPI.Services
 
         }
         
-       public async Task<Movie> GetAllMovies()
+       public async Task<Movie> GetAllMovies()          
        {
+                                    
             return await _context.Model(_ => true).ToList();
+
        }
 
         public async Task<Movie> GetMovieById(string id)
