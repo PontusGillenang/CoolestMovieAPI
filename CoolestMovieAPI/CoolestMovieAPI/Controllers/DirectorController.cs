@@ -15,7 +15,7 @@ namespace CoolestMovieAPI.Controllers
         [HttpGet]
         public Task<Director> GetAll()
         {
-            return _repository.GetAllDirector();
+            return _repository.GetAllDirectors();
         }
 
         [HttpGet("{id}")]
