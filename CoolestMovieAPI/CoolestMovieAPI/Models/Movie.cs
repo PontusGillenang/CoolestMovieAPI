@@ -7,11 +7,10 @@ namespace CoolestMovieAPI.Models
 {
     public class Movie
     {
-        public int ID { get; set; }
-        public string Title { get; set; }
-        public List<MovieDirector> movieDirectors { get; set; }
-        public List<MovieActor> MovieActors { get; set; }
-        public List<Trailer> Trailers { get; set; }
-
+        public int MovieID { get; set; }
+        public string MovieTitle { get; set; }
+        public ICollection<MovieDirector> MovieDirectors { get; set; }
+        public ICollection<MovieActor> MovieActors { get; set; }
+        public ICollection<Trailer> Trailers { get; set; }
     }
 }

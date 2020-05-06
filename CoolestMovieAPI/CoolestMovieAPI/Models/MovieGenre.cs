@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace CoolestMovieAPI.Models
 {
-    public class MovieDirector
+    public class MovieGenre
     {
-        public int MovieDirectorID { get; set; }
+        public int MovieGenreID { get; set; }
         public Movie Movie { get; set; }
-        public Director Director { get; set; }
+        public Genre Genre { get; set; }
     }
 }

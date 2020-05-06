@@ -7,12 +7,12 @@ namespace CoolestMovieAPI.Models
 {
     public class Director
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
-        public string Country { get; set; }
+        public int DirectorID { get; set; }
+        public string DirectorName { get; set; }
+        public DateTime DirectorBirthDate { get; set; }
+        public string DirectorCountry { get; set; }
+        public ICollection<MovieDirector> MovieDirectors { get; set; }
 
-        public List<MovieDirector> movieDirectors { get; set; }
 
     }
 }

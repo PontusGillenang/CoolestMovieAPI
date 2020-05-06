@@ -8,12 +8,10 @@ namespace CoolestMovieAPI.Models
 {
     public class Actor
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
-        public string Country { get; set; }
-
-        public List<MovieActor> MovieActors { get; set; }
-
+        public int ActorID { get; set; }
+        public string ActorName { get; set; }
+        public DateTime ActorBirthDate { get; set; }
+        public string ActorCountry { get; set; }
+        public ICollection<MovieActor> MovieActors { get; set; }
     }
 }
