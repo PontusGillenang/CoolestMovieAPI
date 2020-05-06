@@ -355,3 +355,5 @@ CoolestMovieAPI/CoolestMovieAPI/config.json
 **/appsettings.development.json
 **/appsettings.staging.json
 **/appsettings.production.json
+
+Properties/
