@@ -9,5 +9,7 @@ namespace CoolestMovieAPI.Models
     {
         public int GengreID { get; set; }
         public string GenreType { get; set; }
+        public ICollection<MovieGenre> MovieGenre { get; set; }
+
     }
 }
