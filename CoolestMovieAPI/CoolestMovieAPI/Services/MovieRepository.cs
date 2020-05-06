@@ -19,12 +19,10 @@ namespace CoolestMovieAPI.Services
         
        public async Task<Movie> GetAllMovies()          
        {
-                                    
             return await _context.Model(_ => true).ToList();
-
        }
 
-        public async Task<Movie> GetMovieById(string id)
+        public async Task<Movie> GetMovieById(int id)
         {
             return await _context.Movie.Where(m => m.ID == id).FirstOrDefault();
         }

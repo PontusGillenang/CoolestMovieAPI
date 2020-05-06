@@ -11,7 +11,7 @@ namespace CoolestMovieAPI.Controllers
 {
     [Route("api/v1.0/[controller]")]
     [ApiController]
-    public class MovieController : ControllerBase
+    public class MoviesController : ControllerBase
     { 
         private MovieRepository _repository;
         
@@ -22,7 +22,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public Task<Movie> GetById(string id)
+        public Task<Movie> GetById(int id)
         {
             return _repository.GetMovieById(id);
         }

@@ -9,7 +9,7 @@ namespace CoolestMovieAPI.Services
     interface IMovieRepository
     {
         Task<Movie> GetAllMovies();
-        Task<Movie> GetMovieById(string id);
+        Task<Movie> GetMovieById(int id);
         Task<Movie> GetMovieByTitle(string title);
         Task<Movie> GetMovieByYear(int year);
         Task<Movie> GetMovieByRating(int rating);
