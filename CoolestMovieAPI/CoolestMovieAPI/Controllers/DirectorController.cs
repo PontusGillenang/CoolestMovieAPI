@@ -8,9 +8,9 @@ namespace CoolestMovieAPI.Controllers
 {
     [Route("api/v1.0/[controller]")]
     [ApiController]
-    public class DirectorController : ControllerBase
+    public class DirectorsController : ControllerBase
     {
-        private readonly DirectorRepository _repository;
+        private readonly IDirectorRepository _repository;
 
         [HttpGet]
         public Task<Director> GetAll()
@@ -27,13 +27,13 @@ namespace CoolestMovieAPI.Controllers
         [HttpGet("name={name}")]
         public Task<Director> GetByName(string name)
         {
-            return _repository.GetDirectorByName(name);
+            return _repository.GetDirectorsByName(name);
         }
 
         [HttpGet("country={country}")]
         public Task<Director> GetByCountry(string country)
         {
-            return _repository.GetDirectorByCountry(country);
+            return _repository.GetDirectorsByCountry(country);
         }
     }
 }
