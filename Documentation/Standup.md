@@ -19,3 +19,14 @@
      * Sebastian - What have I done since last standup? Skapa alla Model classer. Skapa DbContext. What will I do next? Actor controller class och DTO class.
 
 ### Secretary notes...
+
+## Standup - 2020-05-07
+
+* Secretary - Pontus
+* Each person
+  * Albin - What have I done since last standup? Läst på mer om objektorienterad programmering. What will I do next? Merga master med Trailerbranchen.
+  * Fredrika - What have I done since last standup? Testa mot databasen. What will I do next? Testa att få databasen att fungera.
+  * Pontus - What have I done since last standup? Skapa ett Backlog Issue för DirectorRepository och namngivnings ändringar. What will I do next? Testa att få databasen att fungera.
+  * Sebastian - What have I done since last standup? Påbörjat Actor cotroller class och DTO class What will I do next? Slutföring av Actor controller class och DTO class.
+
+### Secretary notes...
