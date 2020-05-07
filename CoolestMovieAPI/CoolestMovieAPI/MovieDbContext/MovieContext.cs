@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,11 +31,18 @@ namespace CoolestMovieAPI.MovieDbContext
         //public DbSet<MovieActor> MovieActors { get; set; }
         //public DbSet<MovieDirector> MovieDirectors { get; set; }
 
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(_configuration.GetConnectionString("CoolestMovieApiDB"));
+        //}
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("CoolestMovieApi"));
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("config.json");
+            var config = builder.Build();
+            var defaultConnectionString = config.GetConnectionString("CoolestMovieApiDB");
+            optionsBuilder.UseSqlServer(defaultConnectionString);
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Movie>()
