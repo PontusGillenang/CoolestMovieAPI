@@ -21,8 +21,7 @@ namespace CoolestMovieAPI.Services
             _context = context;
             
             //string connectionString = _configuration["Database:ConnectionString"];
-            //string databaseName = _configuration["Database:Database"];
-           
+            //string databaseName = _configuration["Database:Database"];          
 
         }
         
