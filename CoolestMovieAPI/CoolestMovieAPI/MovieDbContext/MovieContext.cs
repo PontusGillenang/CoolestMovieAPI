@@ -64,6 +64,22 @@ namespace CoolestMovieAPI.MovieDbContext
                     MovieReleaseYear = 1972
                 }
                 );
+
+            modelBuilder.Entity<Director>()
+                .HasData(new
+                {
+                    DirectorID = 1,
+                    DirectorName = "David Fincher",
+                    DirectorBirthDate = new DateTime(1962, 8, 28),
+                    DirectorCountry = "USA"
+                }, new
+                {
+                    DirectorID = 2,
+                    DirectorName = "Francis Ford Coppola",
+                    DirectorBirthDate = new DateTime(1939, 4, 7),
+                    DirectorCountry = "USA"
+                }
+                );
         }
     }
 }
