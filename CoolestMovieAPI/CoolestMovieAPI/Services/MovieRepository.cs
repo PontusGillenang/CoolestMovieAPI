@@ -33,33 +33,33 @@ namespace CoolestMovieAPI.Services
 
         public async Task<Movie> GetMovieById(int id)
         {
-            return await _context.Movies.Where(m => m.ID == id).FirstOrDefaultAsync();
+            return await _context.Movies.Where(m => m.MovieID == id).FirstOrDefaultAsync();
         }
 
         public async Task<IList<Movie>> GetMovieByTitle(string title)
         {
-            return await _context.Movies.Where(m => m.Title == title).ToListAsync();
+            return await _context.Movies.Where(m => m.MovieTitle == title).ToListAsync();
         }
 
         public async Task<IList<Movie>> GetMovieByYear(int year)
         {
-            return await _context.Movies.Where(m => m.ReleaseYear == year).ToListAsync();
+            return await _context.Movies.Where(m => m.MovieReleaseYear == year).ToListAsync();
         }
 
         public async Task<IList<Movie>> GetMovieByRating(int rating)
         {
-            return await _context.Movies.Where(m => m.Rating == rating).ToListAsync();
+            return await _context.Movies.Where(m => m.MovieRating == rating).ToListAsync();
         }
 
-        public async Task<IList<Movie>> GetMovieByGenre(string genre)
-        {
+        //public async Task<IList<Movie>> GetMovieByGenre(string genre)
+        //{
             
-            return await _context.Movies.Where(m => m.Genre == genre).ToListAsync();
-        }
+        //    return await _context.Movies.Where(m => m.Genre == genre).ToListAsync();
+        //}
 
         public async Task<IList<Movie>> GetByLength(TimeSpan time)
         {
-            return await _context.Movies.Where(m => m.Length == time).ToListAsync();
+            return await _context.Movies.Where(m => m.MovieLength == time).ToListAsync();
         }
     }
 }

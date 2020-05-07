@@ -48,22 +48,20 @@ namespace CoolestMovieAPI.MovieDbContext
             modelBuilder.Entity<Movie>()
                 .HasData(new
                 { 
-                    ID = 1,
-                    Title = "Fight Club",
-                    Length = new TimeSpan(2, 10, 00),
-                    Rating = 8.8,
-                    Description = "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.",
-                    Genre = "Drama",
-                    ReleaseYear = 1999
+                    MovieID = 1,
+                    MovieTitle = "Fight Club",
+                    MovieLength = new TimeSpan(2, 10, 00),
+                    MovieRating = 8.8,
+                    MovieDescription = "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.",
+                    MovieReleaseYear = 1999
                 }, new
                 {
-                    ID = 2,
-                    Title = "Godfather",
-                    Length = new TimeSpan(2, 55, 00),
-                    Rating = 9.2,
-                    Description = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-                    Genre = "Crime",
-                    ReleaseYear = 1972
+                    MovieID = 2,
+                    MovieTitle = "Godfather",
+                    MovieLength = new TimeSpan(2, 55, 00),
+                    MovieRating = 9.2,
+                    MovieDescription = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+                    MovieReleaseYear = 1972
                 }
                 );
         }

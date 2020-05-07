@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CoolestMovieAPI.Migrations
 {
-    public partial class initial : Migration
+    public partial class initialMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,18 +54,17 @@ namespace CoolestMovieAPI.Migrations
                 name: "Movies",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    MovieID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Length = table.Column<TimeSpan>(type: "time", nullable: false),
-                    Rating = table.Column<double>(type: "float", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ReleaseYear = table.Column<int>(type: "int", nullable: false)
+                    MovieTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MovieLength = table.Column<TimeSpan>(type: "time", nullable: false),
+                    MovieRating = table.Column<double>(type: "float", nullable: false),
+                    MovieDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MovieReleaseYear = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Movies", x => x.ID);
+                    table.PrimaryKey("PK_Movies", x => x.MovieID);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,7 +73,7 @@ namespace CoolestMovieAPI.Migrations
                 {
                     MovieActorID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Roll = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MovieID = table.Column<int>(type: "int", nullable: true),
                     ActorID = table.Column<int>(type: "int", nullable: true)
                 },
@@ -91,7 +90,7 @@ namespace CoolestMovieAPI.Migrations
                         name: "FK_MovieActors_Movies_MovieID",
                         column: x => x.MovieID,
                         principalTable: "Movies",
-                        principalColumn: "ID",
+                        principalColumn: "MovieID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -117,7 +116,7 @@ namespace CoolestMovieAPI.Migrations
                         name: "FK_MovieDirectors_Movies_MovieID",
                         column: x => x.MovieID,
                         principalTable: "Movies",
-                        principalColumn: "ID",
+                        principalColumn: "MovieID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -143,7 +142,7 @@ namespace CoolestMovieAPI.Migrations
                         name: "FK_MovieGenre_Movies_MovieID",
                         column: x => x.MovieID,
                         principalTable: "Movies",
-                        principalColumn: "ID",
+                        principalColumn: "MovieID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -164,19 +163,19 @@ namespace CoolestMovieAPI.Migrations
                         name: "FK_Trailers_Movies_MovieID",
                         column: x => x.MovieID,
                         principalTable: "Movies",
-                        principalColumn: "ID",
+                        principalColumn: "MovieID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 table: "Movies",
-                columns: new[] { "ID", "Description", "Genre", "Length", "Rating", "ReleaseYear", "Title" },
-                values: new object[] { 1, "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.", "Drama", new TimeSpan(0, 2, 10, 0, 0), 8.8000000000000007, 1999, "Fight Club" });
+                columns: new[] { "MovieID", "MovieDescription", "MovieLength", "MovieRating", "MovieReleaseYear", "MovieTitle" },
+                values: new object[] { 1, "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.", new TimeSpan(0, 2, 10, 0, 0), 8.8000000000000007, 1999, "Fight Club" });
 
             migrationBuilder.InsertData(
                 table: "Movies",
-                columns: new[] { "ID", "Description", "Genre", "Length", "Rating", "ReleaseYear", "Title" },
-                values: new object[] { 2, "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.", "Crime", new TimeSpan(0, 2, 55, 0, 0), 9.1999999999999993, 1972, "Godfather" });
+                columns: new[] { "MovieID", "MovieDescription", "MovieLength", "MovieRating", "MovieReleaseYear", "MovieTitle" },
+                values: new object[] { 2, "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.", new TimeSpan(0, 2, 55, 0, 0), 9.1999999999999993, 1972, "Godfather" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_MovieActors_ActorID",

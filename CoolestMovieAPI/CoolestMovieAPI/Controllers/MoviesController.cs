@@ -31,7 +31,7 @@ namespace CoolestMovieAPI.Controllers
         [HttpGet("{id}")]
         public string GetById(int id)
         {
-            var title = _repository.GetMovieById(id).Result.Title.ToString();
+            var title = _repository.GetMovieById(id).Result.MovieTitle.ToString();
 
             return title;
         }
@@ -54,11 +54,11 @@ namespace CoolestMovieAPI.Controllers
             return _repository.GetMovieByRating(rating);
         }
 
-        [HttpGet("genre={genre}")]
-        public Task<IList<Movie>> GetByGenre(string genre)
-        {
-            return _repository.GetMovieByGenre(genre);
-        }
+        //[HttpGet("genre={genre}")]
+        //public Task<IList<Movie>> GetByGenre(string genre)
+        //{
+        //    return _repository.GetMovieByGenre(genre);
+        //}
 
         [HttpGet("length={length}")]
         public Task<IList<Movie>> GetByLength(TimeSpan time)

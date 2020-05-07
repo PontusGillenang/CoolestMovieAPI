@@ -78,53 +78,48 @@ namespace CoolestMovieAPI.Migrations
 
             modelBuilder.Entity("CoolestMovieAPI.Models.Movie", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("MovieID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
+                    b.Property<string>("MovieDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Genre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("Length")
+                    b.Property<TimeSpan>("MovieLength")
                         .HasColumnType("time");
 
-                    b.Property<double>("Rating")
+                    b.Property<double>("MovieRating")
                         .HasColumnType("float");
 
-                    b.Property<int>("ReleaseYear")
+                    b.Property<int>("MovieReleaseYear")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("MovieTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("MovieID");
 
                     b.ToTable("Movies");
 
                     b.HasData(
                         new
                         {
-                            ID = 1,
-                            Description = "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.",
-                            Genre = "Drama",
-                            Length = new TimeSpan(0, 2, 10, 0, 0),
-                            Rating = 8.8000000000000007,
-                            ReleaseYear = 1999,
-                            Title = "Fight Club"
+                            MovieID = 1,
+                            MovieDescription = "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.",
+                            MovieLength = new TimeSpan(0, 2, 10, 0, 0),
+                            MovieRating = 8.8000000000000007,
+                            MovieReleaseYear = 1999,
+                            MovieTitle = "Fight Club"
                         },
                         new
                         {
-                            ID = 2,
-                            Description = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-                            Genre = "Crime",
-                            Length = new TimeSpan(0, 2, 55, 0, 0),
-                            Rating = 9.1999999999999993,
-                            ReleaseYear = 1972,
-                            Title = "Godfather"
+                            MovieID = 2,
+                            MovieDescription = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+                            MovieLength = new TimeSpan(0, 2, 55, 0, 0),
+                            MovieRating = 9.1999999999999993,
+                            MovieReleaseYear = 1972,
+                            MovieTitle = "Godfather"
                         });
                 });
 
@@ -141,7 +136,7 @@ namespace CoolestMovieAPI.Migrations
                     b.Property<int?>("MovieID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Roll")
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MovieActorID");
