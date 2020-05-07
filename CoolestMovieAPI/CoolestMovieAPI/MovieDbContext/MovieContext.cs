@@ -45,7 +45,8 @@ namespace CoolestMovieAPI.MovieDbContext
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Movie>()
+            modelBuilder
+                .Entity<Movie>()
                 .HasData(new
                 { 
                     MovieID = 1,

@@ -2,6 +2,7 @@
 using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -64,6 +65,12 @@ namespace CoolestMovieAPI.Controllers
         public Task<IList<Movie>> GetByLength(TimeSpan time)
         {
             return _repository.GetByLength(time);
+        }
+
+        [HttpGet("cast={actorFirstName}+{actorLastName}")]
+        public Task<IList<Movie>> GetMoviesByActor(string firstName, string lastName)
+        {
+            return _repository.GetMoviesByActor(firstName, lastName);
         }
     }
 }
