@@ -7,9 +7,8 @@ namespace CoolestMovieAPI.Models
 {
     public class Trailer
     {
-        public int iPK_ID { get; set; }
-        public int iFK_MovieID { get; set; }
-        public string sUrl { get; set; }
-        public string sTitle { get; set; }
+        public int TrailerID { get; set; }
+        public string TrailerUrl { get; set; }
+        public string TrailerTitle { get; set; }
     }
 }

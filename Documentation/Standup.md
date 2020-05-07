@@ -11,11 +11,22 @@
 
 ## Standup - 2020-05-06
 
-* Secretary - Random
+* Secretary - Pontus
 * Each person
-     * Albin - What have I done since last standup? What will I do next?
-     * Fredrika - What have I done since last standup? What will I do next?
-     * Pontus - What have I done since last standup? What will I do next?
-     * Sebastian - What have I done since last standup? What will I do next?
+     * Albin - What have I done since last standup? Trailer controller class, DTO class och repository. What will I do next? Hjälpa till där det behövs eller jobba tillsammans med någon.
+     * Fredrika - What have I done since last standup? Movie controller class, model class för movie, DTO class och repository. What will I do next? Testa mot databasen om man får ut det man ska. 
+     * Pontus - What have I done since last standup? Director controller class och DTO class. What will I do next? Skapa ett Backlog Issue för DirectorRepository och namngivnings ändringar.
+     * Sebastian - What have I done since last standup? Skapa alla Model classer. Skapa DbContext. What will I do next? Actor controller class och DTO class.
+
+### Secretary notes...
+
+## Standup - 2020-05-07
+
+* Secretary - Pontus
+* Each person
+  * Albin - What have I done since last standup? Läst på mer om objektorienterad programmering. What will I do next? Merga master med Trailerbranchen.
+  * Fredrika - What have I done since last standup? Testa mot databasen. What will I do next? Testa att få databasen att fungera.
+  * Pontus - What have I done since last standup? Skapa ett Backlog Issue för DirectorRepository och namngivnings ändringar. What will I do next? Testa att få databasen att fungera.
+  * Sebastian - What have I done since last standup? Påbörjat Actor cotroller class och DTO class What will I do next? Slutföring av Actor controller class och DTO class.
 
 ### Secretary notes...
