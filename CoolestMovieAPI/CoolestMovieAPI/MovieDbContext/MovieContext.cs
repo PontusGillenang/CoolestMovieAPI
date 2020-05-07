@@ -17,7 +17,7 @@ namespace CoolestMovieAPI.MovieDbContext
         {
             _configuration = config;
         }
-        
+
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Director> Directors { get; set; }
@@ -47,7 +47,7 @@ namespace CoolestMovieAPI.MovieDbContext
         {
             modelBuilder.Entity<Movie>()
                 .HasData(new
-                { 
+                {
                     MovieID = 1,
                     MovieTitle = "Fight Club",
                     MovieLength = new TimeSpan(2, 10, 00),

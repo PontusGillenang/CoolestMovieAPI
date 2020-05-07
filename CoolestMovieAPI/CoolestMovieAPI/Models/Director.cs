@@ -12,7 +12,5 @@ namespace CoolestMovieAPI.Models
         public DateTime DirectorBirthDate { get; set; }
         public string DirectorCountry { get; set; }
         public ICollection<MovieDirector> MovieDirectors { get; set; }
-
-
     }
 }

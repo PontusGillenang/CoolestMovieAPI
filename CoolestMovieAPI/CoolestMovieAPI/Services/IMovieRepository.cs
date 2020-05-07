@@ -15,7 +15,5 @@ namespace CoolestMovieAPI.Services
         Task<IList<Movie>> GetMovieByRating(int rating);
         //Task<IList<Movie>> GetMovieByGenre(string genre);
         Task<IList<Movie>> GetByLength(TimeSpan time);
-
-
     }
 }

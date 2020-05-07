@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CoolestMovieAPI.Models;
+using CoolestMovieAPI.MovieDbContext;
+using CoolestMovieAPI.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +15,14 @@ namespace CoolestMovieAPI.Controllers
     public class DirectorsController : ControllerBase
     {
         private readonly IDirectorRepository _repository;
+        
+        public DirectorsController(MovieContext context, IConfiguration configuration)
+        {
+            _repository = new DirectorRepository(context, configuration);
+        }
 
         [HttpGet]
-        public Task<Director> GetAll()
+        public Task<IList<Director>> GetAll()
         {
             return _repository.GetAllDirectors();
         }
@@ -25,13 +34,13 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpGet("name={name}")]
-        public Task<Director> GetByName(string name)
+        public Task<IList<Director>> GetByName(string name)
         {
             return _repository.GetDirectorsByName(name);
         }
 
         [HttpGet("country={country}")]
-        public Task<Director> GetByCountry(string country)
+        public Task<IList<Director>> GetByCountry(string country)
         {
             return _repository.GetDirectorsByCountry(country);
         }
