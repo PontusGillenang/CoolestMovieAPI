@@ -12,11 +12,9 @@ namespace CoolestMovieAPI.Services
     public class DirectorRepository : IDirectorRepository
     {
         private readonly MovieContext _context;
-        private ConfigurationRoot _configuration;
 
-        public DirectorRepository(MovieContext context, IConfiguration configuration)
+        public DirectorRepository(MovieContext context)
         {
-            _configuration = configuration as ConfigurationRoot;
             _context = context;
         }
 

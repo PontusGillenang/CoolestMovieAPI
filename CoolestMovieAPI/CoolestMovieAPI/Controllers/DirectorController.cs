@@ -16,9 +16,9 @@ namespace CoolestMovieAPI.Controllers
     {
         private readonly IDirectorRepository _repository;
         
-        public DirectorsController(MovieContext context, IConfiguration configuration)
+        public DirectorsController(MovieContext context)
         {
-            _repository = new DirectorRepository(context, configuration);
+            _repository = new DirectorRepository(context);
         }
 
         [HttpGet]
