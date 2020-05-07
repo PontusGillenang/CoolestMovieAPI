@@ -7,22 +7,29 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 
 using CoolestMovieAPI.Models; // New
+using CoolestMovieAPI.MovieDbContext;// New
 
 namespace CoolestMovieAPI.Controllers
 {
-    public class TrailerController : ControllerBase
+    [Route("api/v1.0/[controller]")]
+    [ApiController]
+    public class TrailersController : ControllerBase
     {
-        private readonly TrailerRepository _trailerRepository;  // singleton used to acces member functions.
+        private readonly ITrailerRepository _trailerRepository;  // singleton used to acces member functions.
 
-        
-                        //  //-----------------------------------------------------------------------------
-                        //  // DUMMY
-                        //  //-----------------------------------------------------------------------------			
-                        //  [HttpGet("DUMMY={title}")]
-                        //  public Task<Trailer> GetByTitle(int DUMMY)
-                        //  {
-                        //      return _trailerRepository.GetByTitle(DUMMY);
-                        //  }
+        public TrailersController(MovieContext context)
+        {
+            _trailerRepository = new TrailerRepository(context);
+        }
+
+        //  //-----------------------------------------------------------------------------
+        //  // DUMMY
+        //  //-----------------------------------------------------------------------------			
+        //  [HttpGet("DUMMY={title}")]
+        //  public Task<Trailer> GetByTitle(int DUMMY)
+        //  {
+        //      return _trailerRepository.GetByTitle(DUMMY);
+        //  }
 
 
 
@@ -30,7 +37,7 @@ namespace CoolestMovieAPI.Controllers
         //  getAllTrailers
         //-----------------------------------------------------------------------------	
         [HttpGet]
-        public Task<Trailer> getAllTrailers()
+        public Task<IList<Trailer>> GetAll()
         {
             return _trailerRepository.GetAllTrailers();
         }
@@ -48,7 +55,7 @@ namespace CoolestMovieAPI.Controllers
         //  GetTrailerByTitle
         //-----------------------------------------------------------------------------	
         [HttpGet("sTitle={title}")]
-        public Task<Trailer> GetTrailerByTitle(string sTitle)
+        public Task<IList<Trailer>> GetTrailerByTitle(string sTitle)
         {
             return _trailerRepository.GetTrailerByTitle(sTitle);
         }
@@ -57,18 +64,18 @@ namespace CoolestMovieAPI.Controllers
         //  GetAllTrailersFor
         //-----------------------------------------------------------------------------	
         [HttpGet("sTitle={title}")]
-        public Task<Trailer> GetAllTrailersFor(string sTitle)
+        public Task<IList<Trailer>> GetAllTrailersFor(string sTitle)
         {
             return _trailerRepository.GetAllTrailersFor(sTitle);
         }
 
-        //-----------------------------------------------------------------------------
-        // GetTrailersForMovieAndActor
-        //-----------------------------------------------------------------------------	
-        [HttpGet("sTitle={title}")]
-        public Task<Trailer> GetTrailersForMovieAndActor(string sMovieTitle, string sActor)
-        {
-            return _trailerRepository.GetTrailersForMovieAndActor(sMovieTitle, sActor); // WiP
-        }
+        ////-----------------------------------------------------------------------------
+        //// GetTrailersForMovieAndActor
+        ////-----------------------------------------------------------------------------	
+        //[HttpGet("sTitle={title}")]
+        //public Task<Trailer> GetTrailersForMovieAndActor(string sMovieTitle, string sActor)
+        //{
+        //    return _trailerRepository.GetTrailersForMovieAndActor(sMovieTitle, sActor); // WiP
+        //}
     }
 }

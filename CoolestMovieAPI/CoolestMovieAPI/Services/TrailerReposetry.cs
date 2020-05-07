@@ -1,4 +1,8 @@
 ﻿using CoolestMovieAPI.Models;
+using CoolestMovieAPI.MovieDbContext;
+using CoolestMovieAPI.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CoolestTrailerAPI.Services
 {
-    public class TrailerRepository
+    public class TrailerRepository : ITrailerRepository
     {
         // EntityFramwork DB context -> LINQ / SQL Quary
 
@@ -14,18 +18,20 @@ namespace CoolestTrailerAPI.Services
 
 
 
-        private DbContext _dbContext;
-        public TrailerRepository()
+        private MovieContext _dbContext;
+        //private ConfigurationRoot _configuration;
+        public TrailerRepository(MovieContext context/*, IConfiguration configuration*/)
         {
-
+            //_configuration = configuration as ConfigurationRoot;
+            _dbContext = context;
         }
 
         //-----------------------------------------------------------------------------
         // getAllTrailers
         //-----------------------------------------------------------------------------			
-        public async Task<Trailer> GetAllTrailers()
+        public async Task<IList<Trailer>> GetAllTrailers()
         {
-            return await _dbContext.Model(_ => true).ToList();
+            return await _dbContext.Trailers.Where(_ => true).ToListAsync();
         }
 
         //-----------------------------------------------------------------------------
@@ -33,43 +39,28 @@ namespace CoolestTrailerAPI.Services
         //-----------------------------------------------------------------------------							
         public async Task<Trailer> GetTrailerById(int id)
         {
-            return await _dbContext.Trailer.Where(m => m.ID == id).FirstOrDefault();
+            return await _dbContext.Trailers.Where(m => m.TrailerID == id).FirstOrDefaultAsync();
         }
 
-        public async Task<Trailer> GetTrailerByTitle(string title)
+        public async Task<IList<Trailer>> GetTrailerByTitle(string title)
         {
-            return await _dbContext.Trailer.Where(m => m.Title == title).ToList();
+            return await _dbContext.Trailers.Where(m => m.TrailerTitle == title).ToListAsync();
         }
 
-        public async Task<Trailer> /*GetTrailerByYear*/GetAllTrailersFor(string sName)
+        public async Task<IList<Trailer>> /*GetTrailerByYear*/GetAllTrailersFor(string sName)
         {
-            return await _dbContext.Trailer.Where(m => m.Name == sName).ToList();
+            return await _dbContext.Trailers.Where(m => m.TrailerTitle == sName).ToListAsync();
         }
 
-        public async Task<Trailer> GetTrailerByRating(int rating)
-        {
-            return await _dbContext.Trailer.Where(m => m.Rating == rating).ToList();
-        }
+        
 
-        public async Task<Trailer> GetTrailerByGenre(string genre)
-        {
-
-            return await _dbContext.Trailer.Where(m => m.Genre == genre).ToList();
-        }
-
-        public async Task<Trailer> GetByLength(TimeSpan time)
-        {
-            return await _dbContext.Trailer.Where(m => m.Length == time).ToList();
-        }
-
-
-        //-----------------------------------------------------------------------------
-        // GetTrailersForMovieAndActor
-        //-----------------------------------------------------------------------------							
-        public async Task<Trailer> GetTrailersForMovieAndActor(string sMovieTitle, string sActor)
-        {
-            return await _dbContext.Trailer.Where(m => m.Title == sMovieTitle && m.Actor == sActor).ToList();
-        }
+        ////-----------------------------------------------------------------------------
+        //// GetTrailersForMovieAndActor
+        ////-----------------------------------------------------------------------------							
+        //public async Task<IList<Trailer>> GetTrailersForMovieAndActor(string sMovieTitle, string sActor)
+        //{
+        //    return await _dbContext.Trailers.Where(m => m.Title == sMovieTitle && m.Actor == sActor).ToList();
+        //}
 
 
 
