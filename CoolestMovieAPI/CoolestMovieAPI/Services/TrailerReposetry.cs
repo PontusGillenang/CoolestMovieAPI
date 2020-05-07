@@ -68,7 +68,7 @@ namespace CoolestTrailerAPI.Services
         //-----------------------------------------------------------------------------							
         public async Task<Trailer> GetTrailersForMovieAndActor(string sMovieTitle, string sActor)
         {
-            return await _dbContext.Trailer.Where(m => m.Title == title && m.Actor == sActor).ToList();
+            return await _dbContext.Trailer.Where(m => m.Title == sMovieTitle && m.Actor == sActor).ToList();
         }
 
 
