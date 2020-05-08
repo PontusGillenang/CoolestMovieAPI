@@ -34,5 +34,10 @@ namespace CoolestMovieAPI.Controllers
         {
             return _repository.GetActorsByName(name);
         }
+        [HttpGet("country={country}")]
+        public Task<IList<Actor>> GetAllActorsByCountry(string country)
+        {
+            return _repository.GetAllActorsByCountry(country);
+        }
     }
 }

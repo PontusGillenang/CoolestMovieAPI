@@ -37,7 +37,7 @@ namespace CoolestMovieAPI.Services
 
         public async Task<IList<Actor>> GetAllActorsByCountry(string country)
         {
-            return await _context.Actors.Where(x => x.ActorCountry == country).ToListAsync();
+            return await _context.Actors.Where(x => x.ActorCountry.ToLower() == country.ToLower()).ToListAsync();
         }
     }
 }
