@@ -12,7 +12,6 @@ namespace CoolestMovieAPI.DTO
         public string name { get; set; }
         public DateTime birthDate { get; set; }
         public string country { get; set; }
-        public string MyProperty { get; set; }
         public Dictionary<string,Movie> roll { get; set; }
     }
 
