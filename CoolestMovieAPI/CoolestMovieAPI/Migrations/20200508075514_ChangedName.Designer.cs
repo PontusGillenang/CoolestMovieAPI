@@ -4,14 +4,16 @@ using CoolestMovieAPI.MovieDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoolestMovieAPI.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    partial class MovieContextModelSnapshot : ModelSnapshot
+    [Migration("20200508075514_ChangedName")]
+    partial class ChangedName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,6 +32,12 @@ namespace CoolestMovieAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ActorCountry")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ActorFirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ActorLastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ActorName")

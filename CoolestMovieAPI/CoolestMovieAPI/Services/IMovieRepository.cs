@@ -13,7 +13,6 @@ namespace CoolestMovieAPI.Services
         Task<IList<Movie>> GetMovieByTitle(string title);
         Task<IList<Movie>> GetMovieByYear(int year);
         Task<IList<Movie>> GetMovieByRating(int rating);
-        //Task<IList<Movie>> GetMovieByGenre(string genre);
         Task<IList<Movie>> GetByLength(TimeSpan time);
         Task<IList<Movie>> GetMoviesByActor(string firstName, string lastName);
 
