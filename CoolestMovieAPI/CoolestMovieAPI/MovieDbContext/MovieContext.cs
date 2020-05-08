@@ -17,24 +17,13 @@ namespace CoolestMovieAPI.MovieDbContext
         {
             _configuration = config;
         }
-        
+
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Director> Directors { get; set; }
         public DbSet<Trailer> Trailers { get; set; }
         public DbSet<MovieActor> MovieActors { get; set; }
         public DbSet<MovieDirector> MovieDirectors { get; set; }
-
-        //public DbSet<Actor> Actors { get; set; }
-        //public DbSet<Director> Directors { get; set; }
-        //public DbSet<Trailer> Trailers { get; set; }
-        //public DbSet<MovieActor> MovieActors { get; set; }
-        //public DbSet<MovieDirector> MovieDirectors { get; set; }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(_configuration.GetConnectionString("CoolestMovieApiDB"));
-        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -45,9 +34,10 @@ namespace CoolestMovieAPI.MovieDbContext
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Movie>()
+            modelBuilder
+                .Entity<Movie>()
                 .HasData(new
-                { 
+                {
                     MovieID = 1,
                     MovieTitle = "Fight Club",
                     MovieLength = new TimeSpan(2, 10, 00),
@@ -62,6 +52,22 @@ namespace CoolestMovieAPI.MovieDbContext
                     MovieRating = 9.2,
                     MovieDescription = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
                     MovieReleaseYear = 1972
+                }
+                );
+
+            modelBuilder.Entity<Director>()
+                .HasData(new
+                {
+                    DirectorID = 1,
+                    DirectorName = "David Fincher",
+                    DirectorBirthDate = new DateTime(1962, 8, 28),
+                    DirectorCountry = "USA"
+                }, new
+                {
+                    DirectorID = 2,
+                    DirectorName = "Francis Ford Coppola",
+                    DirectorBirthDate = new DateTime(1939, 4, 7),
+                    DirectorCountry = "USA"
                 }
                 );
         }
