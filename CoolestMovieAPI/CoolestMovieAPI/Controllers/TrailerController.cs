@@ -54,20 +54,20 @@ namespace CoolestMovieAPI.Controllers
         //-----------------------------------------------------------------------------
         //  GetTrailerByTitle
         //-----------------------------------------------------------------------------	
-        [HttpGet("sTitle={title}")]
+        [HttpGet("title={sTitle}")]
         public Task<IList<Trailer>> GetTrailerByTitle(string sTitle)
         {
             return _trailerRepository.GetTrailerByTitle(sTitle);
         }
 
-        //-----------------------------------------------------------------------------
-        //  GetAllTrailersFor
-        //-----------------------------------------------------------------------------	
-        [HttpGet("sTitle={title}")]
-        public Task<IList<Trailer>> GetAllTrailersFor(string sTitle)
-        {
-            return _trailerRepository.GetAllTrailersFor(sTitle);
-        }
+        ////-----------------------------------------------------------------------------
+        ////  GetAllTrailersFor
+        ////-----------------------------------------------------------------------------	
+        //[HttpGet("title={sTitle}")]
+        //public Task<IList<Trailer>> GetAllTrailersFor(string sTitle)
+        //{
+        //    return _trailerRepository.GetAllTrailersFor(sTitle);
+        //}
 
         ////-----------------------------------------------------------------------------
         //// GetTrailersForMovieAndActor
