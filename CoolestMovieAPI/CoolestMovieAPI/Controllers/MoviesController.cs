@@ -2,6 +2,7 @@
 using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -13,19 +14,13 @@ namespace CoolestMovieAPI.Controllers
     [Route("api/v1.0/[controller]")]
     [ApiController]
     public class MoviesController : ControllerBase
-    { 
+    {
         private MovieRepository _repository { get; set; }
-        
+
         public MoviesController(MovieContext context, IConfiguration configuration)
         {
             _repository = new MovieRepository(context, configuration);
 
-        }
-        
-        [HttpGet]
-        public Task<IList<Movie>> GetAll()
-        {
-            return _repository.GetAllMovies();
         }
 
         [HttpGet("{id}")]
@@ -42,10 +37,19 @@ namespace CoolestMovieAPI.Controllers
             return _repository.GetMovieByTitle(title);
         }
 
-        [HttpGet("year={year}")]
-        public Task<IList<Movie>> GetByYear(int year)
+        [HttpGet]
+        public Task<IList<Movie>> GetByYear([FromQuery]int year = 0)
         {
-            return _repository.GetMovieByYear(year);
+            if (year == 0)
+            {
+                return _repository.GetAllMovies();
+
+            }
+            else
+            {
+                return _repository.GetMovieByYear(year);
+            }
+
         }
 
         [HttpGet("rating={rating}")]
@@ -64,6 +68,12 @@ namespace CoolestMovieAPI.Controllers
         public Task<IList<Movie>> GetByLength(TimeSpan time)
         {
             return _repository.GetByLength(time);
+        }
+
+        [HttpGet("cast={actorFirstName}+{actorLastName}")]
+        public Task<IList<Movie>> GetMoviesByActor(string firstName, string lastName)
+        {
+            return _repository.GetMoviesByActor(firstName, lastName);
         }
     }
 }

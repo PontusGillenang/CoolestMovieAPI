@@ -30,3 +30,21 @@
   * Sebastian - What have I done since last standup? Påbörjat Actor cotroller class och DTO class What will I do next? Slutföring av Actor controller class och DTO class.
 
 ### Secretary notes...
+
+## Standup - 2020-05-08
+
+* Secretary - Sebastian
+
+* Each person
+
+  * Albin - What have I done since last standup? fått min getmethod i repot att fungera
+
+    What will I do next? göra en pull rquest och merga till master
+
+  * Fredrika - What have I done since last standup? Jobbat med linq och testat att joina tables. What will I do next? göra en pull rquest och merga till master
+
+  * Pontus - What have I done since last standup? gjort director repo och jobbat med methoderna där i och får rätt resultat. What will I do next? göra fler issus på jira och göra en pull rquest och merga till master
+
+  * Sebastian - What have I done since last standup? Slutfört  Actor controller class och DTO class. What will I do next? göra en pull rquest och merga till master
+
+### Secretary notes...

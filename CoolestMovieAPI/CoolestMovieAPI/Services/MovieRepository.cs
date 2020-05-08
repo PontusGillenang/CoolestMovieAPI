@@ -8,22 +8,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace CoolestMovieAPI.Services
 {
     public class MovieRepository : IMovieRepository
     {
         private readonly MovieContext _context;
         private ConfigurationRoot _configuration;
-        
+
         public MovieRepository(MovieContext context, IConfiguration configuration)
         {
             _configuration = configuration as ConfigurationRoot;
-            _context = context;
-            
-            //string connectionString = _configuration["Database:ConnectionString"];
-            //string databaseName = _configuration["Database:Database"];
-           
-
+            _context = context;                               
         }
         
        public async Task<IList<Movie>> GetAllMovies()          
@@ -50,16 +46,16 @@ namespace CoolestMovieAPI.Services
         {
             return await _context.Movies.Where(m => m.MovieRating == rating).ToListAsync();
         }
-
-        //public async Task<IList<Movie>> GetMovieByGenre(string genre)
-        //{
-            
-        //    return await _context.Movies.Where(m => m.Genre == genre).ToListAsync();
-        //}
-
+    
         public async Task<IList<Movie>> GetByLength(TimeSpan time)
         {
             return await _context.Movies.Where(m => m.MovieLength == time).ToListAsync();
         }
+
+        public async Task<IList<Movie>> GetMoviesByActor(string firstName, string lastName)
+        {
+            return await _context.Movies.Where(m => m.MovieID == 1).ToListAsync();
+        }
+
     }
 }
