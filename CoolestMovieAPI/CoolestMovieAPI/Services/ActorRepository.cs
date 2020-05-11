@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CoolestMovieAPI.Services
 {
-    public class ActorRepository : IActorRepository
+    public class ActorRepository :  IActorRepository 
     {
         private readonly MovieContext _context;
         private ConfigurationRoot _configuration;
