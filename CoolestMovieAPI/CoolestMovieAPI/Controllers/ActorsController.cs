@@ -3,6 +3,7 @@ using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace CoolestMovieAPI.Controllers
     public class ActorsController : ControllerBase
     {
         private ActorRepository _repository { get; set; }
-        public ActorsController(MovieContext context, IConfiguration configuration)
+        public ActorsController(MovieContext context, IConfiguration configuration, ILogger<ActorRepository> logger)
         {
-            _repository = new ActorRepository(context, configuration);   
+            _repository = new ActorRepository(context, configuration,  logger);   
         }
         [HttpGet]
         public Task<IList<Actor>> GetAllActors()
@@ -36,7 +37,7 @@ namespace CoolestMovieAPI.Controllers
         }
         [HttpGet("country={country}")]
         public Task<IList<Actor>> GetAllActorsByCountry(string country)
-        {
+        {       
             return _repository.GetAllActorsByCountry(country);
         }
     }

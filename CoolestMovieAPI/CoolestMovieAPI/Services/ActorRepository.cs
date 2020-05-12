@@ -2,6 +2,7 @@
 using CoolestMovieAPI.MovieDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace CoolestMovieAPI.Services
 {
-    public class ActorRepository :  IActorRepository 
+    public class ActorRepository : BaseRepository, IActorRepository 
     {
         private readonly MovieContext _context;
         private ConfigurationRoot _configuration;
 
-        public ActorRepository(MovieContext context, IConfiguration configuration)
+        public ActorRepository(MovieContext movieContext, IConfiguration configuration, ILogger<ActorRepository> logger) :base(movieContext,logger)
         {
             _configuration = configuration as ConfigurationRoot;
-            _context = context;
+            _context = movieContext;
 
         }
         public async Task<Actor> GetActorsById(int id)
