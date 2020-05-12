@@ -24,6 +24,11 @@ namespace CoolestMovieAPI.MovieDbContext
         public DbSet<Trailer> Trailers { get; set; }
         public DbSet<MovieActor> MovieActors { get; set; }
         public DbSet<MovieDirector> MovieDirectors { get; set; }
+        public DbSet<Genre> Genre { get; set; }
+        public DbSet<MovieGenre> MovieGenre { get; set; }
+
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

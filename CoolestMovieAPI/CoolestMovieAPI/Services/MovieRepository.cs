@@ -19,13 +19,13 @@ namespace CoolestMovieAPI.Services
         public MovieRepository(MovieContext context, IConfiguration configuration)
         {
             _configuration = configuration as ConfigurationRoot;
-            _context = context;                               
+            _context = context;
         }
-        
-       public async Task<IList<Movie>> GetAllMovies()          
-       {
-            return await _context.Movies.Where(_ => true).ToListAsync();                               
-       }
+
+        public async Task<IList<Movie>> GetAllMovies()
+        {
+            return await _context.Movies.Where(_ => true).Include(z => z.Trailers).Include(z => z.MovieGenre).ToListAsync();
+        }
 
         public async Task<Movie> GetMovieById(int id)
         {
@@ -46,7 +46,7 @@ namespace CoolestMovieAPI.Services
         {
             return await _context.Movies.Where(m => m.MovieRating == rating).ToListAsync();
         }
-    
+
         public async Task<IList<Movie>> GetByLength(TimeSpan time)
         {
             return await _context.Movies.Where(m => m.MovieLength == time).ToListAsync();
@@ -57,9 +57,11 @@ namespace CoolestMovieAPI.Services
             return await _context.Movies.Where(m => m.MovieID == 1).ToListAsync();
         }
 
-        public async Task<IList<Movie>> GetMovieByGenre(Genre Genre)
+        public async Task<IList<Movie>> GetMovieByGenre(string Genre)
         {
-            return await _context.Movies.Where(m=>m.MovieGenre==Genre).ToListAsync();
+            var genre = _context.Genre.Where(g => g.GenreType == Genre).Include(x => x.MovieGenre).FirstOrDefault();
+            var test = await _context.Movies.Include(x => x.MovieGenre).Where(m => m.MovieGenre == genre).ToListAsync();
+            return test;
         }
     }
 }

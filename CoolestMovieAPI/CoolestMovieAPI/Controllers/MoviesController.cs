@@ -75,5 +75,11 @@ namespace CoolestMovieAPI.Controllers
         {
             return _repository.GetMoviesByActor(firstName, lastName);
         }
+
+        [HttpGet("genre={genre}")]
+        public Task<IList<Movie>> GetByLength(string genre)
+        {
+            return _repository.GetMovieByGenre(genre);
+        }
     }
 }

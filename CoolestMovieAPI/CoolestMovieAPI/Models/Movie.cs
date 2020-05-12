@@ -15,7 +15,7 @@ namespace CoolestMovieAPI.Models
         public int MovieReleaseYear { get; set; }        
         public ICollection<MovieDirector> MovieDirectors { get; set; }
         public ICollection<MovieActor> MovieActors { get; set; }
-        public ICollection<MovieGenre> MovieGenre { get; set; }
-        public ICollection<Trailer> Trailers { get; set; }
+        public IList<MovieGenre> MovieGenre { get; set; }
+        public IList<Trailer> Trailers { get; set; }
     }
 }
