@@ -48,3 +48,13 @@
   * Sebastian - What have I done since last standup? Slutfört  Actor controller class och DTO class. What will I do next? göra en pull rquest och merga till master
 
 ### Secretary notes...
+
+## Standup - 2020-05-12
+* Secretary - Fredrika
+
+* Fredrika - Tester, på repository och controller klassen. Exception handling på båda klasserna. 
+* Sebastian - Göra base repository och interface. Gör GetRequest för genre, att kunna hitta film utifrån genre. Och en metod för hur man kan använda flera genrer i ett get request. Om jag hinner klart -> modifiera repository eller skriver tester.    
+* Pontus - Jag kommer att jobba med att skapa unittester på DirectorRepository och skriva till markdown fil google documentationen samt fortsätta skriva issues.
+* Albin - Göra exception handling för trailer-klasserna. 
+
+### Secretary notes...
