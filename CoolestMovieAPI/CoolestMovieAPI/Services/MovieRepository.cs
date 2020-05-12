@@ -40,20 +40,16 @@ namespace CoolestMovieAPI.Services
             return await _movieContext.Movies.Where(m => m.MovieReleaseYear == year).ToListAsync();
         }
 
-        public async Task<IList<Movie>> GetMovieByRating(int rating)
+        public async Task<IList<Movie>> GetMovieByRating(double rating)
         {
             return await _movieContext.Movies.Where(m => m.MovieRating == rating).ToListAsync();
         }
     
-        public async Task<IList<Movie>> GetByLength(TimeSpan time)
+        public async Task<IList<Movie>> GetByLength(TimeSpan movieLength)
         {
-            return await _movieContext.Movies.Where(m => m.MovieLength == time).ToListAsync();
+            return await _movieContext.Movies.Where(m => m.MovieLength == movieLength).ToListAsync();
         }
-
-        public async Task<IList<Movie>> GetMoviesByActor(string firstName, string lastName)
-        {
-            return await _movieContext.Movies.Where(m => m.MovieID == 1).ToListAsync();
-        }
+      
 
     }
 }

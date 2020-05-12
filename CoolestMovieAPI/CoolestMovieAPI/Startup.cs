@@ -20,8 +20,7 @@ namespace CoolestMovieAPI
         {
             services.AddDbContext<MovieContext>();
             services.AddScoped<IMovieRepository, MovieRepository>();
-            services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
-            
+            services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
