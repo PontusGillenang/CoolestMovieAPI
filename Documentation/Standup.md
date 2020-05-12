@@ -53,7 +53,7 @@
 * Secretary - Fredrika
 
 * Fredrika - Tester, på repository och controller klassen. Exception handling på båda klasserna. 
-* Sebastian - Göra base repository och interface. Gör GetRequest för genre, att kunna hitta film utifrån genre. Och en metod för hur man kan använda flera genrer i ett get request. Om jag hinner klart -> modifiera repository eller skriver tester.    
+* Sebastian - Göra base repository och interface. Gör GetRequest för genre, att kunna hitta film utifrån genre. Och en metod för hur man kan använda flera genrer i ett get request. Om jag hinner klart -> modifiera ActorRepository eller skriver tester.    
 * Pontus - Jag kommer att jobba med att skapa unittester på DirectorRepository och skriva till markdown fil google documentationen samt fortsätta skriva issues.
 * Albin - Göra exception handling för trailer-klasserna. 
 
