@@ -49,7 +49,12 @@ namespace CoolestMovieAPI.Services
         {
             return await _movieContext.Movies.Where(m => m.MovieLength == movieLength).ToListAsync();
         }
-      
 
+        public async Task<IList<MovieDirector>> GetByDirector(string name)
+        {
+            IQueryable<MovieDirector> query = _movieContext.MovieDirectors
+                .Include(d => d.Movie.MovieID).Where(m => m.Director.DirectorName == name);
+            return await query.ToListAsync();
+        }
     }
 }

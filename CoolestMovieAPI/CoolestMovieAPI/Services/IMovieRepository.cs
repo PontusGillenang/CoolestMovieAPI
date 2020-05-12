@@ -14,7 +14,7 @@ namespace CoolestMovieAPI.Services
         Task<IList<Movie>> GetMovieByYear(int year);
         Task<IList<Movie>> GetMovieByRating(double rating);
         Task<IList<Movie>> GetByLength(TimeSpan movieLength);
-        
+        Task<IList<MovieDirector>> GetByDirector(string name);
 
 
     }

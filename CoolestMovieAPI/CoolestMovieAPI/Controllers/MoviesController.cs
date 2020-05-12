@@ -3,6 +3,7 @@ using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -23,7 +24,7 @@ namespace CoolestMovieAPI.Controllers
             _movieRepository = movieRepository;
 
         }
-
+       
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> GetById(int id)
         {
@@ -31,13 +32,13 @@ namespace CoolestMovieAPI.Controllers
             {
                 var results = await _movieRepository.GetMovieById(id);
                 return Ok(results);
-                
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
-            
+
         }
 
         [HttpGet("title={title}")]
@@ -52,7 +53,7 @@ namespace CoolestMovieAPI.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
-           
+
         }
 
         [HttpGet]
@@ -69,7 +70,7 @@ namespace CoolestMovieAPI.Controllers
                 {
                     return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
                 }
-                                
+
             }
             else
             {
@@ -82,7 +83,7 @@ namespace CoolestMovieAPI.Controllers
                 {
                     return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
                 }
-                
+
             }
 
         }
@@ -98,7 +99,7 @@ namespace CoolestMovieAPI.Controllers
             catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
-            }          
+            }
         }
 
         [HttpGet("length={length}")]
@@ -113,8 +114,24 @@ namespace CoolestMovieAPI.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
-            
+
         }
-       
-    }
+
+        [HttpGet("director={directorName}")]
+        public async Task<ActionResult<IList<MovieDirector>>> GetByDirector(string directorName)
+        {
+            try
+            {
+                var results = await _movieRepository.GetByDirector(directorName);
+                return Ok(results);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+    } 
 }
+   
+
+
