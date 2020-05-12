@@ -57,5 +57,9 @@ namespace CoolestMovieAPI.Services
             return await _context.Movies.Where(m => m.MovieID == 1).ToListAsync();
         }
 
+        public async Task<IList<Movie>> GetMovieByGenre(Genre Genre)
+        {
+            return await _context.Movies.Where(m=>m.MovieGenre==Genre).ToListAsync();
+        }
     }
 }

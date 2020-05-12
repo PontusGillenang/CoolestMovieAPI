@@ -39,5 +39,6 @@ namespace CoolestMovieAPI.Services
         {
             return await _context.Actors.Where(x => x.ActorCountry.ToLower() == country.ToLower()).ToListAsync();
         }
+
     }
 }
