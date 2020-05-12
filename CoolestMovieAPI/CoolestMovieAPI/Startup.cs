@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoolestMovieAPI.MovieDbContext;
+using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +19,7 @@ namespace CoolestMovieAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MovieContext>();
+            services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
         }
 
