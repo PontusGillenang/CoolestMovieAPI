@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoolestMovieAPI.Services
 {
-    interface IMovieRepository
+    public interface IMovieRepository : IBaseRepository
     {
         Task<IList<Movie>> GetAllMovies();
         Task<Movie> GetMovieById(int id);

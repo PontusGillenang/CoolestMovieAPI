@@ -15,18 +15,18 @@ namespace CoolestMovieAPI.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private MovieRepository _repository { get; set; }
+        private readonly IMovieRepository _movieRepository;
 
-        public MoviesController(MovieContext context, IConfiguration configuration)
+        public MoviesController(IMovieRepository movieRepository)
         {
-            _repository = new MovieRepository(context, configuration);
+            _movieRepository = movieRepository;
 
         }
 
         [HttpGet("{id}")]
         public string GetById(int id)
         {
-            var title = _repository.GetMovieById(id).Result.MovieTitle.ToString();
+            var title = _movieRepository.GetMovieById(id).Result.MovieTitle.ToString();
 
             return title;
         }
@@ -34,7 +34,7 @@ namespace CoolestMovieAPI.Controllers
         [HttpGet("title={title}")]
         public Task<IList<Movie>> GetByTitle(string title)
         {
-            return _repository.GetMovieByTitle(title);
+            return _movieRepository.GetMovieByTitle(title);
         }
 
         [HttpGet]
@@ -42,12 +42,12 @@ namespace CoolestMovieAPI.Controllers
         {
             if (year == 0)
             {
-                return _repository.GetAllMovies();
+                return _movieRepository.GetAllMovies();
 
             }
             else
             {
-                return _repository.GetMovieByYear(year);
+                return _movieRepository.GetMovieByYear(year);
             }
 
         }
@@ -55,25 +55,25 @@ namespace CoolestMovieAPI.Controllers
         [HttpGet("rating={rating}")]
         public Task<IList<Movie>> GetByRating(int rating)
         {
-            return _repository.GetMovieByRating(rating);
+            return _movieRepository.GetMovieByRating(rating);
         }
 
         //[HttpGet("genre={genre}")]
         //public Task<IList<Movie>> GetByGenre(string genre)
         //{
-        //    return _repository.GetMovieByGenre(genre);
+        //    return _movieRepository.GetMovieByGenre(genre);
         //}
 
         [HttpGet("length={length}")]
         public Task<IList<Movie>> GetByLength(TimeSpan time)
         {
-            return _repository.GetByLength(time);
+            return _movieRepository.GetByLength(time);
         }
 
         [HttpGet("cast={actorFirstName}+{actorLastName}")]
         public Task<IList<Movie>> GetMoviesByActor(string firstName, string lastName)
         {
-            return _repository.GetMoviesByActor(firstName, lastName);
+            return _movieRepository.GetMoviesByActor(firstName, lastName);
         }
     }
 }
