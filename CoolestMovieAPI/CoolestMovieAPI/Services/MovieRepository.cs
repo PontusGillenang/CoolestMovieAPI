@@ -59,9 +59,10 @@ namespace CoolestMovieAPI.Services
 
         public async Task<IList<Movie>> GetMovieByGenre(string Genre)
         {
+            
             var genre = _context.Genre.Where(g => g.GenreType == Genre).Include(x => x.MovieGenre).FirstOrDefault();
-            var test = await _context.Movies.Include(x => x.MovieGenre).Where(m => m.MovieGenre == genre).ToListAsync();
-            return test;
+           
+            return await _context.Movies.Include(x => x.MovieGenre).Where(m => m.MovieGenre == genre).ToListAsync();
         }
     }
 }
