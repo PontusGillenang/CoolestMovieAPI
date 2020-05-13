@@ -1,4 +1,5 @@
-﻿using CoolestMovieAPI.Models;
+﻿using CoolestMovieAPI.DTO;
+using CoolestMovieAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace CoolestMovieAPI.Services
         Task<IList<Movie>> GetMovieByYear(int year);
         Task<IList<Movie>> GetMovieByRating(double rating);
         Task<IList<Movie>> GetByLength(TimeSpan movieLength);
-        Task<IList<MovieDirector>> GetByDirector(string name);
+        Task<IList<MovieDTO>> GetByDirector(string name);
 
 
     }

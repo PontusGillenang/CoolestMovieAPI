@@ -14,7 +14,7 @@ namespace CoolestMovieAPI.Services
 {
     public class MovieRepository : BaseRepository, IMovieRepository
     {       
-        public MovieRepository(MovieContext movieContext, IConfiguration configuration, ILogger<MovieRepository> logger) : base (movieContext, logger)
+        public MovieRepository(MovieContext movieContext, ILogger<MovieRepository> logger) : base (movieContext, logger)
         {
             
                                           
@@ -50,10 +50,39 @@ namespace CoolestMovieAPI.Services
             return await _movieContext.Movies.Where(m => m.MovieLength == movieLength).ToListAsync();
         }
 
-        public async Task<IList<MovieDirector>> GetByDirector(string name)
+        public async Task<IList<MovieDTO>> GetByDirector(string name)
         {
-            IQueryable<MovieDirector> query = _movieContext.MovieDirectors
-                .Include(d => d.Movie.MovieID).Where(m => m.Director.DirectorName == name);
+            var query = _movieContext.Movies
+                .Join(_movieContext.MovieDirectors,
+                m => m.MovieID,
+                md => md.Movie.MovieID,
+                (m, md) => new { m, md }
+                )
+                .Join(_movieContext.Directors,
+                mmd => mmd.md.Director.DirectorID,
+                d => d.DirectorID,
+                (mmd, d) => new { mmd, d }
+                ).Select(x => new MovieDTO
+                {
+                    Id = x.mmd.m.MovieID,                  
+                    Director = x.d,                    
+                }).Where(d => d.Director.DirectorName == name);
+            //var categorizedProducts = product
+            //        .Join(productcategory, 
+            //          p => p.Id, 
+            //          pc => pc.ProdId, 
+            //          (p, pc) => new { p, pc })
+            //        .Join(category, 
+            //          ppc => ppc.pc.CatId, 
+            //          c => c.Id, 
+            //          (ppc, c) => new { ppc, c })
+            //        .Select(m => new {
+            //        ProdId = m.ppc.p.Id, // or m.ppc.pc.ProdId
+            //        CatId = m.c.CatId
+                                        // other assignments
+            //});
+            //IQueryable<MovieDirector> query = _movieContext.MovieDirectors
+            //    .Include(d => d.Movie.MovieID).Where(m => m.Director.DirectorName == name);
             return await query.ToListAsync();
         }
     }
