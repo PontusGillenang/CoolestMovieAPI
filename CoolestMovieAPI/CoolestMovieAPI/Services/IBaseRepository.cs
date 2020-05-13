@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CoolestMovieAPI.Services
 {
-    interface IBaseRepository
+    public interface IBaseRepository
     {
 
         // Genereic methods
