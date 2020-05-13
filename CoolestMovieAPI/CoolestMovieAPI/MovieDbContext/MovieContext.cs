@@ -32,7 +32,7 @@ namespace CoolestMovieAPI.MovieDbContext
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("config.json");
             var config = builder.Build();
-            var defaultConnectionString = _configuration.GetConnectionString("CoolestMovieApiDB");
+            var defaultConnectionString = config.GetConnectionString("CoolestMovieApiDB");
             optionsBuilder.UseSqlServer(defaultConnectionString);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
