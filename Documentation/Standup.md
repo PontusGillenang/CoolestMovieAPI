@@ -58,3 +58,12 @@
 * Albin - Göra exception handling för trailer-klasserna. 
 
 ### Secretary notes...
+
+## Standup - 2020-05-13
+* Secretary - Fredrika 
+
+* Albin - Exceptionhandling. Fortsätta med exceptionhandling.
+* Fredrika - Gjort exception handling på Movieklasserna, fortsätta med tester och join-linq-queries.
+* Sebastian - Base repositoryklasser, modifyade så den matchade/actorklasserna använde den. Försökte mig på join-linq-queries (link method query). Fortsätta med att få join att fungera, om det funkar sätta igång med testerna på actorklasserna.
+* Pontus - XUnitTest på DirectorRepository och det fick jag inte att funka. Tyvärr. Jag ska fortsätta hålla på med testerna och få det att fungera. 
+### Secretary notes...
