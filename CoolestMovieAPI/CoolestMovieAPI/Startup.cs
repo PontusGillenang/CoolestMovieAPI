@@ -19,6 +19,7 @@ namespace CoolestMovieAPI
         {
             services.AddDbContext<MovieContext>();
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             
             services.AddControllers()
