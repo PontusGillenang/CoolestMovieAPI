@@ -17,8 +17,7 @@ namespace CoolestMovieAPI.Services
     {       
         public MovieRepository(MovieContext movieContext, ILogger<MovieRepository> logger) : base (movieContext, logger)
         {
-            
-                                         
+                                                    
         }
         
        public async Task<IList<Movie>> GetAllMovies()          

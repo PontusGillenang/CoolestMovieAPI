@@ -42,7 +42,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpGet("title={title}")]
-        public async Task<ActionResult<IList<Movie>>> GetByTitle(string title)
+        public async Task<ActionResult<IList<Movie>>> GetByTitle(string title = "")
         {
             try
             {
@@ -80,7 +80,6 @@ namespace CoolestMovieAPI.Controllers
                     if (results.Count == 0)
                     {
                         return NotFound(results);
-
                     }
                     else
                     {
@@ -119,7 +118,6 @@ namespace CoolestMovieAPI.Controllers
                 if (results == null)
                 {
                     return NotFound(results);
-                    
                 }
                 else
                 {
