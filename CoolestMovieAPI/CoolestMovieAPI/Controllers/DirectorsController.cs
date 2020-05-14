@@ -14,35 +14,35 @@ namespace CoolestMovieAPI.Controllers
     [ApiController]
     public class DirectorsController : ControllerBase
     {
-        private readonly IDirectorRepository _repository;
+        private readonly IDirectorRepository _directorRepository;
         
-        public DirectorsController(MovieContext context)
+        public DirectorsController(IDirectorRepository directorRepository)
         {
-            _repository = new DirectorRepository(context);
+            _directorRepository = directorRepository;
         }
 
         [HttpGet]
         public Task<IList<Director>> GetAll()
         {
-            return _repository.GetAllDirectors();
+            return _directorRepository.GetAllDirectors();
         }
 
         [HttpGet("{id}")]
         public Task<Director> GetById(int id)
         {
-            return _repository.GetDirectorById(id);
+            return _directorRepository.GetDirectorById(id);
         }
 
         [HttpGet("name={name}")]
         public Task<IList<Director>> GetByName(string name)
         {
-            return _repository.GetDirectorsByName(name);
+            return _directorRepository.GetDirectorsByName(name);
         }
 
         [HttpGet("country={country}")]
         public Task<IList<Director>> GetByCountry(string country)
         {
-            return _repository.GetDirectorsByCountry(country);
+            return _directorRepository.GetDirectorsByCountry(country);
         }
     }
 }
