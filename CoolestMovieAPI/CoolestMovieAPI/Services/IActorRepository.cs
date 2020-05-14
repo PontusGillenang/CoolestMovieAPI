@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoolestMovieAPI.Services
 {
-    interface IActorRepository : IBaseRepository
+    public interface IActorRepository : IBaseRepository
     {
         Task<IList<Actor>> GetAllActors();
         Task<Actor> GetActorsById(int id);
