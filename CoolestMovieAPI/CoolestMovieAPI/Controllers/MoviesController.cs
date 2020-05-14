@@ -134,6 +134,20 @@ namespace CoolestMovieAPI.Controllers
 
         }
 
+        [HttpGet("actor={actorName}")]
+        public async Task<ActionResult<IList<MovieDirector>>> GetByActor(string actorName)
+        {
+            try
+            {
+                var results = await _movieRepository.GetByActor(actorName);
+                return Ok(results);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+
         [HttpGet("director={directorName}")]
         public async Task<ActionResult<IList<MovieDirector>>> GetByDirector(string directorName)
         {

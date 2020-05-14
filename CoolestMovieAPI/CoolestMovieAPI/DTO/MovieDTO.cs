@@ -1,4 +1,5 @@
 ﻿using CoolestMovieAPI.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,20 @@ namespace CoolestMovieAPI.DTO
         public string description { get; set; }
         public int yearOfRelease { get; set; }
         public IList<Genre> genres { get; set; }     
-        public ICollection<Trailer> trailers { get; set; }      
-        public Dictionary<string, Actor> cast { get; set; }
+        public ICollection<Trailer> trailers { get; set; }
+        public Dictionary<string, ActorDTO> cast { get; set; }
 
         public MovieDTO()
         {
-            genres = new List<Genre>();
+
+        }
+        public MovieDTO(string role, ActorDTO actor)
+        {
+            //genres = new List<Genre>();
+            cast = new Dictionary<string, ActorDTO>();
+            cast.Add(role, actor);
+
+            
         }
 
     }

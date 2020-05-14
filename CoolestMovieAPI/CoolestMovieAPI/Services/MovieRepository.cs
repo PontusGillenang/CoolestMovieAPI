@@ -1,6 +1,7 @@
 ﻿using CoolestMovieAPI.DTO;
 using CoolestMovieAPI.Models;
 using CoolestMovieAPI.MovieDbContext;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -68,42 +69,65 @@ namespace CoolestMovieAPI.Services
                     title = x.mmd.m.MovieTitle,
                     Director = x.d,                    
                 })
-                .Where(d => d.Director.DirectorName == name);
-            
-
-           //IQueryable <MovieDTO> query2 = _movieContext.Movies
-           //     .Join(_movieContext.MovieDirectors,
-           //     m => m.MovieID,
-           //     md => md.Movie.MovieID,
-           //     (m, md) => new { m, md }
-           //     )
-                
-           //     .Join(_movieContext.Directors,
-           //     mmd => mmd.md.Director.DirectorID,
-           //     d => d.DirectorID,
-           //     (mmd, d) => new { mmd, d }
-           //     )
-                
-           //     .Join(_movieContext.MovieGenre,
-           //     m => m.mmd.m.MovieID,
-           //     mg => mg.Movie.MovieID,
-           //     (m, mg) => new { m, mg})
-                
-           //     .Join(_movieContext.Genres,
-           //     mmg => mmg.mg.Genre.GenreID,
-           //     g => g.GenreID,
-           //     (mmg, g) => new { mmg, g})
-                
-           //     .Select(x => new MovieDTO
-           //     {
-           //         id = x.mmg.m.mmd.m.MovieID,
-           //         title = x.mmg.m.mmd.m.MovieTitle,
-           //         Director = x.mmg.m.d,
-           //         genres = x.g
-           //     })
-           //     .Where(d => d.Director.DirectorName == name);
+                .Where(d => d.Director.DirectorName == name);           
             
             return await query.ToListAsync();
         }
+
+        public async Task<IList<MovieDTO>> GetByActor(string actorName)
+        {
+            //      IQueryable<ActorDTO> query = _movieContext.Movies
+            //       .Join(_movieContext.MovieActors,
+            //       m => m.MovieID,
+            //       ma => ma.Movie.MovieID,
+            //       (m, ma) => new { m, ma }
+            //       )
+            //       .Join(_movieContext.Actors,
+            //       mma => mma.ma.Actor.ActorID,
+            //       a => a.ActorID,
+            //       (mma, a) => new { mma, a }
+            //       ).Select(x => new ActorDTO
+            //       {                      
+            //           id = x.a.ActorID,
+            //           name = x.a.ActorName,
+            //           role = x.mma.ma.Role,
+            //           movie = x.mma.m,
+            //       })
+            //       .Where(a => a.name == actorName);
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            
+            IQueryable<MovieDTO> query2 = _movieContext.Movies
+                   .Join(_movieContext.MovieActors,
+                   m => m.MovieID,
+                   ma => ma.Movie.MovieID,
+                   (m, ma) => new { m, ma }
+                   )
+                   .Join(_movieContext.Actors,
+                   mma => mma.ma.Actor.ActorID,
+                   a => a.ActorID,
+                   (mma, a) => new { mma, a }
+                   ).Select(x => new ActorDTO
+                   {
+                       id = x.a.ActorID,
+                       name = x.a.ActorName,
+                       role = x.mma.ma.Role,
+                       movie = x.mma.m
+                   })
+                   .Where(a => a.name == actorName)
+                   .Select(y => new MovieDTO
+                   {
+                        id = y.movie.MovieID,
+                        title = y.movie.MovieTitle,
+                        description = y.movie.MovieDescription,
+                        cast = new Dictionary<string, ActorDTO>() { { y.role, y } }
+                   });
+
+                   
+            return await query2.ToListAsync();
+
+        }
+
+        
     }
 }
