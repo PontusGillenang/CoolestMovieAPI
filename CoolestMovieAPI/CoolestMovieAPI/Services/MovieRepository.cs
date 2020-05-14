@@ -17,7 +17,7 @@ namespace CoolestMovieAPI.Services
         public MovieRepository(MovieContext movieContext, ILogger<MovieRepository> logger) : base (movieContext, logger)
         {
             
-                                          
+                                         
         }
         
        public async Task<IList<Movie>> GetAllMovies()          
@@ -52,7 +52,7 @@ namespace CoolestMovieAPI.Services
 
         public async Task<IList<MovieDTO>> GetByDirector(string name)
         {
-            var query = _movieContext.Movies
+            IQueryable<MovieDTO> query = _movieContext.Movies
                 .Join(_movieContext.MovieDirectors,
                 m => m.MovieID,
                 md => md.Movie.MovieID,
@@ -64,25 +64,45 @@ namespace CoolestMovieAPI.Services
                 (mmd, d) => new { mmd, d }
                 ).Select(x => new MovieDTO
                 {
-                    Id = x.mmd.m.MovieID,                  
+                    id = x.mmd.m.MovieID,
+                    title = x.mmd.m.MovieTitle,
                     Director = x.d,                    
-                }).Where(d => d.Director.DirectorName == name);
-            //var categorizedProducts = product
-            //        .Join(productcategory, 
-            //          p => p.Id, 
-            //          pc => pc.ProdId, 
-            //          (p, pc) => new { p, pc })
-            //        .Join(category, 
-            //          ppc => ppc.pc.CatId, 
-            //          c => c.Id, 
-            //          (ppc, c) => new { ppc, c })
-            //        .Select(m => new {
-            //        ProdId = m.ppc.p.Id, // or m.ppc.pc.ProdId
-            //        CatId = m.c.CatId
-                                        // other assignments
-            //});
-            //IQueryable<MovieDirector> query = _movieContext.MovieDirectors
-            //    .Include(d => d.Movie.MovieID).Where(m => m.Director.DirectorName == name);
+                })
+                .Where(d => d.Director.DirectorName == name);
+            
+
+           //IQueryable <MovieDTO> query2 = _movieContext.Movies
+           //     .Join(_movieContext.MovieDirectors,
+           //     m => m.MovieID,
+           //     md => md.Movie.MovieID,
+           //     (m, md) => new { m, md }
+           //     )
+                
+           //     .Join(_movieContext.Directors,
+           //     mmd => mmd.md.Director.DirectorID,
+           //     d => d.DirectorID,
+           //     (mmd, d) => new { mmd, d }
+           //     )
+                
+           //     .Join(_movieContext.MovieGenre,
+           //     m => m.mmd.m.MovieID,
+           //     mg => mg.Movie.MovieID,
+           //     (m, mg) => new { m, mg})
+                
+           //     .Join(_movieContext.Genres,
+           //     mmg => mmg.mg.Genre.GenreID,
+           //     g => g.GenreID,
+           //     (mmg, g) => new { mmg, g})
+                
+           //     .Select(x => new MovieDTO
+           //     {
+           //         id = x.mmg.m.mmd.m.MovieID,
+           //         title = x.mmg.m.mmd.m.MovieTitle,
+           //         Director = x.mmg.m.d,
+           //         genres = x.g
+           //     })
+           //     .Where(d => d.Director.DirectorName == name);
+            
             return await query.ToListAsync();
         }
     }

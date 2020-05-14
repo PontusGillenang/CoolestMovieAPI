@@ -8,17 +8,22 @@ namespace CoolestMovieAPI.DTO
 {
     public class MovieDTO
     {        
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public TimeSpan Length { get; set; }       
+        public int id { get; set; }
+        public string title { get; set; }
+        public TimeSpan length { get; set; }       
         public Director Director { get; set; }
-        public int Rating { get; set; }
-        public string Language { get; set; }
-        public string Description { get; set; }
-        public int YearOfRelease { get; set; }
-        public string Genre { get; set; }     
-        public ICollection<Trailer> Trailers { get; set; }      
-        public Dictionary<string, Actor> Cast { get; set; }
+        public int rating { get; set; }
+        public string language { get; set; }
+        public string description { get; set; }
+        public int yearOfRelease { get; set; }
+        public IList<Genre> genres { get; set; }     
+        public ICollection<Trailer> trailers { get; set; }      
+        public Dictionary<string, Actor> cast { get; set; }
+
+        public MovieDTO()
+        {
+            genres = new List<Genre>();
+        }
 
     }
 }
