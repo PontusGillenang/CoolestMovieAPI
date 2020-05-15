@@ -10,8 +10,10 @@ namespace CoolestMovieAPI.Services
     {
         Task<IList<Actor>> GetAllActors();
         Task<Actor> GetActorsById(int id);
-        Task<IList<Actor>> GetActorsByName(string firstName, string lastName);
+        Task<IList<Actor>> GetActorsByName(string name);
         Task<IList<Actor>> GetAllActorsByCountry(string country);
+        Task<IList<Actor>> GetActorsByFirstName(string firstName);
+        Task<IList<Actor>> GetActorsByLastName(string lastName);
 
 
 

@@ -24,9 +24,20 @@ namespace CoolestMovieAPI.Services
             return await _movieContext.Actors.SingleOrDefaultAsync(x => x.ActorID == id);
         }
 
-        public async Task<IList<Actor>> GetActorsByName(string firstName, string lastName)
+        public async Task<IList<Actor>> GetActorsByName(string name)
         {
-            return await _movieContext.Actors.Where(x => x.FirstName.ToLower() == firstName.ToLower() || x.LastName == lastName).ToListAsync();
+           var names= name.Split(' ');
+            var firstName=names[0];
+            var lastName=names[1];
+            return await _movieContext.Actors.Where(x => x.FirstName.ToLower() == firstName.ToLower() && x.LastName == lastName).ToListAsync();
+        }
+        public async Task<IList<Actor>> GetActorsByFirstName(string firstName)
+        {
+            return await _movieContext.Actors.Where(x => x.FirstName.ToLower() == firstName.ToLower() ).ToListAsync();
+        }
+        public async Task<IList<Actor>> GetActorsByLastName( string lastName)
+        {
+            return await _movieContext.Actors.Where(x => x.LastName.ToLower() == lastName.ToLower() ).ToListAsync();
         }
 
         public async Task<IList<Actor>> GetAllActors()
@@ -38,5 +49,6 @@ namespace CoolestMovieAPI.Services
         {
             return await _movieContext.Actors.Where(x => x.ActorCountry.ToLower() == country.ToLower()).ToListAsync();
         }
+        
     }
 }
