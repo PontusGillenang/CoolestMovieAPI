@@ -15,7 +15,7 @@ namespace CoolestMovieAPI.DTO
         public string country { get; set; }
         public string role { get; set; }
         public Movie movie { get; set; }
-        //public Dictionary<string,Movie> roll { get; set; }
+        public Dictionary<string,Movie> roll { get; set; }
     }
 
 }

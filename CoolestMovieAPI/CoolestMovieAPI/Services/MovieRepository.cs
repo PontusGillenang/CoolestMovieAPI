@@ -74,28 +74,7 @@ namespace CoolestMovieAPI.Services
         }
 
         public async Task<IList<MovieDTO>> GetByActor(string actorName)
-        {
-            //      IQueryable<ActorDTO> query = _movieContext.Movies
-            //       .Join(_movieContext.MovieActors,
-            //       m => m.MovieID,
-            //       ma => ma.Movie.MovieID,
-            //       (m, ma) => new { m, ma }
-            //       )
-            //       .Join(_movieContext.Actors,
-            //       mma => mma.ma.Actor.ActorID,
-            //       a => a.ActorID,
-            //       (mma, a) => new { mma, a }
-            //       ).Select(x => new ActorDTO
-            //       {                      
-            //           id = x.a.ActorID,
-            //           name = x.a.ActorName,
-            //           role = x.mma.ma.Role,
-            //           movie = x.mma.m,
-            //       })
-            //       .Where(a => a.name == actorName);
-
-            ///////////////////////////////////////////////////////////////////////////////////////////////
-            
+        {                    
             IQueryable<MovieDTO> query2 = _movieContext.Movies
                    .Join(_movieContext.MovieActors,
                    m => m.MovieID,
@@ -111,7 +90,10 @@ namespace CoolestMovieAPI.Services
                        id = x.a.ActorID,
                        name = x.a.ActorName,
                        role = x.mma.ma.Role,
-                       movie = x.mma.m
+                       movie = x.mma.m,
+                       //Denna är typ överflödig. 
+                       //Och om vi bara skulle mappa till dtos i andra dtos bör vi se över detta / ändra på properties.
+                       roll = new Dictionary<string, Movie>() { { x.mma.ma.Role, x.mma.m } }
                    })
                    .Where(a => a.name == actorName)
                    .Select(y => new MovieDTO

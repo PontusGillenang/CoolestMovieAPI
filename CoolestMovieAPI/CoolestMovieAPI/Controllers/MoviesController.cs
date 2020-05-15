@@ -1,4 +1,6 @@
-﻿using CoolestMovieAPI.Models;
+﻿using AutoMapper;
+using CoolestMovieAPI.DTO;
+using CoolestMovieAPI.Models;
 using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Http;
@@ -18,20 +20,23 @@ namespace CoolestMovieAPI.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IMapper _mapper;
 
-        public MoviesController(IMovieRepository movieRepository)
+        public MoviesController(IMovieRepository movieRepository, IMapper mapper)
         {
             _movieRepository = movieRepository;
+            _mapper = mapper;
 
         }
        
         [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> GetById(int id)
+        public async Task<ActionResult<MovieDTO>> GetById(int id)
         {
             try
             {
-                var results = await _movieRepository.GetMovieById(id);
-                return Ok(results);
+                var result = await _movieRepository.GetMovieById(id);
+                var mappedResult = _mapper.Map<MovieDTO>(result);
+                return Ok(mappedResult);
 
             }
             catch (Exception e)
