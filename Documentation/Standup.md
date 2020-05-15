@@ -66,4 +66,15 @@
 * Fredrika - Gjort exception handling på Movieklasserna, fortsätta med tester och join-linq-queries.
 * Sebastian - Base repositoryklasser, modifyade så den matchade/actorklasserna använde den. Försökte mig på join-linq-queries (link method query). Fortsätta med att få join att fungera, om det funkar sätta igång med testerna på actorklasserna.
 * Pontus - XUnitTest på DirectorRepository och det fick jag inte att funka. Tyvärr. Jag ska fortsätta hålla på med testerna och få det att fungera. 
+
+### Secretary notes...
+
+## Standup - 2020-05-15
+
+* Secretary - Pontus
+* Each person
+  * Fredrika - What have I done since last standup? Arbetade i MovieRepository med att joina olika tabeller. Gjort efterforskning på lösningar till detta. What will I do next? Slutföra det jag gör så långt som möjligt innan jag skickar en Pull Request. 
+  * Pontus - What have I done since last standup? Arbetade med att göra tester till DirectorRepository och DirectorsController. What will I do next? Slutföra det jag gör så långt som möjligt innan jag skickar en Pull Request.
+  * Sebastian - What have I done since last standup? Gjort test för metoden GetAllActors, refactorerat ActorsController så det finns exceptionhadling. Försökt att göra joina Movie på Genre taballen  What will I do next? Slutföra det jag gör så långt som möjligt innan jag skickar en Pull Request.
+
 ### Secretary notes...

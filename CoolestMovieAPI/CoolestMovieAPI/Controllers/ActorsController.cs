@@ -16,10 +16,10 @@ namespace CoolestMovieAPI.Controllers
     [ApiController]
     public class ActorsController : ControllerBase
     {
-        private ActorRepository _actorRepository { get; set; }
-        public ActorsController(MovieContext context, IConfiguration configuration, ILogger<ActorRepository> logger)
+        private readonly IActorRepository _actorRepository;
+        public ActorsController(IActorRepository actorRepository)
         {
-            _actorRepository = new ActorRepository(context, configuration, logger);
+            _actorRepository = actorRepository;   
         }
         [HttpGet]
         public async Task<ActionResult<IList<Actor>>> GetAllActors()
