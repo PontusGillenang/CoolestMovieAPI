@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace CoolestMovieAPI.Services
 {
-    public class ActorRepository : BaseRepository, IActorRepository 
+    public class ActorRepository : BaseRepository, IActorRepository
     {
-        
 
-        public ActorRepository(MovieContext movieContext, ILogger<ActorRepository> logger) :base(movieContext,logger)
+
+        public ActorRepository(MovieContext movieContext, ILogger<ActorRepository> logger) : base(movieContext, logger)
         {
-           
+
 
         }
         public async Task<Actor> GetActorsById(int id)
@@ -26,18 +26,26 @@ namespace CoolestMovieAPI.Services
 
         public async Task<IList<Actor>> GetActorsByName(string name)
         {
-           var names= name.Split(' ');
-            var firstName=names[0];
-            var lastName=names[1];
+            string firstName, lastName;
+            NewMethod(name, out firstName, out lastName);
+
             return await _movieContext.Actors.Where(x => x.FirstName.ToLower() == firstName.ToLower() && x.LastName == lastName).ToListAsync();
         }
+
+        private static void NewMethod(string name, out string firstName, out string lastName)
+        {
+            var names = name.Split(' ');
+            firstName = names[0];
+            lastName = names[1];
+        }
+
         public async Task<IList<Actor>> GetActorsByFirstName(string firstName)
         {
-            return await _movieContext.Actors.Where(x => x.FirstName.ToLower() == firstName.ToLower() ).ToListAsync();
+            return await _movieContext.Actors.Where(x => x.FirstName.ToLower() == firstName.ToLower()).ToListAsync();
         }
-        public async Task<IList<Actor>> GetActorsByLastName( string lastName)
+        public async Task<IList<Actor>> GetActorsByLastName(string lastName)
         {
-            return await _movieContext.Actors.Where(x => x.LastName.ToLower() == lastName.ToLower() ).ToListAsync();
+            return await _movieContext.Actors.Where(x => x.LastName.ToLower() == lastName.ToLower()).ToListAsync();
         }
 
         public async Task<IList<Actor>> GetAllActors()
@@ -49,6 +57,6 @@ namespace CoolestMovieAPI.Services
         {
             return await _movieContext.Actors.Where(x => x.ActorCountry.ToLower() == country.ToLower()).ToListAsync();
         }
-        
+
     }
 }

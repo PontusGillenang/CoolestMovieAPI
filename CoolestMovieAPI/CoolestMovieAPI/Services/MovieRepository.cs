@@ -73,8 +73,13 @@ namespace CoolestMovieAPI.Services
             return await query.ToListAsync();
         }
 
-        public async Task<IList<MovieDTO>> GetByActor(string actorFirstName)
-        {                    
+        public async Task<IList<MovieDTO>> GetByActor(string name)
+        {
+
+            var names = name.Split(' ');
+            var firstName = names[0];
+            var lastName = names[1];
+
             IQueryable<MovieDTO> query2 = _movieContext.Movies
                    .Join(_movieContext.MovieActors,
                    m => m.MovieID,
@@ -96,7 +101,7 @@ namespace CoolestMovieAPI.Services
                        //Och om vi bara skulle mappa till dtos i andra dtos bör vi se över detta / ändra på properties.
                        roll = new Dictionary<string, Movie>() { { x.mma.ma.Role, x.mma.m } }
                    })
-                   .Where(a => a.firstName == actorFirstName)
+                   .Where(a => a.firstName == firstName&& a.lastName ==lastName)
                    .Select(y => new MovieDTO
                    {
                         id = y.movie.MovieID,
