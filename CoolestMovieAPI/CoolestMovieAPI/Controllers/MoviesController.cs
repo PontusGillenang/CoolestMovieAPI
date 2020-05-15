@@ -20,13 +20,12 @@ namespace CoolestMovieAPI.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly IMovieRepository _movieRepository;
-        private readonly IMapper _mapper;
+      
 
-        public MoviesController(IMovieRepository movieRepository, IMapper mapper)
+        public MoviesController(IMovieRepository movieRepository)
         {
             _movieRepository = movieRepository;
-            _mapper = mapper;
-
+           
         }
        
         [HttpGet("{id}")]
@@ -35,8 +34,8 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var result = await _movieRepository.GetMovieById(id);
-                var mappedResult = _mapper.Map<MovieDTO>(result);
-                return Ok(mappedResult);
+                
+                return Ok(result);
 
             }
             catch (Exception e)
