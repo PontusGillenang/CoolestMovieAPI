@@ -33,3 +33,41 @@ Det kommer upp nya saker som vi behöver läggas till hela tiden. Det tar aldrig
 *Att tänka på till nästa sprint, skriv med den faktiska tiden som det tagit att göra issuen.
 Från början: Estimated
 When Done: Actually time spent.*
+
+# Sprint Review 2020-05-15
+## Dagordning
+* **Val av sekreterare**
+* **Blev alla issues klara?**
+*Om inte, varför
+Icke klara issues återförs till backlog, efter att de har uppdaterats. Har vissa
+delar klarats av? Skall vi ha en ny tidsuppskattning? Vad behövs för att vi
+skall klara detta issue nästa gång?*
+* **Höll eran tidsplanering för era issues.**
+* **Bedöm vad ni kan göra bättre i nästa sprint**
+* **Har det kommit upp nya saker som skall läggas till på er backlog?**
+
+## Start
+* Sekreterare för dagen: **Fredrika**.
+
+* Vi blev inte klara med alla våra issues. Vi tilldeleade oss lite väl många issues den här gången, många svåra metoder/tester och vi missbedömde tiden om hur lång tid de skulle ta. Fel som vi inte räknat med uppstod, exempelvis att vi hade fel version av Entity Framework, detta tog onödigt mycket tid som hade kunnat läggas på andra issues. 
+
+* **Skall vi ha en ny tidsuppskattning? Vad behövs för att vi skall klara detta issue nästa gång?**
+Vår tidsuppskattning var sämre den här gången. 
+Det hade behövts mer tid för att göra efterforskning på de olika delarna för att ens kunna börja med ett issue. 
+Exempel på detta är testerna, för att ens kunna börja med ett test kändes det som att det behövdes mycket bakomliggande kunskaper om hur metoderna faktiskt fungerar och hur de ska byggas upp.
+
+
+* **Bedöm vad ni kan göra bättre i nästa sprint**
+Vi har tagit åt oss av föregående sprintreview men trots det känner några av oss att man behöver bli bättre på att lägga till issues i backlogen innan man börjar.
+Pull-requestsen funkade bra, vi gjorde de ihop och diskuterade den branchen som skulle reviewas.
+
+Kommunikationen funkade bra den också, det har vart mycket med LIAn nu med möten och besök så det har påverkat våra tider och möjligheter till standups inom gruppen. Utomstående faktorer har påverkat vårt grupparbete.
+
+* **Har det kommit upp nya saker som skall läggas till på er backlog?**
+Den här gången har vi inte lagt till något i vår backlog, men självklart kommer det alltid finnas saker att lägga till.
+
+
+### Notes...
+*Att tänka på till nästa sprint, skriv med den faktiska tiden som det tagit att göra issuen.
+Från början: Estimated
+When Done: Actually time spent.*
