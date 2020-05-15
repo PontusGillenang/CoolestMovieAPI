@@ -49,12 +49,12 @@ namespace CoolestMovieAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
-        [HttpGet("name={name}")]
-        public async Task<ActionResult<IList<Actor>>> GetActorsByName(string name)
+        [HttpGet("firstname={firstName}+{lastName}")]
+        public async Task<ActionResult<IList<Actor>>> GetActorsByName(string firstName, string lastName)
         {
             try
             {
-                var results = await _actorRepository.GetActorsByName(name);
+                var results = await _actorRepository.GetActorsByName(firstName, lastName);
                 return Ok(results);
             }
             catch (Exception e)

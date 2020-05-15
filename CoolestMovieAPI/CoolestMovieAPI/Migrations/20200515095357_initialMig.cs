@@ -11,11 +11,12 @@ namespace CoolestMovieAPI.Migrations
                 name: "Actors",
                 columns: table => new
                 {
-                    ActorID = table.Column<int>(type: "int", nullable: false)
+                    ActorID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ActorName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ActorBirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ActorCountry = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    ActorBirthDate = table.Column<DateTime>(nullable: false),
+                    ActorCountry = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,11 +27,11 @@ namespace CoolestMovieAPI.Migrations
                 name: "Directors",
                 columns: table => new
                 {
-                    DirectorID = table.Column<int>(type: "int", nullable: false)
+                    DirectorID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DirectorName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DirectorBirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DirectorCountry = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    DirectorName = table.Column<string>(nullable: true),
+                    DirectorBirthDate = table.Column<DateTime>(nullable: false),
+                    DirectorCountry = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -41,9 +42,9 @@ namespace CoolestMovieAPI.Migrations
                 name: "Genre",
                 columns: table => new
                 {
-                    GenreID = table.Column<int>(type: "int", nullable: false)
+                    GenreID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GenreType = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    GenreType = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -54,13 +55,13 @@ namespace CoolestMovieAPI.Migrations
                 name: "Movies",
                 columns: table => new
                 {
-                    MovieID = table.Column<int>(type: "int", nullable: false)
+                    MovieID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MovieTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MovieLength = table.Column<TimeSpan>(type: "time", nullable: false),
-                    MovieRating = table.Column<double>(type: "float", nullable: false),
-                    MovieDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MovieReleaseYear = table.Column<int>(type: "int", nullable: false)
+                    MovieTitle = table.Column<string>(nullable: true),
+                    MovieLength = table.Column<TimeSpan>(nullable: false),
+                    MovieRating = table.Column<double>(nullable: false),
+                    MovieDescription = table.Column<string>(nullable: true),
+                    MovieReleaseYear = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,11 +72,11 @@ namespace CoolestMovieAPI.Migrations
                 name: "MovieActors",
                 columns: table => new
                 {
-                    MovieActorID = table.Column<int>(type: "int", nullable: false)
+                    MovieActorID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MovieID = table.Column<int>(type: "int", nullable: true),
-                    ActorID = table.Column<int>(type: "int", nullable: true)
+                    Role = table.Column<string>(nullable: true),
+                    MovieID = table.Column<int>(nullable: true),
+                    ActorID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,10 +99,10 @@ namespace CoolestMovieAPI.Migrations
                 name: "MovieDirectors",
                 columns: table => new
                 {
-                    MovieDirectorID = table.Column<int>(type: "int", nullable: false)
+                    MovieDirectorID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MovieID = table.Column<int>(type: "int", nullable: true),
-                    DirectorID = table.Column<int>(type: "int", nullable: true)
+                    MovieID = table.Column<int>(nullable: true),
+                    DirectorID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -124,10 +125,10 @@ namespace CoolestMovieAPI.Migrations
                 name: "MovieGenre",
                 columns: table => new
                 {
-                    MovieGenreID = table.Column<int>(type: "int", nullable: false)
+                    MovieGenreID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MovieID = table.Column<int>(type: "int", nullable: true),
-                    GenreID = table.Column<int>(type: "int", nullable: true)
+                    MovieID = table.Column<int>(nullable: true),
+                    GenreID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -150,11 +151,11 @@ namespace CoolestMovieAPI.Migrations
                 name: "Trailers",
                 columns: table => new
                 {
-                    TrailerID = table.Column<int>(type: "int", nullable: false)
+                    TrailerID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TrailerUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TrailerTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MovieID = table.Column<int>(type: "int", nullable: true)
+                    TrailerUrl = table.Column<string>(nullable: true),
+                    TrailerTitle = table.Column<string>(nullable: true),
+                    MovieID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -168,14 +169,22 @@ namespace CoolestMovieAPI.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Movies",
-                columns: new[] { "MovieID", "MovieDescription", "MovieLength", "MovieRating", "MovieReleaseYear", "MovieTitle" },
-                values: new object[] { 1, "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.", new TimeSpan(0, 2, 10, 0, 0), 8.8000000000000007, 1999, "Fight Club" });
+                table: "Directors",
+                columns: new[] { "DirectorID", "DirectorBirthDate", "DirectorCountry", "DirectorName" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1962, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "USA", "David Fincher" },
+                    { 2, new DateTime(1939, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "USA", "Francis Ford Coppola" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Movies",
                 columns: new[] { "MovieID", "MovieDescription", "MovieLength", "MovieRating", "MovieReleaseYear", "MovieTitle" },
-                values: new object[] { 2, "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.", new TimeSpan(0, 2, 55, 0, 0), 9.1999999999999993, 1972, "Godfather" });
+                values: new object[,]
+                {
+                    { 1, "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.", new TimeSpan(0, 2, 10, 0, 0), 8.8000000000000007, 1999, "Fight Club" },
+                    { 2, "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.", new TimeSpan(0, 2, 55, 0, 0), 9.1999999999999993, 1972, "Godfather" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_MovieActors_ActorID",

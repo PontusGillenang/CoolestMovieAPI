@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoolestMovieAPI.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20200508075549_DeletedFirstLastNameActor")]
-    partial class DeletedFirstLastNameActor
+    [Migration("20200515095357_initialMig")]
+    partial class initialMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.0-preview.3.20181.2")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -34,7 +34,10 @@ namespace CoolestMovieAPI.Migrations
                     b.Property<string>("ActorCountry")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ActorName")
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ActorID");
@@ -61,6 +64,22 @@ namespace CoolestMovieAPI.Migrations
                     b.HasKey("DirectorID");
 
                     b.ToTable("Directors");
+
+                    b.HasData(
+                        new
+                        {
+                            DirectorID = 1,
+                            DirectorBirthDate = new DateTime(1962, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DirectorCountry = "USA",
+                            DirectorName = "David Fincher"
+                        },
+                        new
+                        {
+                            DirectorID = 2,
+                            DirectorBirthDate = new DateTime(1939, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DirectorCountry = "USA",
+                            DirectorName = "Francis Ford Coppola"
+                        });
                 });
 
             modelBuilder.Entity("CoolestMovieAPI.Models.Genre", b =>
@@ -214,7 +233,7 @@ namespace CoolestMovieAPI.Migrations
 
                     b.HasIndex("MovieID");
 
-                    b.ToTable("trailers");
+                    b.ToTable("Trailers");
                 });
 
             modelBuilder.Entity("CoolestMovieAPI.Models.MovieActor", b =>
@@ -253,7 +272,7 @@ namespace CoolestMovieAPI.Migrations
             modelBuilder.Entity("CoolestMovieAPI.Models.Trailer", b =>
                 {
                     b.HasOne("CoolestMovieAPI.Models.Movie", null)
-                        .WithMany("trailers")
+                        .WithMany("Trailers")
                         .HasForeignKey("MovieID");
                 });
 #pragma warning restore 612, 618

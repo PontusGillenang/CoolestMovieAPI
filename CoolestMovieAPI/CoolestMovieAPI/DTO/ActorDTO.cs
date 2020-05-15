@@ -10,7 +10,8 @@ namespace CoolestMovieAPI.DTO
     public class ActorDTO
     {
         public int id { get; set; }
-        public string name { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
         public DateTime birthDate { get; set; }
         public string country { get; set; }
         public string role { get; set; }

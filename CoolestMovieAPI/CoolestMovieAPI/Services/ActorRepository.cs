@@ -24,9 +24,9 @@ namespace CoolestMovieAPI.Services
             return await _movieContext.Actors.SingleOrDefaultAsync(x => x.ActorID == id);
         }
 
-        public async Task<IList<Actor>> GetActorsByName(string name)
+        public async Task<IList<Actor>> GetActorsByName(string firstName, string lastName)
         {
-            return await _movieContext.Actors.Where(x => x.ActorName.ToLower() == name.ToLower()).ToListAsync();
+            return await _movieContext.Actors.Where(x => x.FirstName.ToLower() == firstName.ToLower() || x.LastName == lastName).ToListAsync();
         }
 
         public async Task<IList<Actor>> GetAllActors()

@@ -15,7 +15,7 @@ namespace CoolestMovieAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.0-preview.3.20181.2")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -32,7 +32,10 @@ namespace CoolestMovieAPI.Migrations
                     b.Property<string>("ActorCountry")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ActorName")
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ActorID");
@@ -89,7 +92,7 @@ namespace CoolestMovieAPI.Migrations
 
                     b.HasKey("GenreID");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genre");
                 });
 
             modelBuilder.Entity("CoolestMovieAPI.Models.Movie", b =>
@@ -228,7 +231,7 @@ namespace CoolestMovieAPI.Migrations
 
                     b.HasIndex("MovieID");
 
-                    b.ToTable("trailers");
+                    b.ToTable("Trailers");
                 });
 
             modelBuilder.Entity("CoolestMovieAPI.Models.MovieActor", b =>
@@ -267,7 +270,7 @@ namespace CoolestMovieAPI.Migrations
             modelBuilder.Entity("CoolestMovieAPI.Models.Trailer", b =>
                 {
                     b.HasOne("CoolestMovieAPI.Models.Movie", null)
-                        .WithMany("trailers")
+                        .WithMany("Trailers")
                         .HasForeignKey("MovieID");
                 });
 #pragma warning restore 612, 618

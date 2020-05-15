@@ -38,21 +38,24 @@ namespace CoolestMovieAPI.Tests
                 new Actor
                 {
                   ActorID=1,
-                  ActorName="Brad Pitt",
+                  FirstName="Brad",
+                  LastName="Pitt",
                   ActorBirthDate=new DateTime (1963,12,18),
                   ActorCountry="Usa",                 
                 },
                    new Actor
                 {
                   ActorID=2,
-                  ActorName="Alicia Vikander",
+                  FirstName="Alicia",
+                  LastName="Vikander",
                   ActorBirthDate=new DateTime (1988,11,03),
                   ActorCountry="Sweden",
                 },
                       new Actor
                 {
                   ActorID=3,
-                  ActorName="Angelina jolie",
+                  FirstName="Angelina",
+                  LastName="Jolie",
                   ActorBirthDate=new DateTime (1975,06,04),
                   ActorCountry="Usa",
                 }
