@@ -1,6 +1,7 @@
 ﻿using CoolestMovieAPI.DTO;
 using CoolestMovieAPI.Models;
 using CoolestMovieAPI.MovieDbContext;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -16,8 +17,7 @@ namespace CoolestMovieAPI.Services
     {       
         public MovieRepository(MovieContext movieContext, ILogger<MovieRepository> logger) : base (movieContext, logger)
         {
-            
-                                          
+                                                    
         }
         
        public async Task<IList<Movie>> GetAllMovies()          
@@ -52,7 +52,7 @@ namespace CoolestMovieAPI.Services
 
         public async Task<IList<MovieDTO>> GetByDirector(string name)
         {
-            var query = _movieContext.Movies
+            IQueryable<MovieDTO> query = _movieContext.Movies
                 .Join(_movieContext.MovieDirectors,
                 m => m.MovieID,
                 md => md.Movie.MovieID,
@@ -64,26 +64,51 @@ namespace CoolestMovieAPI.Services
                 (mmd, d) => new { mmd, d }
                 ).Select(x => new MovieDTO
                 {
-                    Id = x.mmd.m.MovieID,                  
+                    id = x.mmd.m.MovieID,
+                    title = x.mmd.m.MovieTitle,
                     Director = x.d,                    
-                }).Where(d => d.Director.DirectorName == name);
-            //var categorizedProducts = product
-            //        .Join(productcategory, 
-            //          p => p.Id, 
-            //          pc => pc.ProdId, 
-            //          (p, pc) => new { p, pc })
-            //        .Join(category, 
-            //          ppc => ppc.pc.CatId, 
-            //          c => c.Id, 
-            //          (ppc, c) => new { ppc, c })
-            //        .Select(m => new {
-            //        ProdId = m.ppc.p.Id, // or m.ppc.pc.ProdId
-            //        CatId = m.c.CatId
-                                        // other assignments
-            //});
-            //IQueryable<MovieDirector> query = _movieContext.MovieDirectors
-            //    .Include(d => d.Movie.MovieID).Where(m => m.Director.DirectorName == name);
+                })
+                .Where(d => d.Director.DirectorName == name);           
+            
             return await query.ToListAsync();
         }
+
+        public async Task<IList<MovieDTO>> GetByActor(string actorName)
+        {                    
+            IQueryable<MovieDTO> query2 = _movieContext.Movies
+                   .Join(_movieContext.MovieActors,
+                   m => m.MovieID,
+                   ma => ma.Movie.MovieID,
+                   (m, ma) => new { m, ma }
+                   )
+                   .Join(_movieContext.Actors,
+                   mma => mma.ma.Actor.ActorID,
+                   a => a.ActorID,
+                   (mma, a) => new { mma, a }
+                   ).Select(x => new ActorDTO
+                   {
+                       id = x.a.ActorID,
+                       name = x.a.ActorName,
+                       role = x.mma.ma.Role,
+                       movie = x.mma.m,
+                       //Denna är typ överflödig. 
+                       //Och om vi bara skulle mappa till dtos i andra dtos bör vi se över detta / ändra på properties.
+                       roll = new Dictionary<string, Movie>() { { x.mma.ma.Role, x.mma.m } }
+                   })
+                   .Where(a => a.name == actorName)
+                   .Select(y => new MovieDTO
+                   {
+                        id = y.movie.MovieID,
+                        title = y.movie.MovieTitle,
+                        description = y.movie.MovieDescription,
+                        cast = new Dictionary<string, ActorDTO>() { { y.role, y } }
+                   });
+
+                   
+            return await query2.ToListAsync();
+
+        }
+
+        
     }
 }

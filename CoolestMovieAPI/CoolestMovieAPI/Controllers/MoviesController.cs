@@ -1,4 +1,6 @@
-﻿using CoolestMovieAPI.Models;
+﻿using AutoMapper;
+using CoolestMovieAPI.DTO;
+using CoolestMovieAPI.Models;
 using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Http;
@@ -18,20 +20,22 @@ namespace CoolestMovieAPI.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly IMovieRepository _movieRepository;
+      
 
         public MoviesController(IMovieRepository movieRepository)
         {
             _movieRepository = movieRepository;
-
+           
         }
        
         [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> GetById(int id)
+        public async Task<ActionResult<MovieDTO>> GetById(int id)
         {
             try
             {
-                var results = await _movieRepository.GetMovieById(id);
-                return Ok(results);
+                var result = await _movieRepository.GetMovieById(id);
+                
+                return Ok(result);
 
             }
             catch (Exception e)
@@ -42,7 +46,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpGet("title={title}")]
-        public async Task<ActionResult<IList<Movie>>> GetByTitle(string title)
+        public async Task<ActionResult<IList<Movie>>> GetByTitle(string title = "")
         {
             try
             {
@@ -80,7 +84,6 @@ namespace CoolestMovieAPI.Controllers
                     if (results.Count == 0)
                     {
                         return NotFound(results);
-
                     }
                     else
                     {
@@ -119,7 +122,6 @@ namespace CoolestMovieAPI.Controllers
                 if (results == null)
                 {
                     return NotFound(results);
-                    
                 }
                 else
                 {
@@ -132,6 +134,20 @@ namespace CoolestMovieAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
 
+        }
+
+        [HttpGet("actor={actorName}")]
+        public async Task<ActionResult<IList<MovieDirector>>> GetByActor(string actorName)
+        {
+            try
+            {
+                var results = await _movieRepository.GetByActor(actorName);
+                return Ok(results);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
         }
 
         [HttpGet("director={directorName}")]

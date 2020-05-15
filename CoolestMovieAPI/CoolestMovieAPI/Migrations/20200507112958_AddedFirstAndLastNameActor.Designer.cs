@@ -220,7 +220,7 @@ namespace CoolestMovieAPI.Migrations
 
                     b.HasIndex("MovieID");
 
-                    b.ToTable("Trailers");
+                    b.ToTable("trailers");
                 });
 
             modelBuilder.Entity("CoolestMovieAPI.Models.MovieActor", b =>
@@ -259,7 +259,7 @@ namespace CoolestMovieAPI.Migrations
             modelBuilder.Entity("CoolestMovieAPI.Models.Trailer", b =>
                 {
                     b.HasOne("CoolestMovieAPI.Models.Movie", null)
-                        .WithMany("Trailers")
+                        .WithMany("trailers")
                         .HasForeignKey("MovieID");
                 });
 #pragma warning restore 612, 618
