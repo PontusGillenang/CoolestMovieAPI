@@ -61,7 +61,7 @@ Exempel på detta är testerna, för att ens kunna börja med ett test kändes d
 Vi har tagit åt oss av föregående sprintreview men trots det känner några av oss att man behöver bli bättre på att lägga till issues i backlogen innan man börjar.
 Pull-requestsen funkade bra, vi gjorde de ihop och diskuterade den branchen som skulle reviewas.
 
-Kommunikationen funkade bra den också, det har vart mycket med LIAn nu med möten och besök så det har påverkat våra tider och möjligheter till standups inom gruppen. Utomstående faktorer har påverkat vårt grupparbete.
+Kommunikationen funkade bra den också men det har vart mycket med LIAn nu med möten och besök så det har påverkat våra tider och möjligheter till standups inom gruppen. Utomstående faktorer har påverkat vårt grupparbete.
 
 * **Har det kommit upp nya saker som skall läggas till på er backlog?**
 Den här gången har vi inte lagt till något i vår backlog, men självklart kommer det alltid finnas saker att lägga till.
