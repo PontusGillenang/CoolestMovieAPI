@@ -14,7 +14,7 @@ namespace CoolestMovieAPI.Tests
     public class DirectorRepositoryTest
     {
         [Fact]
-        public async void I_O_E()
+        public async void GetAllDirectors_ReturnAllDirectors_OrderedById()
         {
             // Arrange
             IList<Director> directors = GenerateDirectors();
@@ -23,11 +23,18 @@ namespace CoolestMovieAPI.Tests
 
             var logger = Mock.Of<ILogger<DirectorRepository>>();
             var directorRepository = new DirectorRepository(movieContextMock.Object, logger);
+            
             // Act
             var allDirectors = await directorRepository.GetAllDirectors();
 
             // Assert
-            Assert.Equal(1, allDirectors.Count);
+            Assert.Equal(3, allDirectors.Count);
+            Assert.Equal(1, allDirectors[0].DirectorID);
+            Assert.Equal(2, allDirectors[1].DirectorID);
+            Assert.Equal(3, allDirectors[2].DirectorID);
+            Assert.Equal("Kathryn Bigelow", allDirectors[0].DirectorName);
+            Assert.Equal("Guy Ritchie", allDirectors[1].DirectorName);
+            Assert.Equal("James Cameron", allDirectors[2].DirectorName);
         }
 
         private static IList<Director> GenerateDirectors()
@@ -37,9 +44,27 @@ namespace CoolestMovieAPI.Tests
                 new Director
                 {
                     DirectorID = 1,
-                    DirectorName = "Dan",
-                    DirectorBirthDate = new DateTime(1943,8,13),
+                    DirectorName = "Kathryn Bigelow",
+                    DirectorBirthDate = new DateTime(1951,11,27),
                     DirectorCountry = "Belgium",
+                    MovieDirectors = null
+                },
+
+                new Director
+                {
+                    DirectorID = 2,
+                    DirectorName = "Guy Ritchie",
+                    DirectorBirthDate = new DateTime(1968,9,10),
+                    DirectorCountry = "England",
+                    MovieDirectors = null
+                },
+
+                new Director
+                {
+                    DirectorID = 3,
+                    DirectorName = "James Cameron",
+                    DirectorBirthDate = new DateTime(1954,8,16),
+                    DirectorCountry = "Canada",
                     MovieDirectors = null
                 }
             };

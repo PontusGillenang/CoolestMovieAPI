@@ -17,8 +17,8 @@ namespace CoolestMovieAPI.Services
 
         public async Task<IList<Director>> GetAllDirectors()
         {
-            _logger.LogInformation("Getting directors");
-            IQueryable<Director> query = _movieContext.Directors.Where(_ => true);
+            _logger.LogInformation("Getting all directors in order of their id.");
+            IQueryable<Director> query = _movieContext.Directors.OrderBy(d => d.DirectorID);
             
             return await query.ToListAsync();
         }
