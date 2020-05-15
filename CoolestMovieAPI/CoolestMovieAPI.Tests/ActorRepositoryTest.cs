@@ -14,7 +14,7 @@ namespace CoolestMovieAPI.Tests
     {
 
         [Fact]
-        public async void I_O_E()
+        public async void GetAllActors_validData_true()
         {
             // Arrange
             IList<Actor> actors = GenerateActors();
