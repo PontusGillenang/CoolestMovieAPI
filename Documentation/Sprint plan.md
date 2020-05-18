@@ -33,8 +33,6 @@ Det gör vi för att kunna hitta och hantera fel i vårt program.
 
 Att de nya i gruppen kommer in i projektet och känner sig trygga med att ta över projektet för att kunna avsluta det.
 
-Det som behövs göras är att gå igenom alla delar som till exempel alla controllers, repositories, dto och modellerna.
-
 Få fördelat vem det är som ska göra vad. Förklara det som finns och eventuellt göra förändringar, för att sedan gå vidare och arbeta med PUT och POST metoder.
 
 **Arbetstider** - 10:00 till 15:00 preliminärt, tisdag den 19 maj blir det speciellt då börjar vi 13:00.
@@ -52,4 +50,3 @@ Vi avslutar 14:45 med en gemensam avstämning och om det är något som man vill
 ## Sprint Avslutning och Sprint Review
 
 Fredag 22 maj klockan 14:00.
-
