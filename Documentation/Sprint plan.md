@@ -49,5 +49,7 @@ Vi avslutar 14:45 med en gemensam avstämning och om det är något som man vill
 
 **Tester** - Vi börjar med tester på våra repository och controller-klasser i den mån vi hinner så detta är låg prioriterat i denna sprint.
 
+## Sprint Avslutning och Sprint Review
 
+Fredag 22 maj klockan 14:00.
 

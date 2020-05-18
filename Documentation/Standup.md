@@ -78,3 +78,27 @@
   * Sebastian - What have I done since last standup? Gjort test för metoden GetAllActors, refactorerat ActorsController så det finns exceptionhadling. Försökt att göra joina Movie på Genre taballen  What will I do next? Slutföra det jag gör så långt som möjligt innan jag skickar en Pull Request.
 
 ### Secretary notes...
+
+## Standup - 2020-05-18
+
+* Secretary - Pontus
+* Each person
+  * **Fredrik** - What will I do next? 
+    * MOV-42 - MoviesByLengthSpan
+    * MOV-34 - MoviesByYear
+    * MOV-41 - MoviesByLength
+    * MOV-37 - MoviesByRatingHigherThan
+    * MOV-36 - MoviesByRatingLowerThan
+  * **Anton** - What will I do next?
+    * Update Get Methods in ActorsController
+    * Add and modify issues in backlog
+    * Place issues in Sprint 2020/05/18-2020/05/22
+  * **Albin** - What will I do next?
+    * MOV-145 - modda TrailerController så den använder '?'
+    * Add and modify issues in backlog
+    * Place issues in Sprint 2020/05/18-2020/05/22
+  * **Pontus** - What will I do next?
+    * Add and modify issues in backlog
+    * Place issues in Sprint 2020/05/18-2020/05/22
+
+### Secretary notes...
