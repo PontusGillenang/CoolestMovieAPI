@@ -16,43 +16,46 @@ namespace CoolestMovieAPI.Services
     public class MovieRepository : BaseRepository, IMovieRepository
     {       
         public MovieRepository(MovieContext movieContext, ILogger<MovieRepository> logger) : base (movieContext, logger)
-        {
-                                                    
-        }
+        {}
         
        public async Task<IList<Movie>> GetAllMovies()          
        {
-            return await _movieContext.Movies.Where(_ => true).ToListAsync();                               
+            _logger.LogInformation($"Getting all movies!");
+            
+            var query = await _movieContext.Movies
+                .Where(_ => true)
+                .ToListAsync();
+
+            return query;
        }
 
         public async Task<Movie> GetMovieById(int id)
         {
-            return await _movieContext.Movies.Where(m => m.MovieID == id).FirstOrDefaultAsync();
+            _logger.LogInformation($"Getting movie by Id: {id}");
+
+            var query = await _movieContext.Movies
+                .Where(m => m.MovieID == id)
+                .FirstOrDefaultAsync();
+
+            return query;
         }
 
         public async Task<IList<Movie>> GetMovieByTitle(string title)
         {
-            return await _movieContext.Movies.Where(m => m.MovieTitle == title).ToListAsync();
-        }
+            _logger.LogInformation($"Getting movie by title: {title}");
 
-        public async Task<IList<Movie>> GetMovieByYear(int year)
-        {
-            return await _movieContext.Movies.Where(m => m.MovieReleaseYear == year).ToListAsync();
-        }
+            var query = await _movieContext.Movies
+                .Where(m => m.MovieTitle == title)
+                .ToListAsync();
 
-        public async Task<IList<Movie>> GetMovieByRating(double rating)
-        {
-            return await _movieContext.Movies.Where(m => m.MovieRating == rating).ToListAsync();
-        }
-    
-        public async Task<IList<Movie>> GetByLength(TimeSpan movieLength)
-        {
-            return await _movieContext.Movies.Where(m => m.MovieLength == movieLength).ToListAsync();
+            return query;
         }
 
         public async Task<IList<MovieDTO>> GetByDirector(string name)
         {
-            IQueryable<MovieDTO> query = _movieContext.Movies
+            _logger.LogInformation($"Getting movies by director: {name}");
+
+            var query = await _movieContext.Movies
                 .Join(_movieContext.MovieDirectors,
                 m => m.MovieID,
                 md => md.Movie.MovieID,
@@ -68,14 +71,15 @@ namespace CoolestMovieAPI.Services
                     title = x.mmd.m.MovieTitle,
                     Director = x.d,                    
                 })
-                .Where(d => d.Director.DirectorName == name);           
-            
-            return await query.ToListAsync();
+                .Where(d => d.Director.DirectorName == name)
+                .ToListAsync();
+
+            return query;
         }
 
         public async Task<IList<MovieDTO>> GetByActor(string actorName)
         {                    
-            IQueryable<MovieDTO> query2 = _movieContext.Movies
+            var query = await _movieContext.Movies
                    .Join(_movieContext.MovieActors,
                    m => m.MovieID,
                    ma => ma.Movie.MovieID,
@@ -102,13 +106,145 @@ namespace CoolestMovieAPI.Services
                         title = y.movie.MovieTitle,
                         description = y.movie.MovieDescription,
                         cast = new Dictionary<string, ActorDTO>() { { y.role, y } }
-                   });
+                   }).ToListAsync();
 
-                   
-            return await query2.ToListAsync();
-
+            return query;
         }
 
-        
+        public async Task<IList<Movie>> GetMoviesByYear(int year)
+        {
+            _logger.LogInformation($"Getting movie by year: {year}");
+
+            var query = await _movieContext.Movies
+                .Where(m => m.MovieReleaseYear == year)
+                .ToListAsync();
+
+            return query;
+        }
+
+        public async Task<IList<Movie>> GetMoviesByYearGreaterThan(int year)
+        {
+            _logger.LogInformation($"Getting movie by year greater than: {year}");
+
+            var query = await _movieContext.Movies
+                .Where(m => m.MovieReleaseYear >= year)
+                .ToListAsync();
+
+            return query;
+        }
+
+        public async Task<IList<Movie>> GetMoviesByYearLessThan(int year)
+        {
+            _logger.LogInformation($"Getting movie by year less than: {year}");
+
+            var query = await _movieContext.Movies
+                .Where(m => m.MovieReleaseYear <= year)
+                .ToListAsync();
+
+            return query;
+        }
+
+        public async Task<IList<Movie>> GetMoviesByYearSpan(int year, int maxYear)
+        {
+            _logger.LogInformation($"Getting movie by yearspan: {year} - {maxYear}");
+
+            var query = await _movieContext.Movies
+                .Where(m => (m.MovieReleaseYear >= year && m.MovieReleaseYear <= maxYear))
+                .ToListAsync();
+
+            return query;
+        }
+
+        public async Task<IList<Movie>> GetMoviesByRating(double rating)
+        {
+            _logger.LogInformation($"Getting movie by rating: {rating}");
+
+            var query = await _movieContext.Movies
+                .Where(m => m.MovieRating == rating)
+                .ToListAsync();
+
+            return query;
+        }
+
+        public async Task<IList<Movie>> GetMoviesByRatingGreaterThan(double rating)
+        {
+            _logger.LogInformation($"Getting movie by rating greater than: {rating}");
+
+            var query = await _movieContext.Movies
+                .Where(m => m.MovieRating >= rating)
+                .ToListAsync();
+
+            if (query.Count == 0) throw new Exception($"Movie(s) not found with rating greater than: {rating}");
+
+            return query; 
+        }
+
+        public async Task<IList<Movie>> GetMoviesByRatingLessThan(double rating)
+        {
+            _logger.LogInformation($"Getting movie by rating less than: {rating}");
+
+            var query = await _movieContext.Movies
+                .Where(m => m.MovieRating <= rating)
+                .ToListAsync();
+
+            if (query.Count == 0) throw new Exception($"Movie(s) not found with rating less than: {rating}");
+
+            return query; 
+        }
+
+        public async Task<IList<Movie>> GetMoviesByRatingSpan(double rating, double maxRating)
+        {
+            _logger.LogInformation($"Getting movie by ratingspan: {rating} - {maxRating}");
+
+            var query = await _movieContext.Movies
+                .Where(m => (m.MovieRating >= rating && m.MovieRating <= maxRating))
+                .ToListAsync();
+
+            return query; 
+        }
+    
+        public async Task<IList<Movie>> GetMoviesByLength(TimeSpan length)
+        {
+            _logger.LogInformation($"Getting movie by length: {length}");
+
+            var query = await _movieContext.Movies
+                .Where(m => m.MovieLength == length)
+                .ToListAsync();
+
+            return query;
+        }
+
+        public async Task<IList<Movie>> GetMoviesByLengthGreaterThan(TimeSpan length)
+        {
+            _logger.LogInformation($"Getting movie by length greater than: {length}");
+
+            var query = await _movieContext.Movies
+                .Where(m => m.MovieLength >= length)
+                .ToListAsync();
+
+            return query;
+        }
+
+        public async Task<IList<Movie>> GetMoviesByLengthLessThan(TimeSpan length)
+        {
+            _logger.LogInformation($"Getting movie by length less than: {length}");
+
+            var query = await _movieContext.Movies
+                .Where(m => m.MovieLength <= length)
+                .ToListAsync();
+
+            return query;
+        }
+
+        public async Task<IList<Movie>> GetMoviesByLengthSpan(TimeSpan length, TimeSpan maxLength)
+        {
+            _logger.LogInformation($"Getting movies by lengthspan: {length} - {maxLength}");
+
+            var query = await _movieContext.Movies
+                .Where(m => (m.MovieLength >= length && m.MovieLength <= maxLength))
+                .ToListAsync();
+
+            return query;
+        }
     }
 }

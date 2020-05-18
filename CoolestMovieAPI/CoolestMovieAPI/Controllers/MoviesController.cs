@@ -25,86 +25,230 @@ namespace CoolestMovieAPI.Controllers
         public MoviesController(IMovieRepository movieRepository)
         {
             _movieRepository = movieRepository;
-           
         }
        
+
+        [HttpGet]
+        public async Task<ActionResult<IList<Movie>>> GetAll()
+        {
+            try
+            {
+                var results = await _movieRepository.GetAllMovies();
+
+                if (results.Count == 0)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(results);
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<MovieDTO>> GetById(int id)
         {
             try
             {
                 var result = await _movieRepository.GetMovieById(id);
-                
-                return Ok(result);
 
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
             }
             catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
-
         }
 
-        [HttpGet("title={title}")]
-        public async Task<ActionResult<IList<Movie>>> GetByTitle(string title = "")
+        [HttpGet("searchtitle")]
+        public async Task<ActionResult<IList<Movie>>> GetByTitle([FromQuery]string name)
         {
             try
             {
-                var results = await _movieRepository.GetMovieByTitle(title);
-                return Ok(results);
-            }
-            catch (Exception e)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
-            }
+                var results = await _movieRepository.GetMovieByTitle(name);
 
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IList<Movie>>> GetByYear([FromQuery]int year = 0)
-        {
-            if (year == 0)
-            {
-                try
+                if (results.Count == 0)
                 {
-                    var results = await _movieRepository.GetAllMovies();
+                    return NotFound();
+                }
+                else
+                {
                     return Ok(results);
                 }
-                catch (Exception e)
-                {
-                    return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
-                }
-
             }
-            else
+            catch (Exception e)
             {
-                try
-                {
-                    var results = await _movieRepository.GetMovieByYear(year);
-                    if (results.Count == 0)
-                    {
-                        return NotFound(results);
-                    }
-                    else
-                    {
-                        return Ok(results);
-                    }
-                }
-                catch (Exception e)
-                {
-                    return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
-                }
-
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
-
         }
 
-        [HttpGet("rating={rating}")]
-        public async Task<ActionResult<IList<Movie>>> GetByRating(double rating)
+        [HttpGet("searchactor")]
+        public async Task<ActionResult<IList<MovieDirector>>> GetByActor([FromQuery]string name)
         {
             try
             {
-                var results = await _movieRepository.GetMovieByRating(rating);
+                var results = await _movieRepository.GetByActor(name);
+
+                if (results.Count == 0)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(results);
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+
+        [HttpGet("searchdirector")]
+        public async Task<ActionResult<IList<MovieDirector>>> GetByDirector([FromQuery]string name)
+        {
+            try
+            {
+                var results = await _movieRepository.GetByDirector(name);
+
+                if (results.Count == 0)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(results);
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+        
+        [HttpGet("searchyear")]
+        public async Task<ActionResult<IList<Movie>>> GetByYear([FromQuery]int year)
+        {
+            try
+            {
+                var results = await _movieRepository.GetMoviesByYear(year);
+                if (results.Count == 0)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+
+        [HttpGet("searchyeargreaterthan")]
+        public async Task<ActionResult<IList<Movie>>> GetByYearGreaterThan([FromQuery]int year)
+        {
+            try
+            {
+                var results = await _movieRepository.GetMoviesByYearGreaterThan(year);
+                if (results.Count == 0)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+
+        [HttpGet("searchyearlessthan")]
+        public async Task<ActionResult<IList<Movie>>> GetByYearLessThan([FromQuery]int year)
+        {
+            try
+            {
+                var results = await _movieRepository.GetMoviesByYearLessThan(year);
+                if (results.Count == 0)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+
+        [HttpGet("searchyearspan")]
+        public async Task<ActionResult<IList<Movie>>> GetByYearSpan([FromQuery]int year, int maxYear)
+        {
+            try
+            {
+                var results = await _movieRepository.GetMoviesByYearSpan(year, maxYear);
+                if (results.Count == 0)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+
+        [HttpGet("searchrating")]
+        public async Task<ActionResult<IList<Movie>>> GetByRating([FromQuery]double rating)
+        {
+            try
+            {
+                var results = await _movieRepository.GetMoviesByRating(rating);
+                if (results.Count == 0)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+
+        [HttpGet("searchratinggreaterthan")]
+        public async Task<ActionResult<IList<Movie>>> GetByRatingGreaterThan([FromQuery]double rating)
+        {
+            try
+            {
+                var results = await _movieRepository.GetMoviesByRatingGreaterThan(rating);
                 return Ok(results);
             }
             catch (Exception e)
@@ -113,12 +257,47 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("length={length}")]
-        public async Task<ActionResult<IList<Movie>>> GetByLength(TimeSpan movieLength)
+        [HttpGet("searchratinglessthan")]
+        public async Task<ActionResult<IList<Movie>>> GetByRatingLessThan([FromQuery]double rating)
         {
             try
             {
-                var results = await _movieRepository.GetByLength(movieLength);
+                var results = await _movieRepository.GetMoviesByRatingLessThan(rating);
+                return Ok(results);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+
+        [HttpGet("searchratingspan")]
+        public async Task<ActionResult<IList<Movie>>> GetByRatingSpan([FromQuery]double rating, double maxRating)
+        {
+            try
+            {
+                var results = await _movieRepository.GetMoviesByRatingSpan(rating, maxRating);
+                if (results.Count == 0)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+
+        [HttpGet("searchlength")]
+        public async Task<ActionResult<IList<Movie>>> GetByLength([FromQuery]TimeSpan length)
+        {
+            try
+            {
+                var results = await _movieRepository.GetMoviesByLength(length);
                 if (results == null)
                 {
                     return NotFound(results);
@@ -133,16 +312,23 @@ namespace CoolestMovieAPI.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
-
         }
 
-        [HttpGet("actor={actorName}")]
-        public async Task<ActionResult<IList<MovieDirector>>> GetByActor(string actorName)
+        [HttpGet("searchlengthgreaterthan")]
+        public async Task<ActionResult<IList<Movie>>> GetByLengthGreaterThan([FromQuery]TimeSpan length)
         {
             try
             {
-                var results = await _movieRepository.GetByActor(actorName);
-                return Ok(results);
+                var results = await _movieRepository.GetMoviesByLengthGreaterThan(length);
+                if (results == null)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
+                
             }
             catch (Exception e)
             {
@@ -150,21 +336,48 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("director={directorName}")]
-        public async Task<ActionResult<IList<MovieDirector>>> GetByDirector(string directorName)
+        [HttpGet("searchlengthlessthan")]
+        public async Task<ActionResult<IList<Movie>>> GetByLengthLessThan([FromQuery]TimeSpan length)
         {
             try
             {
-                var results = await _movieRepository.GetByDirector(directorName);
-                return Ok(results);
+                var results = await _movieRepository.GetMoviesByLengthLessThan(length);
+                if (results == null)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
+                
             }
             catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
-    } 
+
+        [HttpGet("searchlengthspan")]
+        public async Task<ActionResult<IList<Movie>>> GetByLengthSpan([FromQuery]TimeSpan length, [FromQuery]TimeSpan maxLength)
+        {
+            try
+            {
+                var results = await _movieRepository.GetMoviesByLengthSpan(length, maxLength);
+                if (results == null)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
+                
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+    }
 }
-   
-
-
