@@ -79,6 +79,8 @@
 
 ### Secretary notes...
 
+
+
 ## Standup - 2020-05-18
 
 * Secretary - Pontus
@@ -89,16 +91,104 @@
     * MOV-41 - MoviesByLength
     * MOV-37 - MoviesByRatingHigherThan
     * MOV-36 - MoviesByRatingLowerThan
+    
+    
   * **Anton** - What will I do next?
     * Update Get Methods in ActorsController
     * Add and modify issues in backlog
     * Place issues in Sprint 2020/05/18-2020/05/22
+    
+    
   * **Albin** - What will I do next?
     * MOV-145 - modda TrailerController så den använder '?'
     * Add and modify issues in backlog
     * Place issues in Sprint 2020/05/18-2020/05/22
+    
+    
   * **Pontus** - What will I do next?
     * Add and modify issues in backlog
     * Place issues in Sprint 2020/05/18-2020/05/22
+
+### Secretary notes...
+
+
+
+## Standup - 2020-05-19
+
+* Secretary - Pontus
+
+* Each person
+
+  **Fredrik** 
+
+  What have I done since last standup? 
+
+  * MOV-42 - MoviesByLengthSpan
+  * MOV-34 - MoviesByYear
+  * MOV-41 - MoviesByLength
+  * MOV-37 - MoviesByRatingHigherThan
+  * MOV-36 - MoviesByRatingLowerThan
+
+  What will I do next?
+
+  * Create a new branch and dig into AutoMapper.
+  * If pull request needs corrections make them and do a re-request.
+  * When approved merge into master the branch MOV-144 MovieControllerUpdate.
+
+  
+
+  **Anton** 
+
+  What have I done since last standup? 
+
+  * Update Get Methods in ActorsController
+  * Add and modify issues in backlog
+  * Place issues in Sprint 2020/05/18-2020/05/22
+
+  What will I do next?
+
+  * Add and modify issues in backlog
+  * Place issues in Sprint 2020/05/18-2020/05/22
+  * Update Get Methods in ActorsController
+  * Do code review on branch MOV-144 MovieControllerUpdate
+
+  
+
+  **Albin** 
+
+  What have I done since last standup? 
+
+  * MOV-145 - modda TrailerController så den använder '?'
+  * Add and modify issues in backlog
+  * Place issues in Sprint 2020/05/18-2020/05/22
+
+  What will I do next?
+
+  * MOV-145 - modda TrailerController så den använder '?'
+  * Add and modify issues in backlog
+  * Place issues in Sprint 2020/05/18-2020/05/22
+  * Do code review on branch MOV-144 MovieControllerUpdate
+
+  
+
+  **Pontus** 
+
+  What have I done since last standup? 
+
+  * Add and modify issues in backlog
+  * Place issues in Sprint 2020/05/18-2020/05/22
+
+  What will I do next?
+
+  * MOV-146 - [Refactor] DirectorsController Get Requests
+  * MOV-150 - [Refactor] DirectorsController GetByName
+  * MOV-156 - [Refactor] DirectorsController GetByCountry
+  * MOV-166 - [Refactor] DirectorDTO
+  * MOV-157 - [Refactor] DirectorRepository Get Methods
+  * MOV-158 - [Refactor] DirectorRepository GetAllDirectors
+  * MOV-163 - [Refactor] DirectorRepository GetDirectorById
+  * MOV-164 - [Refactor] DirectorRepository GetDirectorsByName
+  * MOV-165 - [Refactor] DirectorRepository GetDirectorsByCountry
+  * Do code review on branch MOV-144 MovieControllerUpdate
 
 ### Secretary notes...
