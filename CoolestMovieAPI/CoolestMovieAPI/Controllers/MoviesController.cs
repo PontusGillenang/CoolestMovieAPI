@@ -312,7 +312,7 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var results = await _movieRepository.GetMoviesByLength(length);
-                if (results == null)
+                if (results.Count == 0)
                 {
                     return NotFound(results);
                 }
@@ -334,7 +334,7 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var results = await _movieRepository.GetMoviesByLengthGreaterThan(length);
-                if (results == null)
+                if (results.Count == 0)
                 {
                     return NotFound(results);
                 }
@@ -356,7 +356,7 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var results = await _movieRepository.GetMoviesByLengthLessThan(length);
-                if (results == null)
+                if (results.Count == 0)
                 {
                     return NotFound(results);
                 }
@@ -378,7 +378,7 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var results = await _movieRepository.GetMoviesByLengthSpan(length, maxLength);
-                if (results == null)
+                if (results.Count == 0)
                 {
                     return NotFound(results);
                 }
