@@ -23,7 +23,6 @@ namespace CoolestMovieAPI.Services
             _logger.LogInformation($"Getting all movies!");
             
             var query = await _movieContext.Movies
-                .Where(_ => true)
                 .ToListAsync();
 
             return query;
@@ -174,8 +173,6 @@ namespace CoolestMovieAPI.Services
                 .Where(m => m.MovieRating >= rating)
                 .ToListAsync();
 
-            if (query.Count == 0) throw new Exception($"Movie(s) not found with rating greater than: {rating}");
-
             return query; 
         }
 
@@ -186,8 +183,6 @@ namespace CoolestMovieAPI.Services
             var query = await _movieContext.Movies
                 .Where(m => m.MovieRating <= rating)
                 .ToListAsync();
-
-            if (query.Count == 0) throw new Exception($"Movie(s) not found with rating less than: {rating}");
 
             return query; 
         }

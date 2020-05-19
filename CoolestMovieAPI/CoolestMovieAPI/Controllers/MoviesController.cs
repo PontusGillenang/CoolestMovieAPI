@@ -249,7 +249,14 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var results = await _movieRepository.GetMoviesByRatingGreaterThan(rating);
-                return Ok(results);
+                if (results.Count == 0)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
             }
             catch (Exception e)
             {
@@ -263,7 +270,14 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var results = await _movieRepository.GetMoviesByRatingLessThan(rating);
-                return Ok(results);
+                if (results.Count == 0)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
             }
             catch (Exception e)
             {
