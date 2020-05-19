@@ -163,7 +163,7 @@ Entitet klassen (tabellerna/databasen/whatnot)
 
 bla/api/v1.0/
 
-**Movies:**
+## Movies:
 
 **Get all movies**
 
