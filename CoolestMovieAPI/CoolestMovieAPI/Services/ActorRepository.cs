@@ -16,9 +16,19 @@ namespace CoolestMovieAPI.Services
 
         public ActorRepository(MovieContext movieContext, ILogger<ActorRepository> logger) :base(movieContext,logger)
         {
-           
-
         }
+
+
+        public async Task<IList<Actor>> GetAllActors(string country)
+        {
+            _logger.LogInformation($"Getting all actors!");
+
+            var query = await _movieContext.Actors
+                .ToListAsync();
+
+            return query;
+        }
+
         public async Task<Actor> GetActorsById(int id)
         {
             return await _movieContext.Actors.SingleOrDefaultAsync(x => x.ActorID == id);
@@ -29,10 +39,6 @@ namespace CoolestMovieAPI.Services
             return await _movieContext.Actors.Where(x => x.ActorName.ToLower() == name.ToLower()).ToListAsync();
         }
 
-        public async Task<IList<Actor>> GetAllActors()
-        {
-            return await _movieContext.Actors.Where(x => true).ToListAsync();
-        }
 
         public async Task<IList<Actor>> GetAllActorsByCountry(string country)
         {
