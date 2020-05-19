@@ -10,23 +10,31 @@ using System.Threading.Tasks;
 
 namespace CoolestMovieAPI.Services
 {
-    public class ActorRepository : BaseRepository, IActorRepository 
+    public class ActorRepository : BaseRepository, IActorRepository
     {
-        
 
-        public ActorRepository(MovieContext movieContext, ILogger<ActorRepository> logger) :base(movieContext,logger)
+
+        public ActorRepository(MovieContext movieContext, ILogger<ActorRepository> logger) : base(movieContext, logger)
         {
         }
 
 
-        public async Task<IList<Actor>> GetAllActors(string country)
+        public async Task<IList<Actor>> GetAllActors(string country = "")
         {
-            _logger.LogInformation($"Getting all actors!");
 
-            var query = await _movieContext.Actors
-                .ToListAsync();
+            IQueryable<Actor> query = _movieContext.Actors;
 
-            return query;
+            if (country != "")
+            {
+                _logger.LogInformation($"Getting all actors from {country}.");
+                query = query.Where(a => a.ActorCountry == country);
+            }
+            else
+            {
+                _logger.LogInformation($"Getting all actors!");
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<Actor> GetActorsById(int id)
@@ -36,7 +44,12 @@ namespace CoolestMovieAPI.Services
 
         public async Task<IList<Actor>> GetActorsByName(string name)
         {
-            return await _movieContext.Actors.Where(x => x.ActorName.ToLower() == name.ToLower()).ToListAsync();
+            _logger.LogInformation($"Getting all actors named {name}");
+
+            var query = await _movieContext.Actors
+                .Where(n => n.ActorName == name)
+                .ToListAsync();
+            return query;
         }
 
 
