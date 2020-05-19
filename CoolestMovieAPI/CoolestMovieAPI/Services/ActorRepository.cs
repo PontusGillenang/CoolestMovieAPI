@@ -39,7 +39,11 @@ namespace CoolestMovieAPI.Services
 
         public async Task<Actor> GetActorsById(int id)
         {
-            return await _movieContext.Actors.SingleOrDefaultAsync(x => x.ActorID == id);
+            _logger.LogInformation($"Getting actor with id {id}");
+
+            var query = await _movieContext.Actors
+                .SingleOrDefaultAsync(x => x.ActorID == id);
+            return query;
         }
 
         public async Task<IList<Actor>> GetActorsByName(string name)
@@ -50,12 +54,6 @@ namespace CoolestMovieAPI.Services
                 .Where(n => n.ActorName == name)
                 .ToListAsync();
             return query;
-        }
-
-
-        public async Task<IList<Actor>> GetAllActorsByCountry(string country)
-        {
-            return await _movieContext.Actors.Where(x => x.ActorCountry.ToLower() == country.ToLower()).ToListAsync();
         }
     }
 }
