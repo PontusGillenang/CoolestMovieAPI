@@ -7,9 +7,6 @@
  
 
   <ItemGroup>
-    <Content Update="config.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
@@ -23,5 +20,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Moq.EntityFrameworkCore" Version="3.1.2.1" />
+  </ItemGroup>
+
+ 
+
+  <ItemGroup>
+    <Content Update="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
