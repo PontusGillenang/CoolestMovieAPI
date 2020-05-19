@@ -35,11 +35,17 @@ Att de nya i gruppen kommer in i projektet och känner sig trygga med att ta öv
 
 Få fördelat vem det är som ska göra vad. Förklara det som finns och eventuellt göra förändringar, för att sedan gå vidare och arbeta med PUT och POST metoder.
 
-**Arbetstider** - 10:00 till 15:00 preliminärt, tisdag den 19 maj blir det speciellt då börjar vi 13:00.
+**Arbetstider**
 
-**Standup** - Görs när vi börjar klockan 10:00.
+10:00 - 15:00
 
-Vi avslutar 14:45 med en gemensam avstämning och om det är något som man vill ta upp (om man inte förstår något, fastnade eller har panik över) så diskuterar vi det tillsammans. Detta kan antecknas för att sedan föra fram det i sprint review.
+10:00 - Standup
+
+14:45 - 15:00 - Gemensam avstämning. Tisdag den 19 maj blir det speciellt då börjar vi 13:00.
+
+På den gemensam avstämning så är det möjligt att ta upp saker som man vill diskutera i gruppen (om man inte förstår något, fastnade eller har panik över). Detta kan antecknas för att sedan föra fram det i sprint review.
+
+Tiderna innan 10:00 och efter 15:00 kan man jobba vidare enskilt.
 
 **Kommunikationsvägar** - Discord
 
@@ -49,4 +55,4 @@ Vi avslutar 14:45 med en gemensam avstämning och om det är något som man vill
 
 ## Sprint Avslutning och Sprint Review
 
-Fredag 22 maj klockan 14:00.
+Sker på fredag 22 maj klockan 14:00 och leds av Fredrik och Anton.
