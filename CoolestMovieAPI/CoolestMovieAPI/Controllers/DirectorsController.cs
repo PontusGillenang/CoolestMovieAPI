@@ -1,4 +1,6 @@
-﻿using CoolestMovieAPI.Models;
+﻿using Castle.Core.Internal;
+using CoolestMovieAPI.DTO;
+using CoolestMovieAPI.Models;
 using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Http;
@@ -23,35 +25,91 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<Director>>> GetAll()
+        public async Task<ActionResult<IList<DirectorDTO>>> GetAll()
         {
             try
             {
                 var result = await _directorRepository.GetAllDirectors();
-                return Ok(result);
+
+                if (result.IsNullOrEmpty())
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status404NotFound, $"Could not find object: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
 
         [HttpGet("{id}")]
-        public  Task<Director> GetById(int id)
+        public async Task<ActionResult<DirectorDTO>> GetById(int id)
         {
-                return _directorRepository.GetDirectorById(id);
+            try
+            {
+                var result = await _directorRepository.GetDirectorById(id);
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
         }
 
-        [HttpGet("name={name}")]
-        public Task<IList<Director>> GetByName(string name)
+        [HttpGet("searchname")]
+        public async Task<ActionResult<IList<DirectorDTO>>> GetByName([FromQuery] string name)
         {
-            return _directorRepository.GetDirectorsByName(name);
+            try
+            {
+                var result = await _directorRepository.GetDirectorsByName(name);
+
+                if (result.IsNullOrEmpty())
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
         }
 
-        [HttpGet("country={country}")]
-        public Task<IList<Director>> GetByCountry(string country)
+        [HttpGet("searchcountry")]
+        public async Task<ActionResult<IList<DirectorDTO>>> GetByCountry([FromQuery] string country)
         {
-            return _directorRepository.GetDirectorsByCountry(country);
+            try
+            {
+                var result = await _directorRepository.GetDirectorsByCountry(country);
+
+                if (result.IsNullOrEmpty())
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
         }
     }
 }
