@@ -24,7 +24,4 @@
     </PackageReference>
     <PackageReference Include="Moq.EntityFrameworkCore" Version="3.1.2.1" />
   </ItemGroup>
-
- 
-
 </Project>
