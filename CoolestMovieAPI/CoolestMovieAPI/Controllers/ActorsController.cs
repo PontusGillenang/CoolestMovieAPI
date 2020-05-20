@@ -27,7 +27,7 @@ namespace CoolestMovieAPI.Controllers
         {
             try
             {
-                var results = await _actorRepository.GetAllActors("");
+                var results = await _actorRepository.GetAllActors();
                 return Ok(results);
             }
             catch (Exception e)
@@ -66,12 +66,12 @@ namespace CoolestMovieAPI.Controllers
             }
         }
         [HttpGet("country={country}")]
-        public async Task<ActionResult< IList<Actor>>> GetAllActorsByCountry(string country)
+        public async Task<ActionResult<IList<Actor>>> GetAllActorsByCountry(string country)
         {
             try
             {
-                var results = await _actorRepository.GetAllActors(country);
-                return Ok(results);
+                var result = await _actorRepository.GetActorsByCountry(country);
+                return Ok(result);
             }
             catch (Exception e)
             {
