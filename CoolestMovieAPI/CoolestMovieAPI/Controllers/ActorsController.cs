@@ -28,6 +28,7 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var results = await _actorRepository.GetAllActors("");
+
                 if (results.Count == 0)
                 {
                     return NotFound(results);
@@ -44,49 +45,68 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Actor>> GetActorById(int id)
         {
             try
             {
-                var results = await _actorRepository.GetActorsById(id);
-                return Ok(results);
+                var result = await _actorRepository.GetActorsById(id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
             }
+
             catch (Exception e)
             {
-
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
-        [HttpGet("name={name}")]
+
+
+        [HttpGet("{name}")]
         public async Task<ActionResult<IList<Actor>>> GetActorsByName(string name)
         {
             try
             {
                 var results = await _actorRepository.GetActorsByName(name);
-                return Ok(results);
+                if (results.Count == 0)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(results);
+                }
             }
             catch (Exception e)
             {
-
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
 
-        [HttpGet("country={country}")]
-        public async Task<ActionResult<IList<Actor>>> GetAllActorsByCountry(string country)
-        {
-            try
-            {
 
-                var results = await _actorRepository.GetAllActors(country);
-                return Ok(results);
-            }
-            catch (Exception e)
-            {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
-            }
-        }
+        //[HttpGet("country={country}")]
+        //public async Task<ActionResult<IList<Actor>>> GetAllActorsByCountry(string country)
+        //{
+        //    try
+        //    {
+
+        //        var results = await _actorRepository.GetAllActors(country);
+        //        return Ok(results);
+        //    }
+        //    catch (Exception e)
+        //    {
+
+        //        return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+        //    }
+        //}
     }
 }
