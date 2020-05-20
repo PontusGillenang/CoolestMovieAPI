@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 using CoolestMovieAPI.Models; // New
 using CoolestMovieAPI.MovieDbContext;// New
+using Microsoft.AspNetCore.Http;
+using Castle.Core.Internal;
 
 namespace CoolestMovieAPI.Controllers
 {
@@ -22,6 +24,9 @@ namespace CoolestMovieAPI.Controllers
             _trailerRepository = new TrailerRepository(context);
         }
 
+
+
+        #region Dummy
         //  //-----------------------------------------------------------------------------
         //  // DUMMY
         //  //-----------------------------------------------------------------------------			
@@ -30,6 +35,18 @@ namespace CoolestMovieAPI.Controllers
         //  {
         //      return _trailerRepository.GetByTitle(DUMMY);
         //  }
+        #endregion
+
+        #region old
+        ////-----------------------------------------------------------------------------
+        ////  getAllTrailers
+        ////-----------------------------------------------------------------------------	
+        //[HttpGet]                           // ASP will ctrl F for "get" inf function name, if it dosent contain that [HttpGet] points it in the right direction
+        //public Task<IList<Trailer>> GetAll()
+        //{
+        //    return _trailerRepository.GetAllTrailers();
+        //}
+        #endregion
 
 
 
@@ -37,29 +54,81 @@ namespace CoolestMovieAPI.Controllers
         //  getAllTrailers
         //-----------------------------------------------------------------------------	
         [HttpGet]
-        public Task<IList<Trailer>> GetAll()
+        public async Task<ActionResult<IList<Trailer>>> GetAll([FromQuery]string /*sName*/ name)
         {
-            return _trailerRepository.GetAllTrailers();
+            try
+            {
+                IList<Trailer> results = await _trailerRepository.GetAllTrailers();
+
+                if (results.IsNullOrEmpty())
+                    return NotFound();
+
+                else
+                    return Ok(results);
+            }
+
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+
         }
+
+
 
         //-----------------------------------------------------------------------------
         //  GetTrailerById
         //-----------------------------------------------------------------------------	
         [HttpGet("{id}")]
-        public Task<Trailer> GetById(int id)
+        public async Task<ActionResult> GetById(int id)
         {
-            return _trailerRepository.GetTrailerById(id);
-        }
+            try
+            {
+                Trailer results = await _trailerRepository.GetTrailerById(id);
 
+                if (results != null)
+                    return Ok(results);
+
+                else
+                    return NotFound();
+            }
+
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+
+
+            //return _trailerRepository.GetTrailerById(id);
+        }
+        
+
+      
         //-----------------------------------------------------------------------------
         //  GetTrailerByTitle
         //-----------------------------------------------------------------------------	
-        [HttpGet("title={sTitle}")]
-        public Task<IList<Trailer>> GetTrailerByTitle(string sTitle)
+        [HttpGet("searchtitle")]
+        public async Task<ActionResult<IList<Trailer>>> GetTrailerByTitle([FromQuery]string /*sName*/ name)
         {
-            return _trailerRepository.GetTrailerByTitle(sTitle);
+            try
+            {
+                IList<Trailer> results = await _trailerRepository.GetTrailerByTitle(name);
+
+                if (results.IsNullOrEmpty())
+                    return NotFound();
+
+                else
+                    return Ok(results);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
         }
 
+
+
+        #region Disabled
         ////-----------------------------------------------------------------------------
         ////  GetAllTrailersFor
         ////-----------------------------------------------------------------------------	
@@ -77,5 +146,6 @@ namespace CoolestMovieAPI.Controllers
         //{
         //    return _trailerRepository.GetTrailersForMovieAndActor(sMovieTitle, sActor); // WiP
         //}
+        #endregion
     }
 }
