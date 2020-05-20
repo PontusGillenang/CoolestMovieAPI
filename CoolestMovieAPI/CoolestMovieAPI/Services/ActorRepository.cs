@@ -10,33 +10,51 @@ using System.Threading.Tasks;
 
 namespace CoolestMovieAPI.Services
 {
-    public class ActorRepository : BaseRepository, IActorRepository 
+    public class ActorRepository : BaseRepository, IActorRepository
     {
-        
 
-        public ActorRepository(MovieContext movieContext, ILogger<ActorRepository> logger) :base(movieContext,logger)
-        {
-           
 
-        }
-        public async Task<Actor> GetActorsById(int id)
+        public ActorRepository(MovieContext movieContext, ILogger<ActorRepository> logger) : base(movieContext, logger)
         {
-            return await _movieContext.Actors.SingleOrDefaultAsync(x => x.ActorID == id);
-        }
-
-        public async Task<IList<Actor>> GetActorsByName(string name)
-        {
-            return await _movieContext.Actors.Where(x => x.ActorName.ToLower() == name.ToLower()).ToListAsync();
         }
 
         public async Task<IList<Actor>> GetAllActors()
         {
-            return await _movieContext.Actors.Where(x => true).ToListAsync();
+            var query = _movieContext.Actors;
+
+            _logger.LogInformation($"Getting all actors.");
+
+            return await query.ToListAsync();
         }
 
-        public async Task<IList<Actor>> GetAllActorsByCountry(string country)
+        public async Task<Actor> GetActorsById(int id)
         {
-            return await _movieContext.Actors.Where(x => x.ActorCountry.ToLower() == country.ToLower()).ToListAsync();
+            _logger.LogInformation($"Getting actor with id {id}");
+
+            var query = await _movieContext.Actors
+                .SingleOrDefaultAsync(x => x.ActorID == id);
+            return query;
         }
+
+        public async Task<IList<Actor>> GetActorsByName(string name)
+        {
+            _logger.LogInformation($"Getting all actors named {name}");
+
+            var query = await _movieContext.Actors
+                .Where(n => n.ActorName == name)
+                .ToListAsync();
+            return query;
+        }
+
+        public async Task<IList<Actor>> GetActorsByCountry(string country)
+        {
+            _logger.LogInformation($"Getting all actors from {country}");
+
+            var query = await _movieContext.Actors
+                .Where(a => a.ActorCountry == country)
+                .ToListAsync();
+            return query;
+        }
+        
     }
 }
