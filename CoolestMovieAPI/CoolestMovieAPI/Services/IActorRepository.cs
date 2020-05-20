@@ -8,7 +8,7 @@ namespace CoolestMovieAPI.Services
 {
     public interface IActorRepository : IBaseRepository
     {
-        Task<IList<Actor>> GetAllActors();
+        Task<IList<Actor>> GetAllActors(string country);
         Task<Actor> GetActorsById(int id);
         Task<IList<Actor>> GetActorsByName(string name);
 
