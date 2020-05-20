@@ -59,6 +59,22 @@ namespace CoolestMovieAPI.Migrations
                     b.HasKey("DirectorID");
 
                     b.ToTable("Directors");
+
+                    b.HasData(
+                        new
+                        {
+                            DirectorID = 1,
+                            DirectorBirthDate = new DateTime(1962, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DirectorCountry = "USA",
+                            DirectorName = "David Fincher"
+                        },
+                        new
+                        {
+                            DirectorID = 2,
+                            DirectorBirthDate = new DateTime(1939, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DirectorCountry = "USA",
+                            DirectorName = "Francis Ford Coppola"
+                        });
                 });
 
             modelBuilder.Entity("CoolestMovieAPI.Models.Genre", b =>
@@ -73,7 +89,7 @@ namespace CoolestMovieAPI.Migrations
 
                     b.HasKey("GenreID");
 
-                    b.ToTable("Genre");
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("CoolestMovieAPI.Models.Movie", b =>
@@ -212,7 +228,7 @@ namespace CoolestMovieAPI.Migrations
 
                     b.HasIndex("MovieID");
 
-                    b.ToTable("Trailers");
+                    b.ToTable("trailers");
                 });
 
             modelBuilder.Entity("CoolestMovieAPI.Models.MovieActor", b =>
@@ -251,7 +267,7 @@ namespace CoolestMovieAPI.Migrations
             modelBuilder.Entity("CoolestMovieAPI.Models.Trailer", b =>
                 {
                     b.HasOne("CoolestMovieAPI.Models.Movie", null)
-                        .WithMany("Trailers")
+                        .WithMany("trailers")
                         .HasForeignKey("MovieID");
                 });
 #pragma warning restore 612, 618
