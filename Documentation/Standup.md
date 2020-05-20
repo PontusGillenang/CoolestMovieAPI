@@ -92,18 +92,15 @@
     * MOV-37 - MoviesByRatingHigherThan
     * MOV-36 - MoviesByRatingLowerThan
     
-    
   * **Anton** - What will I do next?
     * Update Get Methods in ActorsController
     * Add and modify issues in backlog
     * Place issues in Sprint 2020/05/18-2020/05/22
     
-    
   * **Albin** - What will I do next?
     * MOV-145 - modda TrailerController så den använder '?'
     * Add and modify issues in backlog
     * Place issues in Sprint 2020/05/18-2020/05/22
-    
     
   * **Pontus** - What will I do next?
     * Add and modify issues in backlog
@@ -190,5 +187,84 @@
   * MOV-164 - [Refactor] DirectorRepository GetDirectorsByName
   * MOV-165 - [Refactor] DirectorRepository GetDirectorsByCountry
   * Do code review on branch MOV-144 MovieControllerUpdate
+
+### Secretary notes...
+
+
+
+## Standup - 2020-05-20
+
+* Secretary - Pontus
+
+* Each person
+
+  **Fredrik** 
+
+  What have I done since last standup? 
+
+  * Create a new branch and dig into AutoMapper.
+  * If pull request needs corrections make them and do a re-request.
+  * When approved merge into master the branch MOV-144 MovieControllerUpdate.
+
+  What will I do next?
+
+  * MOV-169 - Update MovieDTO to better reflect what we want to return
+  * MOV-168 - Update MovieController and MovieRepository to use DTOs and AutoMapper
+
+  
+
+  **Anton** 
+
+  What have I done since last standup? 
+
+  * Add and modify issues in backlog.
+  * Place issues in Sprint 2020/05/18-2020/05/22.
+  * Update Get Methods in ActorsController.
+  * Refactored ActorRepository (issue MOV-137).
+  * Do code review on branch MOV-144 MovieControllerUpdate.
+
+  What will I do next?
+
+  * MOV-147 - [Refactor] ActorController
+
+  
+
+  **Albin** 
+
+  What have I done since last standup? 
+
+  * MOV-145 - modda TrailerController så den använder '?'
+  * Add and modify issues in backlog
+  * Place issues in Sprint 2020/05/18-2020/05/22
+  * Do code review on branch MOV-144 MovieControllerUpdate
+
+  What will I do next?
+
+  * MOV-142 - Trailer controller exception handling
+
+  
+
+  **Pontus** 
+
+  What have I done since last standup? 
+
+  * MOV-146 - [Refactor] DirectorsController Get Requests
+  * MOV-150 - [Refactor] DirectorsController GetByName
+  * MOV-156 - [Refactor] DirectorsController GetByCountry
+  * MOV-166 - [Refactor] DirectorDTO
+  * Do code review on branch MOV-144 MovieControllerUpdate.
+
+  What will I do next?
+
+  * MOV-146 - [Refactor] DirectorsController Get Requests
+  * MOV-150 - [Refactor] DirectorsController GetByName
+  * MOV-156 - [Refactor] DirectorsController GetByCountry
+  * MOV-166 - [Refactor] DirectorDTO
+  * MOV-157 - [Refactor] DirectorRepository Get Methods
+  * MOV-158 - [Refactor] DirectorRepository GetAllDirectors
+  * MOV-163 - [Refactor] DirectorRepository GetDirectorById
+  * MOV-164 - [Refactor] DirectorRepository GetDirectorsByName
+  * MOV-165 - [Refactor] DirectorRepository GetDirectorsByCountry
+  * Make an issue for AutoMapper both creation and implementation.
 
 ### Secretary notes...
