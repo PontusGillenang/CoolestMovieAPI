@@ -18,22 +18,11 @@ namespace CoolestMovieAPI.Services
         {
         }
 
-
-
-        public async Task<IList<Actor>> GetAllActors(string country = "")
+        public async Task<IList<Actor>> GetAllActors()
         {
+            var query = _movieContext.Actors;
 
-            IQueryable<Actor> query = _movieContext.Actors;
-
-            if (country != "")
-            {
-                _logger.LogInformation($"Getting all actors from {country}.");
-                query = query.Where(a => a.ActorCountry == country);
-            }
-            else
-            {
-                _logger.LogInformation($"Getting all actors!");
-            }
+            _logger.LogInformation($"Getting all actors.");
 
             return await query.ToListAsync();
         }
@@ -56,5 +45,16 @@ namespace CoolestMovieAPI.Services
                 .ToListAsync();
             return query;
         }
+
+        public async Task<IList<Actor>> GetActorsByCountry(string country)
+        {
+            _logger.LogInformation($"Getting all actors from {country}");
+
+            var query = await _movieContext.Actors
+                .Where(a => a.ActorCountry == country)
+                .ToListAsync();
+            return query;
+        }
+        
     }
 }
