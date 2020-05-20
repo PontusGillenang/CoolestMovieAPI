@@ -19,20 +19,27 @@ namespace CoolestMovieAPI.Controllers
         private readonly IActorRepository _actorRepository;
         public ActorsController(IActorRepository actorRepository)
         {
-            _actorRepository = actorRepository;   
+            _actorRepository = actorRepository;
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<IList<Actor>>> GetAllActors()
         {
             try
             {
                 var results = await _actorRepository.GetAllActors("");
-                return Ok(results);
+                if (results.Count == 0)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
             }
+
             catch (Exception e)
             {
-
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
@@ -65,11 +72,13 @@ namespace CoolestMovieAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
+
         [HttpGet("country={country}")]
-        public async Task<ActionResult< IList<Actor>>> GetAllActorsByCountry(string country)
+        public async Task<ActionResult<IList<Actor>>> GetAllActorsByCountry(string country)
         {
             try
             {
+
                 var results = await _actorRepository.GetAllActors(country);
                 return Ok(results);
             }
