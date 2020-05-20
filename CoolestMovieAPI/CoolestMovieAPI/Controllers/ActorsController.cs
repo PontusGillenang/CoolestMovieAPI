@@ -21,6 +21,7 @@ namespace CoolestMovieAPI.Controllers
         {
             _actorRepository = actorRepository;   
         }
+        
         [HttpGet]
         public async Task<ActionResult<IList<Actor>>> GetAllActors()
         {
@@ -35,6 +36,7 @@ namespace CoolestMovieAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Actor>> GetActorById(int id)
         {
@@ -64,12 +66,12 @@ namespace CoolestMovieAPI.Controllers
             }
         }
         [HttpGet("country={country}")]
-        public async Task<ActionResult< IList<Actor>>> GetAllActorsByCountry(string country)
+        public async Task<ActionResult<IList<Actor>>> GetAllActorsByCountry(string country)
         {
             try
             {
-                var results = await _actorRepository.GetAllActorsByCountry(country);
-                return Ok(results);
+                var result = await _actorRepository.GetActorsByCountry(country);
+                return Ok(result);
             }
             catch (Exception e)
             {
