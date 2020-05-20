@@ -27,7 +27,7 @@ namespace CoolestMovieAPI.Controllers
         {
             try
             {
-                var results = await _actorRepository.GetAllActors("");
+                var results = await _actorRepository.GetAllActors();
 
                 if (results.Count == 0)
                 {
@@ -91,22 +91,36 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
+        [HttpGet("country={country}")]
+        public async Task<ActionResult<IList<Actor>>> GetActorsByCountry(string country)
+        {
+            try
+            {
+                var result = await _actorRepository.GetActorsByCountry(country);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
 
 
-        //[HttpGet("country={country}")]
-        //public async Task<ActionResult<IList<Actor>>> GetAllActorsByCountry(string country)
-        //{
-        //    try
-        //    {
+            //[HttpGet("country={country}")]
+            //public async Task<ActionResult<IList<Actor>>> GetAllActorsByCountry(string country)
+            //{
+            //    try
+            //    {
 
-        //        var results = await _actorRepository.GetAllActors(country);
-        //        return Ok(results);
-        //    }
-        //    catch (Exception e)
-        //    {
+            //        var results = await _actorRepository.GetAllActors(country);
+            //        return Ok(results);
+            //    }
+            //    catch (Exception e)
+            //    {
 
-        //        return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
-        //    }
-        //}
+            //        return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            //    }
+            //}
+        }
     }
 }

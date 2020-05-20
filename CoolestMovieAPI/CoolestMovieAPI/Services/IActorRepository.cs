@@ -12,8 +12,7 @@ namespace CoolestMovieAPI.Services
         Task<Actor> GetActorsById(int id);
         Task<IList<Actor>> GetActorsByName(string name);
 
-
-
-
+        Task<IList<Actor>> GetActorsByCountry(string country);
+ 
     }
 }
