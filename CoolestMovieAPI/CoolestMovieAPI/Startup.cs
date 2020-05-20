@@ -15,15 +15,19 @@ namespace CoolestMovieAPI
 {
     public class Startup
     {
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MovieContext>();
+            
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddScoped<IActorRepository, ActorRepository>();
-            services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+
             services.AddControllers()
                     .AddNewtonsoftJson(options =>
                     {
