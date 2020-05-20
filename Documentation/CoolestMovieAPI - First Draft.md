@@ -163,39 +163,73 @@ Entitet klassen (tabellerna/databasen/whatnot)
 
 bla/api/v1.0/
 
-**Movies:**
+## Movies:
 
-/movies
+**Get all movies**
 
-/movies/id
+*/movies*
 
-/movies?title=<(title)>
 
-/movies?actor=<(actor)>
+**Get movie by Id**
 
-/movies?director=<(director)>
+*/movies/<id>*
 
-/movies?year=<(year)>
 
-/movies?year>=<(year)>
+**Search by movie name**
 
-/movies?year<=<(year)>
+*/movies/searchtitle?name=<title>*
 
-/movies?rating=<(rating)>
 
-/movies?rating<=<(rating)>
+**Search by actor name**
 
-/movies?rating>=<(rating)>
+*/movies/searchactor?name=<actor>*
 
-/movies?genre=<(genre)>
 
-/movies?genre=<(genre)>,<(genre)>,<(genre)>
+**Search by director name**
 
-/movies?length=<(length)>
+*/movies/searchdirector?name=<director>*
 
-/movies?length>=<(length)>
 
-/movies?length<=<(length)>
+**Search by which year the movie was released**
+
+*/movies/searchyear?year=<year>*
+
+*/movies/searchyeargreaterthan?year=<year>*
+
+*/movies/searchyearlessthan?year=<year>*
+
+*/movies/searchyearspan?year=<year>&maxyear=<year>*
+
+
+**Search by specific imdb rating**
+
+*/movies/searchrating?rating=<rating>*
+
+*/movies/searchratinggreaterthan?rating=<rating>*
+
+*/movies/searchratinglessthan?rating=<rating>*
+
+*/movies/searchratingspan?rating=<rating>&maxrating=<rating>*
+
+
+**Search by a specific movie length**
+
+*/movies/searchlength?length=<length>*
+
+*/movies/searchlengthgreaterthan?length=<length>*
+
+*/movies/searchlengthlessthan?length=<length>*
+
+*/movies/searchlengthspan?length=<length>&maxlength=<length>*
+
+
+
+
+
+/movies?genre=<genre>
+
+/movies?genre=<genre>,<genre>,<genre>
+
 
 /movies?trailer=true
 
