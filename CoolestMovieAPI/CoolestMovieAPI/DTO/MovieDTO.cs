@@ -21,6 +21,7 @@ namespace CoolestMovieAPI.DTO
         public string language { get; set; }
         public string description { get; set; }
         public int yearOfRelease { get; set; }
+        public ICollection<MovieDirectorDTO> MovieDirectors { get; set; }
         public IList<GenreDTO> genres { get; set; }     
         public ICollection<TrailerDTO> trailers { get; set; }
         public Dictionary<string, ActorDTO> cast { get; set; }

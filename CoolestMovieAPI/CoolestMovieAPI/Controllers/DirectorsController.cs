@@ -56,7 +56,7 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var result = await _directorRepository.GetDirectorById(id);
-                var mappedResult = _mapper.Map<IList<DirectorDTO>>(result);
+                var mappedResult = _mapper.Map<DirectorDTO>(result);
 
                 if (mappedResult == null)
                 {
