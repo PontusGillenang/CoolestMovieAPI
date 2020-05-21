@@ -1,4 +1,5 @@
-﻿using Castle.Core.Internal;
+﻿using AutoMapper;
+using Castle.Core.Internal;
 using CoolestMovieAPI.DTO;
 using CoolestMovieAPI.Models;
 using CoolestMovieAPI.MovieDbContext;
@@ -18,10 +19,12 @@ namespace CoolestMovieAPI.Controllers
     public class DirectorsController : ControllerBase
     {
         private readonly IDirectorRepository _directorRepository;
+        private readonly IMapper _mapper;
 
-        public DirectorsController(IDirectorRepository directorRepository)
+        public DirectorsController(IDirectorRepository directorRepository, IMapper mapper)
         {
             _directorRepository = directorRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -29,20 +32,21 @@ namespace CoolestMovieAPI.Controllers
         {
             try
             {
-                var result = await _directorRepository.GetAllDirectors();
+                var results = await _directorRepository.GetAllDirectors();
+                var mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
 
-                if (result.IsNullOrEmpty())
+                if (mappedResults.IsNullOrEmpty())
                 {
                     return NotFound();
                 }
                 else
                 {
-                    return Ok(result);
+                    return Ok(mappedResults);
                 }
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {exception.Message}");
             }
         }
 
@@ -52,19 +56,20 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var result = await _directorRepository.GetDirectorById(id);
+                var mappedResult = _mapper.Map<IList<DirectorDTO>>(result);
 
-                if (result == null)
+                if (mappedResult == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    return Ok(result);
+                    return Ok(mappedResult);
                 }
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {exception.Message}");
             }
         }
 
@@ -73,20 +78,21 @@ namespace CoolestMovieAPI.Controllers
         {
             try
             {
-                var result = await _directorRepository.GetDirectorsByName(name);
+                var results = await _directorRepository.GetDirectorsByName(name);
+                var mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
 
-                if (result.IsNullOrEmpty())
+                if (mappedResults.IsNullOrEmpty())
                 {
                     return NotFound();
                 }
                 else
                 {
-                    return Ok(result);
+                    return Ok(mappedResults);
                 }
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {exception.Message}");
             }
         }
 
@@ -95,20 +101,21 @@ namespace CoolestMovieAPI.Controllers
         {
             try
             {
-                var result = await _directorRepository.GetDirectorsByCountry(country);
+                var results = await _directorRepository.GetDirectorsByCountry(country);
+                var mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
 
-                if (result.IsNullOrEmpty())
+                if (mappedResults.IsNullOrEmpty())
                 {
                     return NotFound();
                 }
                 else
                 {
-                    return Ok(result);
+                    return Ok(mappedResults);
                 }
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {exception.Message}");
             }
         }
     }
