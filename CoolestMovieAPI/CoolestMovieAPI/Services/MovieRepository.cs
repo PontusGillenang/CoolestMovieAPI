@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,12 +40,30 @@ namespace CoolestMovieAPI.Services
             return query;
         }
 
-        public async Task<IList<Movie>> GetMovieByTitle(string title)
+        public async Task<IList<MovieDTO>> GetMovieByTitle(string title)
         {
             _logger.LogInformation($"Getting movie by title: {title}");
 
             var query = await _movieContext.Movies
-                .Where(m => m.MovieTitle == title)
+                .Join(_movieContext.MovieDirectors,
+                m => m.MovieID,
+                md => md.Movie.MovieID,
+                (m, md) => new { m, md })
+                .Join(_movieContext.Directors,
+                mm => mm.md.Director.DirectorID,
+                d => d.DirectorID,
+                (mm, d) => new { mm, d })
+                .Where(mov => mov.mm.m.MovieTitle == title)
+                .Select(x => new MovieDTO
+                {
+                    MovieID = x.mm.m.MovieID,
+                    MovieTitle = x.mm.m.MovieTitle,
+                    MovieLength = x.mm.m.MovieLength,
+                    MovieRating = x.mm.m.MovieRating,
+                    MovieDescription = x.mm.m.MovieDescription,
+                    MovieReleaseYear = x.mm.m.MovieReleaseYear,
+                    MovieDirector = x.d
+                })
                 .ToListAsync();
 
             return query;
@@ -58,54 +77,60 @@ namespace CoolestMovieAPI.Services
                 .Join(_movieContext.MovieDirectors,
                 m => m.MovieID,
                 md => md.Movie.MovieID,
-                (m, md) => new { m, md }
-                )
+                (m, md) => new { m, md })
                 .Join(_movieContext.Directors,
                 mmd => mmd.md.Director.DirectorID,
                 d => d.DirectorID,
-                (mmd, d) => new { mmd, d }
-                ).Select(x => new MovieDTO
+                (mmd, d) => new { mmd, d })
+                .Where(d => d.d.DirectorName == name)
+                .Select(x => new MovieDTO
                 {
-                    id = x.mmd.m.MovieID,
-                    title = x.mmd.m.MovieTitle,
-                    Director = x.d,                    
+                    MovieID = x.mmd.m.MovieID,
+                    MovieTitle = x.mmd.m.MovieTitle,
+                    MovieLength = x.mmd.m.MovieLength,
+                    MovieRating = x.mmd.m.MovieRating,
+                    MovieDescription = x.mmd.m.MovieDescription,
+                    MovieReleaseYear = x.mmd.m.MovieReleaseYear,
+                    MovieDirector = x.mmd.md.Director
                 })
-                .Where(d => d.Director.DirectorName == name)
                 .ToListAsync();
 
             return query;
         }
 
-        public async Task<IList<MovieDTO>> GetByActor(string actorName)
+        public async Task<IList<MovieRollDTO>> GetByActor(string actorName)
         {                    
             var query = await _movieContext.Movies
-                   .Join(_movieContext.MovieActors,
-                   m => m.MovieID,
-                   ma => ma.Movie.MovieID,
-                   (m, ma) => new { m, ma }
-                   )
-                   .Join(_movieContext.Actors,
-                   mma => mma.ma.Actor.ActorID,
-                   a => a.ActorID,
-                   (mma, a) => new { mma, a }
-                   ).Select(x => new ActorDTO
+                    .Join(_movieContext.MovieActors,
+                    m => m.MovieID,
+                    ma => ma.Movie.MovieID,
+                    (m, ma) => new { m, ma }
+                    )
+                    .Join(_movieContext.Actors,
+                    mma => mma.ma.Actor.ActorID,
+                    a => a.ActorID,
+                    (mma, a) => new { mma, a })
+                    .Where(a => a.a.ActorName == actorName)
+                    .Join(_movieContext.MovieDirectors,
+                    k => k.mma.m.MovieID,
+                    md => md.Movie.MovieID,
+                    ( k, md ) => new { k, md })
+                    .Join(_movieContext.Directors,
+                    mmd => mmd.md.Director.DirectorID,
+                    d => d.DirectorID,
+                    (mmd, d) => new { mmd, d })
+                   .Select(y => new MovieRollDTO
                    {
-                       id = x.a.ActorID,
-                       name = x.a.ActorName,
-                       role = x.mma.ma.Role,
-                       movie = x.mma.m,
-                       //Denna är typ överflödig. 
-                       //Och om vi bara skulle mappa till dtos i andra dtos bör vi se över detta / ändra på properties.
-                       roll = new Dictionary<string, Movie>() { { x.mma.ma.Role, x.mma.m } }
+                        MovieID = y.mmd.k.mma.m.MovieID,
+                        MovieTitle = y.mmd.k.mma.m.MovieTitle,
+                        MovieLength = y.mmd.k.mma.m.MovieLength,
+                        MovieDirector = y.d,
+                        MovieDescription = y.mmd.k.mma.m.MovieDescription,
+                        MovieReleaseYear = y.mmd.k.mma.m.MovieReleaseYear,
+                        MovieRating = y.mmd.k.mma.m.MovieRating,
+                        Role = y.mmd.k.mma.ma.Role
                    })
-                   .Where(a => a.name == actorName)
-                   .Select(y => new MovieDTO
-                   {
-                        id = y.movie.MovieID,
-                        title = y.movie.MovieTitle,
-                        description = y.movie.MovieDescription,
-                        cast = new Dictionary<string, ActorDTO>() { { y.role, y } }
-                   }).ToListAsync();
+                   .ToListAsync();
 
             return query;
         }
