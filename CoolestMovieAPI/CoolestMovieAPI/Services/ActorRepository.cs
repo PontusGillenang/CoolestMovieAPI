@@ -45,7 +45,6 @@ namespace CoolestMovieAPI.Services
                 .Where(n => n.ActorName.Contains(name))
                 .OrderBy(n => n.ActorName)
                 .ToListAsync();
-
             return query;
         }
 
