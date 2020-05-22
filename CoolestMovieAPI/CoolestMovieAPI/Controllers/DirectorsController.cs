@@ -1,4 +1,7 @@
-﻿using CoolestMovieAPI.Models;
+﻿using AutoMapper;
+using Castle.Core.Internal;
+using CoolestMovieAPI.DTO;
+using CoolestMovieAPI.Models;
 using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Http;
@@ -16,42 +19,104 @@ namespace CoolestMovieAPI.Controllers
     public class DirectorsController : ControllerBase
     {
         private readonly IDirectorRepository _directorRepository;
+        private readonly IMapper _mapper;
 
-        public DirectorsController(IDirectorRepository directorRepository)
+        public DirectorsController(IDirectorRepository directorRepository, IMapper mapper)
         {
             _directorRepository = directorRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<Director>>> GetAll()
+        public async Task<ActionResult<IList<DirectorDTO>>> GetAll()
         {
             try
             {
-                var result = await _directorRepository.GetAllDirectors();
-                return Ok(result);
+                var results = await _directorRepository.GetAllDirectors();
+                var mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
+
+                if (mappedResults.IsNullOrEmpty())
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(mappedResults);
+                }
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status404NotFound, $"Could not find object: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {exception.Message}");
             }
         }
 
         [HttpGet("{id}")]
-        public  Task<Director> GetById(int id)
+        public async Task<ActionResult<DirectorDTO>> GetById(int id)
         {
-                return _directorRepository.GetDirectorById(id);
+            try
+            {
+                var result = await _directorRepository.GetDirectorById(id);
+                var mappedResult = _mapper.Map<IList<DirectorDTO>>(result);
+
+                if (mappedResult == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(mappedResult);
+                }
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {exception.Message}");
+            }
         }
 
-        [HttpGet("name={name}")]
-        public Task<IList<Director>> GetByName(string name)
+        [HttpGet("searchname")]
+        public async Task<ActionResult<IList<DirectorDTO>>> GetByName([FromQuery] string name)
         {
-            return _directorRepository.GetDirectorsByName(name);
+            try
+            {
+                var results = await _directorRepository.GetDirectorsByName(name);
+                var mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
+
+                if (mappedResults.IsNullOrEmpty())
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(mappedResults);
+                }
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {exception.Message}");
+            }
         }
 
-        [HttpGet("country={country}")]
-        public Task<IList<Director>> GetByCountry(string country)
+        [HttpGet("searchcountry")]
+        public async Task<ActionResult<IList<DirectorDTO>>> GetByCountry([FromQuery] string country)
         {
-            return _directorRepository.GetDirectorsByCountry(country);
+            try
+            {
+                var results = await _directorRepository.GetDirectorsByCountry(country);
+                var mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
+
+                if (mappedResults.IsNullOrEmpty())
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(mappedResults);
+                }
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {exception.Message}");
+            }
         }
     }
 }
