@@ -19,6 +19,9 @@ namespace CoolestMovieAPI.Configuration
             CreateMap<Director, DirectorDTO>()
                 .ReverseMap();
 
+            CreateMap<MovieDirector, MovieDirectorDTO>()
+                .ReverseMap();
+
             CreateMap<Actor, ActorDTO>()
                 .ReverseMap();
 
