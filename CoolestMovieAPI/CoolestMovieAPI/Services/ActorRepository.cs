@@ -54,7 +54,7 @@ namespace CoolestMovieAPI.Services
 
             var query = await _movieContext.Actors
                 .Where(a => a.ActorCountry == country)
-                .OrderBy(n => n.ActorName)
+                .OrderBy(n => n.ActorCountry)
                 .ToListAsync();
             return query;
         }
