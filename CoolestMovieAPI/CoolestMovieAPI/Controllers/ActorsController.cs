@@ -1,10 +1,13 @@
-﻿using CoolestMovieAPI.Models;
+﻿using AutoMapper;
+using CoolestMovieAPI.DTO;
+using CoolestMovieAPI.Models;
 using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Constraints;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,65 +22,100 @@ namespace CoolestMovieAPI.Controllers
         private readonly IActorRepository _actorRepository;
         public ActorsController(IActorRepository actorRepository)
         {
-            _actorRepository = actorRepository;   
+            _actorRepository = actorRepository;
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<IList<Actor>>> GetAllActors()
         {
             try
             {
                 var results = await _actorRepository.GetAllActors();
-                return Ok(results);
+
+                if (results.Count == 0)
+                {
+                    return NotFound(results);
+                }
+                else
+                {
+                    return Ok(results);
+                }
             }
+
             catch (Exception e)
             {
-
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
+
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Actor>> GetActorById(int id)
         {
             try
             {
-                var results = await _actorRepository.GetActorsById(id);
-                return Ok(results);
+                var result = await _actorRepository.GetActorsById(id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
             }
+
             catch (Exception e)
             {
-
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
-        [HttpGet("name={name}")]
-        public async Task<ActionResult<IList<Actor>>> GetActorsByName(string name)
+
+
+        [HttpGet("searchname")]
+        public async Task<ActionResult<IList<Actor>>> GetActorsByName([FromQuery]string name)
         {
             try
             {
                 var results = await _actorRepository.GetActorsByName(name);
-                return Ok(results);
+                if (results.Count == 0)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(results);
+                }
             }
             catch (Exception e)
             {
-
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
-        [HttpGet("country={country}")]
-        public async Task<ActionResult<IList<Actor>>> GetAllActorsByCountry(string country)
+
+        [HttpGet("searchcountry")]
+        public async Task<ActionResult<IList<Actor>>> GetByCountry([FromQuery]string country)
         {
             try
             {
                 var result = await _actorRepository.GetActorsByCountry(country);
-                return Ok(result);
+                if (result.Count == 0)
+                {
+                    return NotFound(result);
+                }
+                else
+                {
+                    return Ok(result);
+
+                }
             }
             catch (Exception e)
             {
 
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
+
         }
     }
 }
