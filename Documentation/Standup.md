@@ -267,4 +267,79 @@
   * MOV-165 - [Refactor] DirectorRepository GetDirectorsByCountry
   * Make an issue for AutoMapper both creation and implementation.
 
+### Secretary notes
+
+
+
+## Standup - 2020-05-22
+
+* Secretary - Pontus
+
+* Each person
+
+  **Fredrik** 
+
+  What have I done since last standup? 
+
+  * MOV-169 - Update MovieDTO to better reflect what we want to return
+  * MOV-168 - Update MovieController and MovieRepository to use DTOs and AutoMapper
+
+  What will I do next?
+
+  * Review Pull Requests and Merge them, resolve conflict errors
+  * MOV-115 - Post Method for MovieController
+  * MOV-117 - Put Method for MovieController
+  * MOV-176 - UnitTest - Movie Repository
+
+  **Anton** 
+
+  What have I done since last standup? 
+
+  * MOV-147 - [Refactor] ActorController
+
+  What will I do next?
+
+  * Review Pull Requests and Merge them, resolve conflict errors
+  * Update ActorController and ActorRepository for DTOs and AutoMapper
+  * Post Method for ActorController
+  * Put Method for ActorController
+  * Delete Method for ActorController
+  
+
+  **Albin** 
+
+  What have I done since last standup? 
+
+  * MOV-142 - Trailer controller exception handling
+  
+  What will I do next?
+
+  * Review Pull Requests and Merge them, resolve conflict errors
+
+  
+
+  **Pontus** 
+
+  What have I done since last standup? 
+
+
+  * MOV-146 - [Refactor] DirectorsController Get Requests
+  * MOV-150 - [Refactor] DirectorsController GetByName
+  * MOV-156 - [Refactor] DirectorsController GetByCountry
+  * MOV-166 - [Refactor] DirectorDTO
+  * MOV-157 - [Refactor] DirectorRepository Get Methods
+  * MOV-158 - [Refactor] DirectorRepository GetAllDirectors
+  * MOV-163 - [Refactor] DirectorRepository GetDirectorById
+  * MOV-164 - [Refactor] DirectorRepository GetDirectorsByName
+  * MOV-165 - [Refactor] DirectorRepository GetDirectorsByCountry
+  * Make an issue for AutoMapper both creation and implementation.
+
+  What will I do next?
+  
+  
+  * Review Pull Requests and Merge them, resolve conflict errors
+  * MOV-173 - Put Method for DirectorsController
+  * MOV-174 - Post Method for DirectorsController
+  * MOV-175 - Delete Method for DirectorsController
+
 ### Secretary notes...
