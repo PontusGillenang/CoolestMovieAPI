@@ -144,5 +144,35 @@ namespace CoolestMovieAPI.Controllers
 
             return BadRequest();
         }
+
+        [HttpPut("{actorId}")]
+        public async Task<ActionResult> PutActor (int actorId, ActorDTO actorDto)
+        {
+            try
+            {
+                var oldActor = await _actorRepository.GetActorsById(actorId);
+                if (oldActor == null)
+                {
+                    return NotFound("$Could not find actor");
+                }
+
+                var newActor = _mapper.Map(actorDto, oldActor);
+                _actorRepository.Update(newActor);
+                if (await _actorRepository.Save())
+                {
+                    return NoContent();
+                }
+            }
+
+            catch (Exception e)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {e.Message}");
+            }
+
+            return BadRequest();
+        }
+        
+
     }
 }
