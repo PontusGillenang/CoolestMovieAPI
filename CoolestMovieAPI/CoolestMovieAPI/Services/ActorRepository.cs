@@ -38,10 +38,12 @@ namespace CoolestMovieAPI.Services
 
         public async Task<IList<Actor>> GetActorsByName(string name)
         {
+            
             _logger.LogInformation($"Getting all actors named {name}");
 
             var query = await _movieContext.Actors
-                .Where(n => n.ActorName == name)
+                .Where(n => n.ActorName.Contains(name))
+                .OrderBy(n => n.ActorName)
                 .ToListAsync();
             return query;
         }
@@ -52,6 +54,7 @@ namespace CoolestMovieAPI.Services
 
             var query = await _movieContext.Actors
                 .Where(a => a.ActorCountry == country)
+                .OrderBy(n => n.ActorCountry)
                 .ToListAsync();
             return query;
         }
