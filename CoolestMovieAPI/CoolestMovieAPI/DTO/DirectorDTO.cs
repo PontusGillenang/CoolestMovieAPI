@@ -13,9 +13,7 @@ namespace CoolestMovieAPI.DTO
         public int DirectorId { get; set; }
         [Required]
         public string DirectorName { get; set; }
-        [Required]
         public DateTime DirectorBirthDate { get; set; }
-        [Required]
         public string DirectorCountry { get; set; }
         [Display(Name = "Directed")]
         public ICollection<MovieDirectorDTO> MovieDirectors { get; set; }
