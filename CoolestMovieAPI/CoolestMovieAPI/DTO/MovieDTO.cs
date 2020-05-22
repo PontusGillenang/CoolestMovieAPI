@@ -12,7 +12,7 @@ namespace CoolestMovieAPI.DTO
     public class MovieDTO
     {        
         [Required]
-        public int MovieId { get; set; }
+        public int MovieID { get; set; }
         [Required]
         public string MovieTitle { get; set; }
         public TimeSpan MovieLength { get; set; }

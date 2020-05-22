@@ -18,7 +18,6 @@ namespace CoolestMovieAPI.DTO
         public DateTime ActorBirthDate { get; set; }
         public string ActorCountry { get; set; }
         public string Role { get; set; }
-        public Movie Movie { get; set; }
-        public Dictionary<string, Movie> Roll { get; set; }
+        public ICollection<MovieActor> MovieActors { get; set; }
     }
 }
