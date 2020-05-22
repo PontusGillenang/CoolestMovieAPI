@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace CoolestMovieAPI.Controllers
 {
     [Route("api/v1.0/[controller]")]
@@ -20,9 +21,11 @@ namespace CoolestMovieAPI.Controllers
     public class ActorsController : ControllerBase
     {
         private readonly IActorRepository _actorRepository;
-        public ActorsController(IActorRepository actorRepository)
+        private readonly IMapper _mapper;
+        public ActorsController(IActorRepository actorRepository, IMapper mapper)
         {
             _actorRepository = actorRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -30,15 +33,16 @@ namespace CoolestMovieAPI.Controllers
         {
             try
             {
-                var results = await _actorRepository.GetAllActors();
+                var result = await _actorRepository.GetAllActors();
+                var mappedResults = _mapper.Map<IList<ActorDTO>>(result);
 
-                if (results.Count == 0)
+                if (result.Count == 0)
                 {
-                    return NotFound(results);
+                    return NotFound(result);
                 }
                 else
                 {
-                    return Ok(results);
+                    return Ok(mappedResults);
                 }
             }
 
@@ -62,7 +66,8 @@ namespace CoolestMovieAPI.Controllers
                 }
                 else
                 {
-                    return Ok(result);
+                    var mappedResults = _mapper.Map<ActorDTO>(result);
+                    return Ok(mappedResults);
                 }
             }
 
@@ -78,14 +83,15 @@ namespace CoolestMovieAPI.Controllers
         {
             try
             {
-                var results = await _actorRepository.GetActorsByName(name);
-                if (results.Count == 0)
+                var result = await _actorRepository.GetActorsByName(name);
+                var mappedResults = _mapper.Map<IList<ActorDTO>>(result);
+                if (result.Count == 0)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    return Ok(results);
+                    return Ok(mappedResults);
                 }
             }
             catch (Exception e)
@@ -100,14 +106,14 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var result = await _actorRepository.GetActorsByCountry(country);
+                var mappedResults = _mapper.Map<IList<ActorDTO>>(result);
                 if (result.Count == 0)
                 {
                     return NotFound(result);
                 }
                 else
                 {
-                    return Ok(result);
-
+                    return Ok(mappedResults);
                 }
             }
             catch (Exception e)
