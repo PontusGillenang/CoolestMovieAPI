@@ -71,3 +71,35 @@ Den här gången har vi inte lagt till något i vår backlog, men självklart ko
 *Att tänka på till nästa sprint, skriv med den faktiska tiden som det tagit att göra issuen.
 Från början: Estimated
 When Done: Actually time spent.*
+
+# Sprint Review 2020-05-22
+## Dagordning
+* **Val av sekreterare**
+* **Blev alla issues klara?**
+*Om inte, varför
+Icke klara issues återförs till backlog, efter att de har uppdaterats. Har vissa
+delar klarats av? Skall vi ha en ny tidsuppskattning? Vad behövs för att vi
+skall klara detta issue nästa gång?*
+* **Höll eran tidsplanering för era issues.**
+* **Bedöm vad ni kan göra bättre i nästa sprint**
+* **Har det kommit upp nya saker som skall läggas till på er backlog?**
+
+## Start
+* Sekreterare för dagen: **Anton**.
+
+Vi började veckan med att tilldela ansvarsområden för att refakturera den nuvarande koden så att den var konsekvent genom projektet.
+En hel del funktionalitet har lags till i projektet(POST, PUT, DELETE). Vi började i fel ordning och det körde därför ihop sig i slutet av veckan, vi borde ha börjat med att sätta upp våra DTO's. Det gick åt en hel del tid till att efterforska hur designen skulle se ut, och hur koden skulle implementeras osv. 
+
+
+* **Skall vi ha en ny tidsuppskattning? Vad behövs för att vi skall klara detta issue nästa gång?**
+Detta tog mycket mer tid än vad vi först hade planerat och större delen av veckan gick åt till att få till detta snyggt. Det kom till lite issues till backloggen som hade högre prioritet än andra och därför fick en hel del issues hamna i backloggen igen. 
+
+
+* **Bedöm vad ni kan göra bättre i nästa sprint**
+Se över hur modellerna ser ut för databasen och DTO's så att alla grunder är stabila. Ändra på det som vi kan, om det inte förstör för mycket. Se till att alla requests finns i alla controllers samt se över att datan ser bra ut. 
+
+* **Har det kommit upp nya saker som skall läggas till på er backlog?**
+Issue: Länkar i DTO's (HATEOAS). 
+Issue: Dokumentation för hur vårt API fungerar. 
+
+
