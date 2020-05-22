@@ -138,5 +138,30 @@ namespace CoolestMovieAPI.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> PutDirector(int id, DirectorDTO directorDTO)
+        {
+            try
+            {
+                var existingDirector = await _directorRepository.GetDirectorById(id);
+                if (existingDirector == null)
+                {
+                    return NotFound($"Could not find a director with id {id}");
+                }
+
+                var updatedDirector = _mapper.Map(directorDTO, existingDirector);
+                _directorRepository.Update(updatedDirector);
+                if (await _directorRepository.Save())
+                {
+                    return NoContent();
+                }
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {exception.Message}");
+            }
+            return BadRequest();
+        }
     }
 }
