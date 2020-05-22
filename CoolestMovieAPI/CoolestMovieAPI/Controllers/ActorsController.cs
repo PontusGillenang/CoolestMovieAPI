@@ -26,7 +26,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<Actor>>> GetAllActors()
+        public async Task<ActionResult<IList<ActorDTO>>> GetAllActors()
         {
             try
             {
@@ -51,7 +51,7 @@ namespace CoolestMovieAPI.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Actor>> GetActorById(int id)
+        public async Task<ActionResult<ActorDTO>> GetActorById(int id)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace CoolestMovieAPI.Controllers
 
 
         [HttpGet("searchname")]
-        public async Task<ActionResult<IList<Actor>>> GetActorsByName([FromQuery]string name)
+        public async Task<ActionResult<IList<ActorDTO>>> GetActorsByName([FromQuery]string name)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpGet("searchcountry")]
-        public async Task<ActionResult<IList<Actor>>> GetByCountry([FromQuery]string country)
+        public async Task<ActionResult<IList<ActorDTO>>> GetByCountry([FromQuery]string country)
         {
             try
             {

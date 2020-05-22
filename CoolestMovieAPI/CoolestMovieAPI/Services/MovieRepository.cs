@@ -90,21 +90,21 @@ namespace CoolestMovieAPI.Services
                    (mma, a) => new { mma, a }
                    ).Select(x => new ActorDTO
                    {
-                       id = x.a.ActorID,
-                       name = x.a.ActorName,
-                       role = x.mma.ma.Role,
-                       movie = x.mma.m,
+                       ActorId = x.a.ActorID,
+                       ActorName = x.a.ActorName,
+                       Role = x.mma.ma.Role,
+                       Movie = x.mma.m,
                        //Denna är typ överflödig. 
                        //Och om vi bara skulle mappa till dtos i andra dtos bör vi se över detta / ändra på properties.
-                       roll = new Dictionary<string, Movie>() { { x.mma.ma.Role, x.mma.m } }
+                       Roll = new Dictionary<string, Movie>() { { x.mma.ma.Role, x.mma.m } }
                    })
-                   .Where(a => a.name == actorName)
+                   .Where(a => a.ActorName == actorName)
                    .Select(y => new MovieDTO
                    {
-                        id = y.movie.MovieID,
-                        title = y.movie.MovieTitle,
-                        description = y.movie.MovieDescription,
-                        cast = new Dictionary<string, ActorDTO>() { { y.role, y } }
+                        id = y.Movie.MovieID,
+                        title = y.Movie.MovieTitle,
+                        description = y.Movie.MovieDescription,
+                        cast = new Dictionary<string, ActorDTO>() { { y.Role, y } }
                    }).ToListAsync();
 
             return query;
