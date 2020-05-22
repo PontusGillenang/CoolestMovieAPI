@@ -163,5 +163,29 @@ namespace CoolestMovieAPI.Controllers
             }
             return BadRequest();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteDirector(int id)
+        {
+            try
+            {
+                var existingDirector = await _directorRepository.GetDirectorById(id);
+                if (existingDirector == null)
+                {
+                    return NotFound($"Could not find a director with id {id}");
+                }
+
+                _directorRepository.Delete(existingDirector);
+                if (await _directorRepository.Save())
+                {
+                    return NoContent();
+                }
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {exception.Message}");
+            }
+            return BadRequest();
+        }
     }
 }
