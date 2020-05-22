@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CoolestMovieAPI.Services
 {
-    public interface IDirectorRepository
+    public interface IDirectorRepository : IBaseRepository
     {
         Task<IList<Director>> GetAllDirectors();
         Task<Director> GetDirectorById(int id);
