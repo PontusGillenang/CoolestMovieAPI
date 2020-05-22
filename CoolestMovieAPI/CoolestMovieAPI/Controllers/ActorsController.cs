@@ -121,7 +121,28 @@ namespace CoolestMovieAPI.Controllers
 
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
+        }
 
+        [HttpPost]
+        public async Task<ActionResult<ActorDTO>> PostActor(ActorDTO actorDto)
+        {
+            try
+            {
+                var mappedEntity = _mapper.Map<Actor>(actorDto);
+
+                _actorRepository.Add(mappedEntity);
+                if (await _actorRepository.Save())
+                {
+                    return Created($"/api/v1.0/actors/{mappedEntity.ActorID}", _mapper.Map<ActorDTO>(mappedEntity));
+                }
+            }
+
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {e.Message}");
+            }
+
+            return BadRequest();
         }
     }
 }
