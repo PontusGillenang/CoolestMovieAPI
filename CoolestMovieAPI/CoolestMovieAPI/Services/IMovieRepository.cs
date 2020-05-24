@@ -12,8 +12,8 @@ namespace CoolestMovieAPI.Services
         Task<IList<Movie>> GetAllMovies();
         Task<Movie> GetMovieById(int id);
         Task<IList<Movie>> GetMovieByTitle(string title);
-        Task<IList<MovieDTO>> GetByActor(string actorName);
-        Task<IList<MovieDTO>> GetByDirector(string name);
+        Task<IList<Movie>> GetByActor(string actorName);
+        Task<IList<Movie>> GetByDirector(string name);
         Task<IList<Movie>> GetMoviesByYear(int year);
         Task<IList<Movie>> GetMoviesByYearGreaterThan(int year);
         Task<IList<Movie>> GetMoviesByYearLessThan(int year);
