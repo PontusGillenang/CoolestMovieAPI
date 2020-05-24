@@ -14,19 +14,19 @@ using System.Threading.Tasks;
 namespace CoolestMovieAPI.Services
 {
     public class MovieRepository : BaseRepository, IMovieRepository
-    {       
+    {
         public MovieRepository(MovieContext movieContext, ILogger<MovieRepository> logger) : base (movieContext, logger)
         {}
         
-       public async Task<IList<Movie>> GetAllMovies()          
-       {
-            _logger.LogInformation($"Getting all movies!");
-            
-            var query = await _movieContext.Movies
-                .ToListAsync();
+        public async Task<IList<Movie>> GetAllMovies()          
+        {
+                _logger.LogInformation($"Getting all movies!");
+                
+                var query = await _movieContext.Movies
+                    .ToListAsync();
 
-            return query;
-       }
+                return query;
+        }
 
         public async Task<Movie> GetMovieById(int id)
         {
@@ -101,7 +101,7 @@ namespace CoolestMovieAPI.Services
                     MovieLength = x.mma.m.MovieLength,
                     MovieRating = x.mma.m.MovieRating,
                     MovieDescription = x.mma.m.MovieDescription,
-                    MovieReleaseYear = x.mma.m.MovieReleaseYear,
+                    MovieReleaseYear = x.mma.m.MovieReleaseYear
                 })
                 .ToListAsync();
                 

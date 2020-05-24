@@ -23,6 +23,7 @@ namespace CoolestMovieAPI
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddScoped<IActorRepository, ActorRepository>();
+            services.AddScoped<IMovieDirectorsRepository, MovieDirectorsRepository>();
             
             services.AddAutoMapper(typeof(Startup));
 
