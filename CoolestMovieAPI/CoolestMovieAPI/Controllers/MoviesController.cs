@@ -421,5 +421,77 @@ namespace CoolestMovieAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
+        
+        [HttpPost]
+        public async Task<ActionResult<MovieDTO>> PostMovie(MovieDTO movieDTO)
+        {
+            try
+            {
+                var mappedEntity = _mapper.Map<Movie>(movieDTO);
+
+                _movieRepository.Add(mappedEntity);
+                if(await _movieRepository.Save())
+                {
+                    return Created($"/api/v1.0/movies/{mappedEntity.MovieID}", _mapper.Map<MovieDTO>(mappedEntity));
+                }
+            }
+            catch(Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {e.Message}");
+            }
+            return BadRequest();
+        }
+
+        [HttpPut("{movieId}")]
+        public async Task<ActionResult> PutMovie(int movieId, MovieDTO movieDTO)
+        {
+            try
+            {
+                var oldMovie = await _movieRepository.GetMovieById(movieId);
+                if(oldMovie == null)
+                {
+                    return NotFound($"Could not find event with id {movieId}");
+                }   
+
+                var newMovie = _mapper.Map(movieDTO, oldMovie);
+                _movieRepository.Update(newMovie);
+
+                if(await _movieRepository.Save())
+                {
+                    return NoContent();
+                }
+            }
+            catch(Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {e.Message}");
+            }
+            return BadRequest();
+        }
+
+        [HttpDelete("{movieId}")]
+        public async Task<ActionResult> DeleteMovie(int movieId)
+        {
+            try
+            {
+                var oldMovie = await _movieRepository.GetMovieById(movieId);
+
+                if(oldMovie == null)
+                {
+                    return NotFound($"Could not find event with id {movieId}");
+                }  
+
+                _movieRepository.Delete(oldMovie);
+
+                if(await _movieRepository.Save())
+                {
+                    return NoContent();
+                }
+            }
+            catch(Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {e.Message}");
+            }
+            return BadRequest();
+        }
     }
 }
