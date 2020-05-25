@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
+using CoolestTrailerAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +25,7 @@ namespace CoolestMovieAPI
             services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddScoped<IActorRepository, ActorRepository>();
             services.AddScoped<IMovieDirectorsRepository, MovieDirectorsRepository>();
+            services.AddScoped<ITrailerRepository, TrailerRepository>();
             
             services.AddAutoMapper(typeof(Startup));
 

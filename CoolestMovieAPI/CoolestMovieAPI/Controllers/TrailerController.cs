@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoolestMovieAPI.Models;
-using CoolestMovieAPI.MovieDbContext;
 using Microsoft.AspNetCore.Http;
 using Castle.Core.Internal;
 using AutoMapper;
@@ -19,10 +18,10 @@ namespace CoolestMovieAPI.Controllers
         private readonly ITrailerRepository _trailerRepository;
         private readonly IMapper _mapper;
 
-        public TrailersController(MovieContext context, IMapper mapper)
+        public TrailersController(ITrailerRepository trailerRepository, IMapper mapper)
         {
+            _trailerRepository = trailerRepository;
             _mapper = mapper;
-            _trailerRepository = new TrailerRepository(context);
         }
 
         [HttpGet]
@@ -77,6 +76,28 @@ namespace CoolestMovieAPI.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult<TrailerDTO>> PostActor(TrailerDTO trailerDto)
+        {
+            try
+            {
+                var mappedEntity = _mapper.Map<Trailer>(trailerDto);
+
+                _trailerRepository.Add(mappedEntity);
+                if (await _trailerRepository.Save())
+                {
+                    return Created($"/api/v1.0/actors/{mappedEntity.TrailerID}", _mapper.Map<TrailerDTO>(mappedEntity));
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {e.Message}");
+            }
+
+            return BadRequest();
         }
     }
 }
