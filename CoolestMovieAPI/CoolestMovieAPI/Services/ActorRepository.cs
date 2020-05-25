@@ -81,8 +81,7 @@ namespace CoolestMovieAPI.Services
                 ActorID = x.ama.a.ActorID,
                 ActorName = x.ama.a.ActorName,
                 ActorBirthDate = x.ama.a.ActorBirthDate,
-                ActorCountry = x.ama.a.ActorCountry,
-                
+                ActorCountry = x.ama.a.ActorCountry, 
             })
             .ToListAsync();
 
