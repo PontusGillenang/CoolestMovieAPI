@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using CoolestMovieAPI.HATEOAS;
 
 namespace CoolestMovieAPI.DTO
 {
-    public class MovieDTO
+    public class MovieDTO : HateoasLinkBase
     {        
         [Required]
         public int MovieID { get; set; }

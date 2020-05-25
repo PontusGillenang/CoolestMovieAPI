@@ -13,31 +13,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace CoolestMovieAPI.Controllers
 {
     [Route("api/v1.0/[controller]")]
     [ApiController]
-    public class MoviesController : ControllerBase
+    public class MoviesController : HateoasMoviesControllerBase
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IMapper _mapper;
       
 
-        public MoviesController(IMovieRepository movieRepository, IMapper mapper)
+        public MoviesController(IMovieRepository movieRepository, IMapper mapper, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider) : base(actionDescriptorCollectionProvider)
         {
             _movieRepository = movieRepository;
             _mapper = mapper;
         }
        
 
-        [HttpGet]
+        [HttpGet(Name = "GetAll")]
         public async Task<ActionResult<IList<MovieDTO>>> GetAll()
         {
             try
             {
                 var results = await _movieRepository.GetAllMovies();
-                var mappedResults = _mapper.Map<IList<MovieDTO>>(results);
+                //var mappedResults = _mapper.Map<IList<MovieDTO>>(results);
+                IEnumerable<MovieDTO> mappedResults = _mapper.Map<IList<MovieDTO>>(results);
+                IEnumerable<MovieDTO> hateoasResults = mappedResults.Select(m => HateoasMainLinks(m));
 
                 if (mappedResults.IsNullOrEmpty())
                 {
@@ -45,7 +48,7 @@ namespace CoolestMovieAPI.Controllers
                 }
                 else
                 {
-                    return Ok(mappedResults);
+                    return Ok(hateoasResults);
                 }
             }
             catch (Exception e)
@@ -54,7 +57,7 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetIdAsync")]
         public async Task<ActionResult<MovieDTO>> GetById(int id)
         {
             try
@@ -68,7 +71,7 @@ namespace CoolestMovieAPI.Controllers
                 }
                 else
                 {
-                    return Ok(mappedResult);
+                    return Ok(HateoasMainLinks(mappedResult));
                 }
             }
             catch (Exception e)
