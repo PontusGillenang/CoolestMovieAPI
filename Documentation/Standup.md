@@ -342,4 +342,84 @@
   * MOV-174 - Post Method for DirectorsController
   * MOV-175 - Delete Method for DirectorsController
 
+
+### Secretary notes...
+
+
+
+## Standup - 2020-05-25
+
+* Secretary - Fredrik
+
+We welcome the new members to our project! And will spend the first couple of hours walking them through the project
+and talking about what to do next. We will also create a new sprint for this with things such as:
+
+  * Migrate database to gearhost
+  * Implement HATEOAS
+  * Continue to fully implement HATEOAS for all our controllers and repositories
+  * Work with Unit Testing
+
+
+
+* Each person
+
+
+  **Albin** 
+
+  What have I done since last standup? 
+
+  * Review Pull Requests and Merge them, resolve conflict errors
+  
+  
+  **Pontus** 
+
+  What have I done since last standup? 
+
+  * Review Pull Requests and Merge them, resolve conflict errors
+  * MOV-173 - Put Method for DirectorsController
+  * MOV-174 - Post Method for DirectorsController
+  * MOV-175 - Delete Method for DirectorsController
+
+
+
+  **Fredrik**
+
+  What have I done since last standup? 
+
+  * Review Pull Requests and Merge them, resolve conflict errors
+  * MOV-115 - Post Method for MovieController
+  * MOV-117 - Put Method for MovieController
+
+  What will I do next?
+
+
+  **Anton** 
+
+  What have I done since last standup? 
+  
+  * Review Pull Requests and Merge them, resolve conflict errors
+  * Update ActorController and ActorRepository for DTOs and AutoMapper
+  * Post Method for ActorController
+  * Put Method for ActorController
+  * Delete Method for ActorController
+
+  What will I do next?
+
+
+
+  **MurreCigarr** 
+  
+  
+  What will I do next?
+  
+  * Welcome to the group!
+  
+  **Micael** 
+  
+
+  What will I do next?
+  
+  * Welcome to the group!
+  
+
 ### Secretary notes...
