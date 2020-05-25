@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MammalAPI.HATEOAS
+namespace CoolestMovieAPI.HATEOAS
 {
     public class Link
     {        
