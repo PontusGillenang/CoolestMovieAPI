@@ -67,27 +67,6 @@ namespace CoolestMovieAPI.Services
             _logger.LogInformation($"Getting actors by movie: {movieTitle}");
 
 
-            //var query = await _movieContext.Actors
-            //.Join(_movieContext.MovieActors,
-            //a => a.ActorID,
-            //ma => ma.Actor.ActorID,
-            //(a, ma) => new { a, ma })
-            //.Join(_movieContext.Movies,
-            //ama => ama.ma.Movie.MovieID,
-            //m => m.MovieID,
-            //(ama, m) => new { ama, m })
-            //.Where(x => x.m.MovieTitle == movieTitle)
-            //.Select(x => new ActorDTO
-            //{
-            //    ActorId = x.ama.a.ActorID,
-            //    ActorName = x.ama.a.ActorName,
-            //    ActorBirthDate = x.ama.a.ActorBirthDate,
-            //    Role = x.ama.ma.Role,
-            //})
-            //.ToListAsync();
-
-            //return query;
-
             var query =
             from a in _movieContext.Actors
             join ma in _movieContext.MovieActors on a.ActorID equals ma.Actor.ActorID
@@ -101,13 +80,8 @@ namespace CoolestMovieAPI.Services
                 ActorCountry = a.ActorCountry,
                 Role = ma.Role
             };
-            
 
             return await query.ToListAsync();
-
-
-
-
         }
     }
 }
