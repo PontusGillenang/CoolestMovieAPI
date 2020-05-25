@@ -44,19 +44,17 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetById(int id)
+        public async Task<ActionResult<TrailerDTO>> GetById(int id)
         {
             try
             {
-                Trailer results = await _trailerRepository.GetTrailerById(id);
+                var result = await _trailerRepository.GetTrailerById(id);
+                var mappedResult = _mapper.Map<TrailerDTO>(result);
 
-                if (results != null)
-                    return Ok(results);
+                if (mappedResult == null) return NotFound();
 
-                else
-                    return NotFound();
+                return Ok(mappedResult);
             }
-
             catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
