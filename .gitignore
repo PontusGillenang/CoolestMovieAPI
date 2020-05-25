@@ -355,6 +355,7 @@ CoolestMovieAPI/CoolestMovieAPI/config.json
 **/appsettings.development.json
 **/appsettings.staging.json
 **/appsettings.production.json
+**/config.json
 
 Properties/
 .vscode/launch.json
