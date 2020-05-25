@@ -62,17 +62,16 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpGet("searchtitle")]
-        public async Task<ActionResult<IList<Trailer>>> GetTrailerByTitle([FromQuery] string name)
+        public async Task<ActionResult<IList<TrailerDTO>>> GetTrailerByTitle([FromQuery] string name)
         {
             try
             {
-                IList<Trailer> results = await _trailerRepository.GetTrailerByTitle(name);
+                var results = await _trailerRepository.GetTrailerByTitle(name);
+                var mappedResults = _mapper.Map<IList<TrailerDTO>>(results);
 
-                if (results.IsNullOrEmpty())
-                    return NotFound();
+                if (mappedResults.IsNullOrEmpty()) return NotFound();
 
-                else
-                    return Ok(results);
+                return Ok(mappedResults);
             }
             catch (Exception e)
             {
