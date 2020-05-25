@@ -392,6 +392,8 @@ and talking about what to do next. We will also create a new sprint for this wit
 
   What will I do next?
 
+  * MOV-190 - Post Method for MovieDirectors
+  * MOV-196 - HATEOAS for DirectorController
 
   **Anton** 
 
@@ -405,21 +407,38 @@ and talking about what to do next. We will also create a new sprint for this wit
 
   What will I do next?
 
-
+  * MOV-192 - GetActorsByMovie
+  * MOV-193 - Delete Method in ActorController
+  * MOV-195 - HATEOAS for ActorController
 
   **MurreCigarr** 
   
   
-  What will I do next?
+  What have I done since last standup? 
   
   * Welcome to the group!
+
+  What will I do next?
+
+  * MOV-197 - Rewrite TrailerController
+  * MOV-198 - HATEOAS for TrailerController
+
   
   **Micael** 
   
 
-  What will I do next?
+  What have I done since last standup? 
   
   * Welcome to the group!
+
+  What will I do next?
+
+
+  * MOV-184 - Walkthrough HATEOAS code to teammembers
+  * MOV-194 - Create HATEOAS link proposal
+  * MOV-199 - HATEOAS for MovieController
+  * MOV-183 - Implement HATEOAS proof of concept
+  
   
 
 ### Secretary notes...
