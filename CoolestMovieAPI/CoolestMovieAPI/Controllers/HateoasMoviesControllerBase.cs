@@ -35,11 +35,11 @@ namespace CoolestMovieAPI.Controllers
         /// </summary>
         /// <param name="movie"></param>
         /// <returns></returns>
-        internal MovieDTO HateoasMainLinks(MovieDTO movie)
+        internal MovieDTO HateoasGetAllMethodLinks(MovieDTO movie)
         {
             MovieDTO movieDto = movie;
 
-            movieDto.Links.Add(UrlLink("all", "GetAll", null));
+            //movieDto.Links.Add(UrlLink("all", "GetAll", null));
             movieDto.Links.Add(UrlLink("_self", "GetIdAsync", new { id = movieDto.MovieID }));
 
             return movieDto;
@@ -53,13 +53,14 @@ namespace CoolestMovieAPI.Controllers
         /// </summary>
         /// <param name="movie"></param>
         /// <returns></returns>
-        internal MovieDTO HateoasSideLinks(MovieDTO movie)
+        internal MovieDTO HateoasGetSingleMethodLinks(MovieDTO movie)
         {
             MovieDTO movieDto = movie;
 
-            throw new System.NotImplementedException();
-
-            //return movieDto;
+            movieDto.Links.Add(UrlLink("all", "GetAll", null));
+            movieDto.Links.Add(UrlLink("_self", "GetIdAsync", new { id = movieDto.MovieID }));
+      
+            return movieDto;
         }
     }
 }
