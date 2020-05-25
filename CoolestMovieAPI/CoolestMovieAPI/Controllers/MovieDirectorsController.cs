@@ -52,18 +52,29 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<ActionResult<MovieDirectorDTO>> PostMovieDirector(MovieDirectorDTO movieDirectorDTO)
+        [HttpPost]
+        public async Task<ActionResult<MovieDirectorDTO>> PostMovieDirector(int movieId, int directorId)
         {
             try
             {
-                var mappedEntity = _mapper.Map<MovieDirector>(movieDirectorDTO);
+                var movie = await _movieDirectorsRepository.GetMovieById(movieId);
+                var director = await _movieDirectorsRepository.GetDirectorById(directorId);
+                
+                if (movie == null)
+                {
+                    return BadRequest($"Unable to find movie with Id: {movieId}");
+                }
+                else if (director == null)
+                    return BadRequest($"Unable to find director with Id: {directorId}");
 
-                _movieDirectorsRepository.Add(mappedEntity);
+
+                var movieDirector = new MovieDirector { Movie = movie, Director = director };
+
+                _movieDirectorsRepository.Add(movieDirector);
 
                 if(await _movieDirectorsRepository.Save())
                 {
-                    return Created($"/api/v1.0/MovieDirectors/{mappedEntity.MovieDirectorID}", _mapper.Map<MovieDirectorDTO>(mappedEntity));
+                    return Created($"/api/v1.0/MovieDirectors/{movieDirector.MovieDirectorID}", _mapper.Map<MovieDirectorDTO>(movieDirector));
                 }
             }
             catch(Exception e)
