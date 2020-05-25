@@ -40,7 +40,7 @@ namespace CoolestMovieAPI.Controllers
             MovieDTO movieDto = movie;
 
             movieDto.Links.Add(UrlLink("all", "GetAll", null));
-            movieDto.Links.Add(UrlLink("_self", "GetMammalAsync", new { id = movieDto.MovieID }));
+            movieDto.Links.Add(UrlLink("_self", "GetIdAsync", new { id = movieDto.MovieID }));
 
             return movieDto;
         }

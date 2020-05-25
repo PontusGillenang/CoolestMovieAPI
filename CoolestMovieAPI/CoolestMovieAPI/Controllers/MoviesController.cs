@@ -32,7 +32,7 @@ namespace CoolestMovieAPI.Controllers
         }
        
 
-        [HttpGet]
+        [HttpGet(Name = "GetAll")]
         public async Task<ActionResult<IList<MovieDTO>>> GetAll()
         {
             try
@@ -57,7 +57,7 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetIdAsync")]
         public async Task<ActionResult<MovieDTO>> GetById(int id)
         {
             try
