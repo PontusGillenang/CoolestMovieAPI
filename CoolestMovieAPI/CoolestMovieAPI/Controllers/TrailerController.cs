@@ -99,5 +99,30 @@ namespace CoolestMovieAPI.Controllers
 
             return BadRequest();
         }
+
+        [HttpPut("{trailerId}")]
+        public async Task<ActionResult> UpdateTrailer(int trailerId, TrailerDTO trailerDto)
+        {
+            try
+            {
+                var oldTrailer = await _trailerRepository.GetTrailerById(trailerId);
+
+                if (oldTrailer == null)
+                {
+                    return NotFound("$Could not find trailer");
+                }
+
+                var newTrailer = _mapper.Map(trailerDto, oldTrailer);
+                _trailerRepository.Update(newTrailer);
+
+                if (await _trailerRepository.Save()) return NoContent();
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {e.Message}");
+            }
+
+            return BadRequest();
+        }
     }
 }
