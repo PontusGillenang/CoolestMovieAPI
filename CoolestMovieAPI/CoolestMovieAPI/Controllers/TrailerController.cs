@@ -2,14 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-
-using CoolestMovieAPI.Models; // New
-using CoolestMovieAPI.MovieDbContext;// New
+using CoolestMovieAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Castle.Core.Internal;
+using AutoMapper;
+using CoolestTrailerAPI.DTO;
 
 namespace CoolestMovieAPI.Controllers
 {
@@ -17,108 +15,62 @@ namespace CoolestMovieAPI.Controllers
     [ApiController]
     public class TrailersController : ControllerBase
     {
-        private readonly ITrailerRepository _trailerRepository;  // singleton used to acces member functions.
+        private readonly ITrailerRepository _trailerRepository;
+        private readonly IMapper _mapper;
 
-        public TrailersController(MovieContext context)
+        public TrailersController(ITrailerRepository trailerRepository, IMapper mapper)
         {
-            _trailerRepository = new TrailerRepository(context);
+            _trailerRepository = trailerRepository;
+            _mapper = mapper;
         }
 
-
-
-        #region Dummy
-        //  //-----------------------------------------------------------------------------
-        //  // DUMMY
-        //  //-----------------------------------------------------------------------------			
-        //  [HttpGet("DUMMY={title}")]
-        //  public Task<Trailer> GetByTitle(int DUMMY)
-        //  {
-        //      return _trailerRepository.GetByTitle(DUMMY);
-        //  }
-        #endregion
-
-        #region old
-        ////-----------------------------------------------------------------------------
-        ////  getAllTrailers
-        ////-----------------------------------------------------------------------------	
-        //[HttpGet]                           // ASP will ctrl F for "get" inf function name, if it dosent contain that [HttpGet] points it in the right direction
-        //public Task<IList<Trailer>> GetAll()
-        //{
-        //    return _trailerRepository.GetAllTrailers();
-        //}
-        #endregion
-
-
-
-        //-----------------------------------------------------------------------------
-        //  getAllTrailers
-        //-----------------------------------------------------------------------------	
         [HttpGet]
-        public async Task<ActionResult<IList<Trailer>>> GetAll([FromQuery]string /*sName*/ name)
+        public async Task<ActionResult<IList<TrailerDTO>>> GetAll()
         {
             try
             {
-                IList<Trailer> results = await _trailerRepository.GetAllTrailers();
+                var results = await _trailerRepository.GetAllTrailers();
+                var mappedResults = _mapper.Map<IList<TrailerDTO>>(results);
 
-                if (results.IsNullOrEmpty())
-                    return NotFound();
+                if (mappedResults.IsNullOrEmpty()) return NotFound();
 
-                else
-                    return Ok(results);
+                return Ok(mappedResults);
             }
-
             catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
-
         }
 
-
-
-        //-----------------------------------------------------------------------------
-        //  GetTrailerById
-        //-----------------------------------------------------------------------------	
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetById(int id)
+        public async Task<ActionResult<TrailerDTO>> GetById(int id)
         {
             try
             {
-                Trailer results = await _trailerRepository.GetTrailerById(id);
+                var result = await _trailerRepository.GetTrailerById(id);
+                var mappedResult = _mapper.Map<TrailerDTO>(result);
 
-                if (results != null)
-                    return Ok(results);
+                if (mappedResult == null) return NotFound();
 
-                else
-                    return NotFound();
+                return Ok(mappedResult);
             }
-
             catch (Exception e)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
-
-
-            //return _trailerRepository.GetTrailerById(id);
         }
-        
 
-      
-        //-----------------------------------------------------------------------------
-        //  GetTrailerByTitle
-        //-----------------------------------------------------------------------------	
         [HttpGet("searchtitle")]
-        public async Task<ActionResult<IList<Trailer>>> GetTrailerByTitle([FromQuery]string /*sName*/ name)
+        public async Task<ActionResult<IList<TrailerDTO>>> GetTrailerByTitle([FromQuery] string name)
         {
             try
             {
-                IList<Trailer> results = await _trailerRepository.GetTrailerByTitle(name);
+                var results = await _trailerRepository.GetTrailerByTitle(name);
+                var mappedResults = _mapper.Map<IList<TrailerDTO>>(results);
 
-                if (results.IsNullOrEmpty())
-                    return NotFound();
+                if (mappedResults.IsNullOrEmpty()) return NotFound();
 
-                else
-                    return Ok(results);
+                return Ok(mappedResults);
             }
             catch (Exception e)
             {
@@ -127,25 +79,71 @@ namespace CoolestMovieAPI.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<ActionResult<TrailerDTO>> PostActor(TrailerDTO trailerDto)
+        {
+            try
+            {
+                var mappedEntity = _mapper.Map<Trailer>(trailerDto);
 
-        #region Disabled
-        ////-----------------------------------------------------------------------------
-        ////  GetAllTrailersFor
-        ////-----------------------------------------------------------------------------	
-        //[HttpGet("title={sTitle}")]
-        //public Task<IList<Trailer>> GetAllTrailersFor(string sTitle)
-        //{
-        //    return _trailerRepository.GetAllTrailersFor(sTitle);
-        //}
+                _trailerRepository.Add(mappedEntity);
+                if (await _trailerRepository.Save())
+                {
+                    return Created($"/api/v1.0/actors/{mappedEntity.TrailerID}", _mapper.Map<TrailerDTO>(mappedEntity));
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {e.Message}");
+            }
 
-        ////-----------------------------------------------------------------------------
-        //// GetTrailersForMovieAndActor
-        ////-----------------------------------------------------------------------------	
-        //[HttpGet("sTitle={title}")]
-        //public Task<Trailer> GetTrailersForMovieAndActor(string sMovieTitle, string sActor)
-        //{
-        //    return _trailerRepository.GetTrailersForMovieAndActor(sMovieTitle, sActor); // WiP
-        //}
-        #endregion
+            return BadRequest();
+        }
+
+        [HttpPut("{trailerId}")]
+        public async Task<ActionResult> UpdateTrailer(int trailerId, TrailerDTO trailerDto)
+        {
+            try
+            {
+                var oldTrailer = await _trailerRepository.GetTrailerById(trailerId);
+
+                if (oldTrailer == null)
+                {
+                    return NotFound("$Could not find trailer");
+                }
+
+                var newTrailer = _mapper.Map(trailerDto, oldTrailer);
+                _trailerRepository.Update(newTrailer);
+
+                if (await _trailerRepository.Save()) return NoContent();
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {e.Message}");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("{trailerId}")]
+        public async Task<ActionResult> DeleteTrailer(int trailerId)
+        {
+            try
+            {
+                var oldTrailer = await _trailerRepository.GetTrailerById(trailerId);
+
+                if (oldTrailer == null) return NotFound($"Could not find trailer with id {trailerId}");
+
+                _trailerRepository.Delete(oldTrailer);
+
+                if (await _trailerRepository.Save()) return NoContent();
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database Failure: {e.Message}");
+            }
+            
+            return BadRequest();
+        }
     }
 }
