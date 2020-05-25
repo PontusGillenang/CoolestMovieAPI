@@ -39,7 +39,6 @@ namespace CoolestMovieAPI.Controllers
         {
             MovieDTO movieDto = movie;
 
-            //movieDto.Links.Add(UrlLink("all", "GetAll", null));
             movieDto.Links.Add(UrlLink("_self", "GetIdAsync", new { id = movieDto.MovieID }));
 
             return movieDto;
@@ -59,7 +58,8 @@ namespace CoolestMovieAPI.Controllers
 
             movieDto.Links.Add(UrlLink("all", "GetAll", null));
             movieDto.Links.Add(UrlLink("_self", "GetIdAsync", new { id = movieDto.MovieID }));
-      
+            //movieDto.Links.Add(UrlLink("_updateSelf", "UpdateItem", new { id = movieDto.MovieID }));
+            //movieDto.Links.Add(UrlLink("_deleteSelf", "DeleteItem", new { id = movieDto.MovieID }));
             return movieDto;
         }
     }

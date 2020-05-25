@@ -71,7 +71,7 @@ namespace CoolestMovieAPI.Controllers
                 }
                 else
                 {
-                    return Ok(HateoasGetAllMethodLinks(mappedResult));
+                    return Ok(HateoasGetSingleMethodLinks(mappedResult));
                 }
             }
             catch (Exception e)
@@ -425,7 +425,7 @@ namespace CoolestMovieAPI.Controllers
             }
         }
         
-        [HttpPost]
+        [HttpPost(Name = "CreateItem")]
         public async Task<ActionResult<MovieDTO>> PostMovie(MovieDTO movieDTO)
         {
             try
@@ -445,7 +445,7 @@ namespace CoolestMovieAPI.Controllers
             return BadRequest();
         }
 
-        [HttpPut("{movieId}")]
+        [HttpPut("{movieId}", Name = "UpdateItem")]
         public async Task<ActionResult> PutMovie(int movieId, MovieDTO movieDTO)
         {
             try
@@ -471,7 +471,7 @@ namespace CoolestMovieAPI.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("{movieId}")]
+        [HttpDelete("{movieId}", Name = "DeleteItem")]
         public async Task<ActionResult> DeleteMovie(int movieId)
         {
             try
