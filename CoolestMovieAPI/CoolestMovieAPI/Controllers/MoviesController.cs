@@ -38,7 +38,6 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var results = await _movieRepository.GetAllMovies();
-                //var mappedResults = _mapper.Map<IList<MovieDTO>>(results);
                 IEnumerable<MovieDTO> mappedResults = _mapper.Map<IList<MovieDTO>>(results);
                 IEnumerable<MovieDTO> hateoasResults = mappedResults.Select(m => HateoasGetAllMethodLinks(m));
 
@@ -155,7 +154,9 @@ namespace CoolestMovieAPI.Controllers
             try
             {
                 var results = await _movieRepository.GetMoviesByYear(year);
-                var mappedResults = _mapper.Map<IList<MovieDTO>>(results);
+                //var mappedResults = _mapper.Map<IList<MovieDTO>>(results);
+                IEnumerable<MovieDTO> mappedResults = _mapper.Map<IList<MovieDTO>>(results);
+                IEnumerable<MovieDTO> hateoasResults = mappedResults.Select(m => HateoasGetAllMethodLinks(m));
 
                 if (mappedResults.IsNullOrEmpty())
                 {
@@ -163,7 +164,7 @@ namespace CoolestMovieAPI.Controllers
                 }
                 else
                 {
-                    return Ok(mappedResults);
+                    return Ok(hateoasResults);
                 }
             }
             catch (Exception e)

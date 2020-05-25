@@ -26,6 +26,7 @@ namespace CoolestMovieAPI.Controllers
             var method = route.ActionConstraints.OfType<HttpMethodActionConstraint>().First().HttpMethods.First();
             var url = Url.Link(routeName, values).ToLower();
             return new Link(url, relation, method);
+            
         }
 
         /// <summary>
@@ -58,7 +59,8 @@ namespace CoolestMovieAPI.Controllers
 
             movieDto.Links.Add(UrlLink("all", "GetAll", null));
             movieDto.Links.Add(UrlLink("_self", "GetIdAsync", new { id = movieDto.MovieID }));
-            movieDto.Links.Add(UrlLink("_update", "UpdateItem", new { id = movieDto.MovieID }));
+            //movieDto.Links.Add(UrlLink("_update", "UpdateItem", new { id = movieDto.MovieID }));
+            movieDto.Links.Add(UrlLink("update", "UpdateItem", 1));
             //movieDto.Links.Add(UrlLink("_delete", "DeleteItem", new { id = movieDto.MovieID }));
             return movieDto;
         }
