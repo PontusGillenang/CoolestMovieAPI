@@ -24,8 +24,8 @@ namespace CoolestMovieAPI.Controllers
         private readonly IActorRepository _actorRepository;
         private readonly IMapper _mapper;
         public ActorsController(
-            IActorRepository actorRepository, 
-            IMapper mapper, 
+            IActorRepository actorRepository,
+            IMapper mapper,
             IActionDescriptorCollectionProvider actionDescriptorCollectionProvider) : base(actionDescriptorCollectionProvider)
         {
             _actorRepository = actorRepository;
@@ -40,14 +40,8 @@ namespace CoolestMovieAPI.Controllers
                 var result = await _actorRepository.GetAllActors();
                 var mappedResults = _mapper.Map<IList<ActorDTO>>(result).Select(a => HateoasMainLinks(a));
 
-                if (result.Count == 0)
-                {
-                    return NotFound(result);
-                }
-                else
-                {
-                    return Ok(mappedResults);
-                }
+                if (result.Count == 0) return NotFound(result);
+                return Ok(mappedResults);
             }
 
             catch (Exception e)
@@ -63,12 +57,10 @@ namespace CoolestMovieAPI.Controllers
             {
                 var result = await _actorRepository.GetActorsById(id);
 
-                if (result == null)
-                {
-                    return NotFound();
-                }
+                if (result == null) return NotFound();
 
                 var mappedResults = _mapper.Map<ActorDTO>(result);
+
                 return Ok(HateoasMainLinks(mappedResults));
             }
 
@@ -85,14 +77,10 @@ namespace CoolestMovieAPI.Controllers
             {
                 var result = await _actorRepository.GetActorsByName(name);
                 var mappedResults = _mapper.Map<IList<ActorDTO>>(result).Select(a => HateoasMainLinks(a));
-                if (result.Count == 0)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(mappedResults);
-                }
+
+                if (result.Count == 0) return NotFound();
+                return Ok(mappedResults);
+
             }
             catch (Exception e)
             {
@@ -107,14 +95,10 @@ namespace CoolestMovieAPI.Controllers
             {
                 var result = await _actorRepository.GetActorsByCountry(country);
                 var mappedResults = _mapper.Map<IList<ActorDTO>>(result).Select(a => HateoasMainLinks(a));
-                if (result.Count == 0)
-                {
-                    return NotFound(result);
-                }
-                else
-                {
-                    return Ok(mappedResults);
-                }
+
+                if (result.Count == 0) return NotFound(result);
+                return Ok(mappedResults);
+
             }
             catch (Exception e)
             {
@@ -130,14 +114,10 @@ namespace CoolestMovieAPI.Controllers
             {
                 var result = await _actorRepository.GetActorsByMovie(movie);
                 var mappedResults = _mapper.Map<IList<ActorDTO>>(result).Select(a => HateoasMainLinks(a));
-                if (result.Count == 0)
-                {
-                    return NotFound(result);
-                }
-                else
-                {
-                    return Ok(mappedResults);
-                }
+
+                if (result.Count == 0) return NotFound(result);
+                return Ok(mappedResults);
+
             }
             catch (Exception e)
             {
@@ -169,7 +149,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpPut("{actorId}")]
-        public async Task<ActionResult> PutActor (int actorId, ActorDTO actorDto)
+        public async Task<ActionResult> PutActor(int actorId, ActorDTO actorDto)
         {
             try
             {
@@ -195,7 +175,7 @@ namespace CoolestMovieAPI.Controllers
 
             return BadRequest();
         }
-        
+
 
     }
 }
