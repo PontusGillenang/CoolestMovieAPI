@@ -26,7 +26,7 @@ namespace CoolestMovieAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetAllTrailers")]
         public async Task<ActionResult<IList<TrailerDTO>>> GetAll()
         {
             try
@@ -45,7 +45,7 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetTrailerByIdAsync")]
         public async Task<ActionResult<TrailerDTO>> GetById(int id)
         {
             try

@@ -30,8 +30,8 @@ namespace CoolestMovieAPI.Controllers
         {
             TrailerDTO trailerDto = trailer;
 
-            trailerDto.Links.Add(UrlLink("all", "GetAll", null));
-            trailerDto.Links.Add(UrlLink("_self", "GetIdAsync", new { id = trailerDto.MovieID }));
+            trailerDto.Links.Add(UrlLink("all", "GetAllTrailers", null));
+            trailerDto.Links.Add(UrlLink("_self", "GetTrailerByIdAsync", new { id = trailerDto.MovieID }));
 
             return trailerDto;
         }
