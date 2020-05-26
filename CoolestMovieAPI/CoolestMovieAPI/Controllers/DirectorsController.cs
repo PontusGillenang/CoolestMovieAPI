@@ -6,6 +6,7 @@ using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -16,24 +17,25 @@ namespace CoolestMovieAPI.Controllers
 {
     [Route("api/v1.0/[controller]")]
     [ApiController]
-    public class DirectorsController : ControllerBase
+    public class DirectorsController : HateoasDirectorsControllerBase
     {
         private readonly IDirectorRepository _directorRepository;
         private readonly IMapper _mapper;
 
-        public DirectorsController(IDirectorRepository directorRepository, IMapper mapper)
+        public DirectorsController(IDirectorRepository directorRepository, IMapper mapper, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider) : base(actionDescriptorCollectionProvider)
         {
             _directorRepository = directorRepository;
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetAllDirectors")]
         public async Task<ActionResult<IList<DirectorDTO>>> GetAll()
         {
             try
             {
                 var results = await _directorRepository.GetAllDirectors();
-                var mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
+                IEnumerable<DirectorDTO> mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
+                IEnumerable<DirectorDTO> hateoasResults = mappedResults.Select(m => HateoasMainLinks(m));
 
                 if (mappedResults.IsNullOrEmpty())
                 {
@@ -41,7 +43,7 @@ namespace CoolestMovieAPI.Controllers
                 }
                 else
                 {
-                    return Ok(mappedResults);
+                    return Ok(hateoasResults);
                 }
             }
             catch (Exception exception)
@@ -50,7 +52,7 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetDirectorIdAsync")]
         public async Task<ActionResult<DirectorDTO>> GetById(int id)
         {
             try
@@ -64,7 +66,7 @@ namespace CoolestMovieAPI.Controllers
                 }
                 else
                 {
-                    return Ok(mappedResult);
+                    return Ok(HateoasMainLinks(mappedResult));
                 }
             }
             catch (Exception exception)
@@ -73,21 +75,23 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("searchname")]
+        [HttpGet("searchname", Name = "GetDirectorByName")]
         public async Task<ActionResult<IList<DirectorDTO>>> GetByName([FromQuery] string name)
         {
             try
             {
                 var results = await _directorRepository.GetDirectorsByName(name);
-                var mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
 
+                IEnumerable<DirectorDTO> mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
+                IEnumerable<DirectorDTO> hateoasResults = mappedResults.Select(m => HateoasMainLinks(m));
+                
                 if (mappedResults.IsNullOrEmpty())
                 {
                     return NotFound();
                 }
                 else
                 {
-                    return Ok(mappedResults);
+                    return Ok(hateoasResults);
                 }
             }
             catch (Exception exception)
@@ -96,13 +100,15 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("searchcountry")]
+        [HttpGet("searchcountry", Name = "GetDirectorByCountry")]
         public async Task<ActionResult<IList<DirectorDTO>>> GetByCountry([FromQuery] string country)
         {
             try
             {
                 var results = await _directorRepository.GetDirectorsByCountry(country);
-                var mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
+
+                IEnumerable<DirectorDTO> mappedResults = _mapper.Map<IList<DirectorDTO>>(results);
+                IEnumerable<DirectorDTO> hateoasResults = mappedResults.Select(m => HateoasMainLinks(m));
 
                 if (mappedResults.IsNullOrEmpty())
                 {
@@ -110,7 +116,7 @@ namespace CoolestMovieAPI.Controllers
                 }
                 else
                 {
-                    return Ok(mappedResults);
+                    return Ok(hateoasResults);
                 }
             }
             catch (Exception exception)
