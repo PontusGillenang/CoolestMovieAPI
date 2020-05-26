@@ -13,8 +13,6 @@ namespace CoolestMovieAPI.Services
 {
     public class ActorRepository : BaseRepository, IActorRepository
     {
-
-
         public ActorRepository(MovieContext movieContext, ILogger<ActorRepository> logger) : base(movieContext, logger)
         {
         }
@@ -59,8 +57,6 @@ namespace CoolestMovieAPI.Services
                 .ToListAsync();
             return query;
         }
-
-
 
         public async Task<IList<ActorDTO>> GetActorsByMovie(string movieTitle)
         {
