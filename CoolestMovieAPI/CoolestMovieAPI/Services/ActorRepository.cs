@@ -1,4 +1,5 @@
-﻿using CoolestMovieAPI.Models;
+﻿using CoolestMovieAPI.DTO;
+using CoolestMovieAPI.Models;
 using CoolestMovieAPI.MovieDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +39,7 @@ namespace CoolestMovieAPI.Services
 
         public async Task<IList<Actor>> GetActorsByName(string name)
         {
-            
+
             _logger.LogInformation($"Getting all actors named {name}");
 
             var query = await _movieContext.Actors
@@ -58,6 +59,29 @@ namespace CoolestMovieAPI.Services
                 .ToListAsync();
             return query;
         }
-        
+
+
+
+        public async Task<IList<ActorDTO>> GetActorsByMovie(string movieTitle)
+        {
+            _logger.LogInformation($"Getting actors by movie: {movieTitle}");
+
+
+            var query =
+            from a in _movieContext.Actors
+            join ma in _movieContext.MovieActors on a.ActorID equals ma.Actor.ActorID
+            join m in _movieContext.Movies on ma.Movie.MovieID equals m.MovieID
+            where m.MovieTitle == movieTitle
+            select new ActorDTO
+            {
+                ActorId = a.ActorID,
+                ActorName = a.ActorName,
+                ActorBirthDate = a.ActorBirthDate,
+                ActorCountry = a.ActorCountry,
+                Role = ma.Role
+            };
+
+            return await query.ToListAsync();
+        }
     }
 }
