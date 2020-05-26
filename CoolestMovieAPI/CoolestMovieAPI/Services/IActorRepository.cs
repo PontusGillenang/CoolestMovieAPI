@@ -1,4 +1,5 @@
-﻿using CoolestMovieAPI.Models;
+﻿using CoolestMovieAPI.DTO;
+using CoolestMovieAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace CoolestMovieAPI.Services
         Task<IList<Actor>> GetActorsByName(string name);
 
         Task<IList<Actor>> GetActorsByCountry(string country);
- 
+        Task<IList<ActorDTO>> GetActorsByMovie(string movieTitle);
     }
 }

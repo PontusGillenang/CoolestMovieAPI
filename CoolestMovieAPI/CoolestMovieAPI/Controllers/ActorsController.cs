@@ -126,6 +126,31 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
+        [HttpGet("searchmovie")]
+        public async Task<ActionResult<IList<ActorDTO>>> GetByMovie([FromQuery]string movie)
+        {
+            try
+            {
+                var result = await _actorRepository.GetActorsByMovie(movie);
+                var mappedResults = _mapper.Map<IList<ActorDTO>>(result);
+                if (result.Count == 0)
+                {
+                    return NotFound(result);
+                }
+                else
+                {
+                    return Ok(mappedResults);
+                }
+            }
+            catch (Exception e)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
+            }
+        }
+
+
+
         [HttpPost]
         public async Task<ActionResult<ActorDTO>> PostActor(ActorDTO actorDto)
         {
