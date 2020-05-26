@@ -230,7 +230,6 @@ bla/api/v1.0/
 
 /movies?genre=<genre>,<genre>,<genre>
 
-
 /movies?trailer=true
 
 **Actors:**
@@ -264,6 +263,13 @@ bla/api/v1.0/
 /trailers?movieID=<(ID)>
 
 /trailers?movieID=<(ID)>&actorID=<(actorID)>
+
+
+**MovieDirectors**
+
+/api/v1.0/moviedirectors?movieId=10&directorId=4
+
+This will add a director with ID=4 to the movie with ID=10
 
 
 

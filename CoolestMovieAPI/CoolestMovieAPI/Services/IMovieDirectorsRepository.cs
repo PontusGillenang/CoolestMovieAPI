@@ -7,5 +7,7 @@ namespace CoolestMovieAPI.Services
     public interface IMovieDirectorsRepository : IBaseRepository
     {
         Task<IList<MovieDirector>> GetAllMovieDirectors();
+        Task<Movie> GetMovieById(int id);
+        Task<Director> GetDirectorById(int id);
     }
 }
