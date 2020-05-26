@@ -35,13 +35,5 @@ namespace CoolestMovieAPI.Controllers
 
             return director;
         }
-
-        internal DirectorDTO HateoasSideLinks(DirectorDTO director)
-        {
-
-            throw new System.NotImplementedException();
-
-            //return director;
-        }
     }
 }
