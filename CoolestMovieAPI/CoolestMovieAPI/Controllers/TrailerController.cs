@@ -55,7 +55,7 @@ namespace CoolestMovieAPI.Controllers
 
                 if (mappedResult == null) return NotFound();
 
-                return Ok(mappedResult);
+                return Ok(HateoasMainLinks(mappedResult));
             }
             catch (Exception e)
             {
