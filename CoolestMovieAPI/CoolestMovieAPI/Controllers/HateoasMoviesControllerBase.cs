@@ -25,8 +25,16 @@ namespace CoolestMovieAPI.Controllers
             var route = _routes.FirstOrDefault(f => f.AttributeRouteInfo.Name == routeName);
             var method = route.ActionConstraints.OfType<HttpMethodActionConstraint>().First().HttpMethods.First();
             var url = Url.Link(routeName, values).ToLower();
+            return new Link(url, relation, method);            
+        }
+
+        internal Link UrlLinkCrud(string relation, string routeName, string crudRouteName, object values)
+        {
+            var route = _routes.FirstOrDefault(f => f.AttributeRouteInfo.Name == routeName);
+            var crudRoute = _routes.FirstOrDefault(f => f.AttributeRouteInfo.Name == crudRouteName);
+            var method = crudRoute.ActionConstraints.OfType<HttpMethodActionConstraint>().First().HttpMethods.First();
+            var url = Url.Link(routeName, values).ToLower();
             return new Link(url, relation, method);
-            
         }
 
         /// <summary>
@@ -59,8 +67,8 @@ namespace CoolestMovieAPI.Controllers
 
             movieDto.Links.Add(UrlLink("all", "GetAll", null));
             movieDto.Links.Add(UrlLink("_self", "GetIdAsync", new { id = movieDto.MovieID }));
-            //movieDto.Links.Add(UrlLink("_update", "UpdateItem", new { id = movieDto.MovieID }));
-            //movieDto.Links.Add(UrlLink("_delete", "DeleteItem", new { id = movieDto.MovieID }));
+            movieDto.Links.Add(UrlLinkCrud("_update", "GetIdAsync", "UpdateItem", new { id = movieDto.MovieID }));
+            movieDto.Links.Add(UrlLinkCrud("_delete", "GetIdAsync", "DeleteItem", new { id = movieDto.MovieID }));
             return movieDto;
         }
     }

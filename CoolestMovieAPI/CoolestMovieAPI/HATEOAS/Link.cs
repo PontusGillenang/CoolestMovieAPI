@@ -8,7 +8,9 @@ namespace CoolestMovieAPI.HATEOAS
     {        
         public string Href { get; private set; }
         public string Rel { get; private set; }
+        //public string OverrideRel { get; private set; }
         public string Type { get; private set; }
+
 
         public Link(string href, string rel, string type)
         {
