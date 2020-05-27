@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using CoolestMovieAPI.HATEOAS;
 
 namespace CoolestMovieAPI.DTO
 {
-    public class ActorDTO
+    public class ActorDTO : HateoasLinkBase
     {
         [Required]
         public int ActorId { get; set; }

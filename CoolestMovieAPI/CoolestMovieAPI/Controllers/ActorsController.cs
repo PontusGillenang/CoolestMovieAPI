@@ -5,6 +5,7 @@ using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
@@ -18,32 +19,29 @@ namespace CoolestMovieAPI.Controllers
 {
     [Route("api/v1.0/[controller]")]
     [ApiController]
-    public class ActorsController : ControllerBase
+    public class ActorsController : HateoasActorControllerBase
     {
         private readonly IActorRepository _actorRepository;
         private readonly IMapper _mapper;
-        public ActorsController(IActorRepository actorRepository, IMapper mapper)
+        public ActorsController(
+            IActorRepository actorRepository,
+            IMapper mapper,
+            IActionDescriptorCollectionProvider actionDescriptorCollectionProvider) : base(actionDescriptorCollectionProvider)
         {
             _actorRepository = actorRepository;
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetAllActors")]
         public async Task<ActionResult<IList<ActorDTO>>> GetAllActors()
         {
             try
             {
                 var result = await _actorRepository.GetAllActors();
-                var mappedResults = _mapper.Map<IList<ActorDTO>>(result);
+                var mappedResults = _mapper.Map<IList<ActorDTO>>(result).Select(a => HateoasMainLinks(a));
 
-                if (result.Count == 0)
-                {
-                    return NotFound(result);
-                }
-                else
-                {
-                    return Ok(mappedResults);
-                }
+                if (result.Count == 0) return NotFound(result);
+                return Ok(mappedResults);
             }
 
             catch (Exception e)
@@ -52,23 +50,18 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-
-
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetActorById")]
         public async Task<ActionResult<ActorDTO>> GetActorById(int id)
         {
             try
             {
                 var result = await _actorRepository.GetActorsById(id);
-                if (result == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    var mappedResults = _mapper.Map<ActorDTO>(result);
-                    return Ok(mappedResults);
-                }
+
+                if (result == null) return NotFound();
+
+                var mappedResults = _mapper.Map<ActorDTO>(result);
+
+                return Ok(HateoasMainLinks(mappedResults));
             }
 
             catch (Exception e)
@@ -77,22 +70,17 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-
-        [HttpGet("searchname")]
+        [HttpGet("search", Name = "GetActorByName")]
         public async Task<ActionResult<IList<ActorDTO>>> GetActorsByName([FromQuery]string name)
         {
             try
             {
                 var result = await _actorRepository.GetActorsByName(name);
-                var mappedResults = _mapper.Map<IList<ActorDTO>>(result);
-                if (result.Count == 0)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(mappedResults);
-                }
+                var mappedResults = _mapper.Map<IList<ActorDTO>>(result).Select(a => HateoasMainLinks(a));
+
+                if (result.Count == 0) return NotFound();
+                return Ok(mappedResults);
+
             }
             catch (Exception e)
             {
@@ -100,21 +88,17 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("searchcountry")]
+        [HttpGet("search", Name = "GetActorsByCountry")]
         public async Task<ActionResult<IList<ActorDTO>>> GetByCountry([FromQuery]string country)
         {
             try
             {
                 var result = await _actorRepository.GetActorsByCountry(country);
-                var mappedResults = _mapper.Map<IList<ActorDTO>>(result);
-                if (result.Count == 0)
-                {
-                    return NotFound(result);
-                }
-                else
-                {
-                    return Ok(mappedResults);
-                }
+                var mappedResults = _mapper.Map<IList<ActorDTO>>(result).Select(a => HateoasMainLinks(a));
+
+                if (result.Count == 0) return NotFound(result);
+                return Ok(mappedResults);
+
             }
             catch (Exception e)
             {
@@ -123,21 +107,17 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("searchmovie")]
+        [HttpGet("searchmovie", Name = "GetActorsByMovie")]
         public async Task<ActionResult<IList<ActorDTO>>> GetByMovie([FromQuery]string movie)
         {
             try
             {
                 var result = await _actorRepository.GetActorsByMovie(movie);
-                var mappedResults = _mapper.Map<IList<ActorDTO>>(result);
-                if (result.Count == 0)
-                {
-                    return NotFound(result);
-                }
-                else
-                {
-                    return Ok(mappedResults);
-                }
+                var mappedResults = _mapper.Map<IList<ActorDTO>>(result).Select(a => HateoasMainLinks(a));
+
+                if (result.Count == 0) return NotFound(result);
+                return Ok(mappedResults);
+
             }
             catch (Exception e)
             {
@@ -145,8 +125,6 @@ namespace CoolestMovieAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
-
-
 
         [HttpPost]
         public async Task<ActionResult<ActorDTO>> PostActor(ActorDTO actorDto)
@@ -171,7 +149,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpPut("{actorId}")]
-        public async Task<ActionResult> PutActor (int actorId, ActorDTO actorDto)
+        public async Task<ActionResult> PutActor(int actorId, ActorDTO actorDto)
         {
             try
             {
@@ -197,7 +175,7 @@ namespace CoolestMovieAPI.Controllers
 
             return BadRequest();
         }
-        
+
 
     }
 }
