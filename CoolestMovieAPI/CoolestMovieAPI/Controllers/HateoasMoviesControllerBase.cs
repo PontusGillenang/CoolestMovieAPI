@@ -25,6 +25,15 @@ namespace CoolestMovieAPI.Controllers
             var route = _routes.FirstOrDefault(f => f.AttributeRouteInfo.Name == routeName);
             var method = route.ActionConstraints.OfType<HttpMethodActionConstraint>().First().HttpMethods.First();
             var url = Url.Link(routeName, values).ToLower();
+            return new Link(url, relation, method);            
+        }
+
+        internal Link UrlLinkCrud(string relation, string routeName, string crudRouteName, object values)
+        {
+            var route = _routes.FirstOrDefault(f => f.AttributeRouteInfo.Name == routeName);
+            var crudRoute = _routes.FirstOrDefault(f => f.AttributeRouteInfo.Name == crudRouteName);
+            var method = crudRoute.ActionConstraints.OfType<HttpMethodActionConstraint>().First().HttpMethods.First();
+            var url = Url.Link(routeName, values).ToLower();
             return new Link(url, relation, method);
         }
 
@@ -35,11 +44,10 @@ namespace CoolestMovieAPI.Controllers
         /// </summary>
         /// <param name="movie"></param>
         /// <returns></returns>
-        internal MovieDTO HateoasMainLinks(MovieDTO movie)
+        internal MovieDTO HateoasGetAllMethodLinks(MovieDTO movie)
         {
             MovieDTO movieDto = movie;
 
-            movieDto.Links.Add(UrlLink("all", "GetAll", null));
             movieDto.Links.Add(UrlLink("_self", "GetIdAsync", new { id = movieDto.MovieID }));
 
             return movieDto;
@@ -53,13 +61,15 @@ namespace CoolestMovieAPI.Controllers
         /// </summary>
         /// <param name="movie"></param>
         /// <returns></returns>
-        internal MovieDTO HateoasSideLinks(MovieDTO movie)
+        internal MovieDTO HateoasGetSingleMethodLinks(MovieDTO movie)
         {
             MovieDTO movieDto = movie;
 
-            throw new System.NotImplementedException();
-
-            //return movieDto;
+            movieDto.Links.Add(UrlLink("all", "GetAll", null));
+            movieDto.Links.Add(UrlLink("_self", "GetIdAsync", new { id = movieDto.MovieID }));
+            movieDto.Links.Add(UrlLinkCrud("_update", "GetIdAsync", "UpdateItem", new { id = movieDto.MovieID }));
+            movieDto.Links.Add(UrlLinkCrud("_delete", "GetIdAsync", "DeleteItem", new { id = movieDto.MovieID }));
+            return movieDto;
         }
     }
 }
