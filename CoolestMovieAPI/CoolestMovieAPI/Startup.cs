@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace CoolestMovieAPI
 {
@@ -40,8 +41,7 @@ namespace CoolestMovieAPI
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Movie API", Version = "v1" });
-                options.DocInclusionPredicate((docName, description) => true);
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Movie API", Version = "v1" });
             });
         }
 
@@ -52,14 +52,13 @@ namespace CoolestMovieAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
-            
-
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Movie API V1");
             });
+
+            app.UseMvc();
         }
     }
 }
