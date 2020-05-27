@@ -70,7 +70,7 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("search", Name = "GetActorByName")]
+        [HttpGet("searchactor", Name = "GetActorByName")]
         public async Task<ActionResult<IList<ActorDTO>>> GetActorsByName([FromQuery]string name)
         {
             try
@@ -88,7 +88,7 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("search", Name = "GetActorsByCountry")]
+        [HttpGet("searchcountry", Name = "GetActorsByCountry")]
         public async Task<ActionResult<IList<ActorDTO>>> GetByCountry([FromQuery]string country)
         {
             try
