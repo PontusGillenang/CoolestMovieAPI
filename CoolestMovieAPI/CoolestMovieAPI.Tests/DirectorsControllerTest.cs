@@ -14,20 +14,7 @@ namespace CoolestMovieAPI.Tests
 {
     public class DirectorsControllerTest
     {
-        [Fact]
-        public async Task GetAll_ReturnsOK()
-        {
-            // Arange
-            var directorRepositoryMock = new Mock<IDirectorRepository>();
-            directorRepositoryMock.Setup(repo => repo.GetAllDirectors()).ReturnsAsync((IList<Director>)null);
-            var controller = new DirectorsController(directorRepositoryMock.Object);
 
-            // Act
-            var result = await controller.GetAll();
-
-            // Assert
-            Assert.IsType<OkObjectResult>(result.Result);
-        }
     }
 
 }

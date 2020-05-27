@@ -36,6 +36,13 @@ namespace CoolestMovieAPI
                     {
                         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                     });
+
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Movie API", Version = "v1" });
+                options.DocInclusionPredicate((docName, description) => true);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -46,6 +53,13 @@ namespace CoolestMovieAPI
             }
 
             app.UseMvc();
+            
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Movie API V1");
+            });
         }
     }
 }
