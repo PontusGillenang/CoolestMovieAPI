@@ -1,6 +1,8 @@
-﻿namespace CoolestTrailerAPI.DTO
+﻿using CoolestMovieAPI.HATEOAS;
+
+namespace CoolestTrailerAPI.DTO
 {
-    public class TrailerDTO
+    public class TrailerDTO : HateoasLinkBase
     {
         public string TrailerUrl { get; set; }
         public string TrailerTitle { get; set; }

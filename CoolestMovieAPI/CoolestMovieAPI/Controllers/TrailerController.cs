@@ -8,33 +8,36 @@ using Microsoft.AspNetCore.Http;
 using Castle.Core.Internal;
 using AutoMapper;
 using CoolestTrailerAPI.DTO;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.Linq;
 
 namespace CoolestMovieAPI.Controllers
 {
     [Route("api/v1.0/[controller]")]
     [ApiController]
-    public class TrailersController : ControllerBase
+    public class TrailersController : HateoasTrailersControllerBase
     {
         private readonly ITrailerRepository _trailerRepository;
         private readonly IMapper _mapper;
 
-        public TrailersController(ITrailerRepository trailerRepository, IMapper mapper)
+        public TrailersController(ITrailerRepository trailerRepository, IMapper mapper, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider) : base(actionDescriptorCollectionProvider)
         {
             _trailerRepository = trailerRepository;
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetAllTrailers")]
         public async Task<ActionResult<IList<TrailerDTO>>> GetAll()
         {
             try
             {
                 var results = await _trailerRepository.GetAllTrailers();
                 var mappedResults = _mapper.Map<IList<TrailerDTO>>(results);
+                var hateoasResults = mappedResults.Select(t => HateoasMainLinks(t));
 
                 if (mappedResults.IsNullOrEmpty()) return NotFound();
 
-                return Ok(mappedResults);
+                return Ok(hateoasResults);
             }
             catch (Exception e)
             {
@@ -42,7 +45,7 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetTrailerByIdAsync")]
         public async Task<ActionResult<TrailerDTO>> GetById(int id)
         {
             try
@@ -52,7 +55,7 @@ namespace CoolestMovieAPI.Controllers
 
                 if (mappedResult == null) return NotFound();
 
-                return Ok(mappedResult);
+                return Ok(HateoasMainLinks(mappedResult));
             }
             catch (Exception e)
             {
