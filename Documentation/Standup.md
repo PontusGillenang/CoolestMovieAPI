@@ -442,3 +442,64 @@ and talking about what to do next. We will also create a new sprint for this wit
   
 
 ### Secretary notes...
+
+## Standup - 2020-05-27
+
+* Secretary - Murat
+
+We reviewd and merged pull requests:
+
+  * see below...
+
+
+
+* Each person
+
+
+  **Murat** 
+
+  What have I done since last standup? 
+
+  * MOV-197-TrailerController
+  * MOV-198/666-TrailerControllerHATOEAS
+  
+  
+  **Micael** 
+
+  What have I done since last standup? 
+
+  * ongoing 
+  * MOV-184 Walktrough Code HATEOAS teammembers
+
+   * done:
+   * MOV-183 Implement HATEOAS proof-of-concept movecontroller
+   * MOV-199 [HATEOAS] MovieController - Add links to get methods
+   * MOV-194 Create proposal on HATEOAS links; what link show when requesting different getmethods
+
+
+
+  **Fredrik**
+
+  What have I done since last standup? 
+
+  * Review Pull Requests and Merge them, resolve conflict errors
+  * MOV-190-Post method for MovieDirector (Join table)
+  * MOV-196-HATEOAS for DirectorController
+
+  **Anton** 
+
+  What have I done since last standup? 
+  
+  * MOV-193 Delete request ActorController
+  * MOV-195 Implemented HATEOAS links for ActorController
+  * MOV-186 Update Gearhost DB with data
+  * MOV-192 GetActorsByMovie method
+  * MOV-200 Small cleanup in GetMethods in ActorController
+
+  **What will we do**
+  
+  * Look into Swagger implementation together...
+  * Divide tasks to each person
+  * Create tasks in Jira and assig to each person
+
+### Secretary notes...
