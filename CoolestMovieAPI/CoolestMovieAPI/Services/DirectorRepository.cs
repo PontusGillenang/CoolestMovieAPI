@@ -19,8 +19,6 @@ namespace CoolestMovieAPI.Services
         {
             _logger.LogInformation("Getting all directors in order of their id.");
             IQueryable<Director> query = _movieContext.Directors
-                                            .Include(movieDirector => movieDirector.MovieDirectors)
-                                            .ThenInclude(movie => movie.Movie)
                                             .OrderBy(director => director.DirectorID);
             
             return await query.ToListAsync();
