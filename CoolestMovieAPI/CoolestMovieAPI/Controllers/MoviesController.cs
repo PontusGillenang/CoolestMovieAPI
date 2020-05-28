@@ -78,7 +78,8 @@ namespace CoolestMovieAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
-
+        
+        //search contains instead of starts with x letters. More userfriendly
         [HttpGet("searchtitle")]
         public async Task<ActionResult<IList<MovieDTO>>> GetByTitle([FromQuery]string name)
         {
