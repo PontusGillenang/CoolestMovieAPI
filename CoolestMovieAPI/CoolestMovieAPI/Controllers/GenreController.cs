@@ -23,9 +23,9 @@ namespace CoolestMovieAPI.Controllers
         private readonly IGenreRepository _genreRepository;
         private readonly IMapper _mapper;
 
-        public GenreController(IGenreRepository movieDirectorsRepository, IMapper mapper)
+        public GenreController(IGenreRepository genreRepository, IMapper mapper)
         {
-            _genreRepository = movieDirectorsRepository;
+            _genreRepository = genreRepository;
             _mapper = mapper;
         }
 
@@ -52,7 +52,7 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetIdAsync")]
+        [HttpGet("{id}", Name = "GetGenreIdAsync")]
         public async Task<ActionResult<GenreDTO>> GetById(int id)
         {
             try
@@ -75,7 +75,7 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetGenreByName")]
+        [HttpGet("{searchgenre}", Name = "GetGenreByName")]
         public async Task<ActionResult<GenreDTO>> GetByName([FromQuery] string name)
         {
             try
