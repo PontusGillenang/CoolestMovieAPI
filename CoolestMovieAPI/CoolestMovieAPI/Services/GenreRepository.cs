@@ -16,7 +16,7 @@ namespace CoolestMovieAPI.Services
         {
         }
 
-        public async Task<IList<Genre>> GetAllGenre()
+        public async Task<IList<Genre>> GetAllGenres()
         {
             var query = _movieContext.Genre;
 
@@ -27,18 +27,16 @@ namespace CoolestMovieAPI.Services
 
         public async Task<Genre> GetGenreById(int id)
         {
-            _logger.LogInformation($"Getting single genre by id.");
+            _logger.LogInformation($"Getting single genre by id: {id}.");
 
             return await _movieContext.Genre.Where(g => g.GenreID == id).FirstOrDefaultAsync();
         }
 
         public async Task<IList<Genre>> GetGenreByName(string name)
         {
-            _logger.LogInformation($"Getting genre by name.");
+            _logger.LogInformation($"Getting genre by name: {name}.");
 
             return await _movieContext.Genre.Where(g => g.GenreType.Contains(name)).ToListAsync();
         }
-
-
     }
 }
