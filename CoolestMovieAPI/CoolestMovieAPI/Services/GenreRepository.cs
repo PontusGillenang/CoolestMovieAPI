@@ -32,11 +32,11 @@ namespace CoolestMovieAPI.Services
             return await _movieContext.Genre.Where(g => g.GenreID == id).FirstOrDefaultAsync();
         }
 
-        public async Task<IList<Genre>> GetGenreByName(string name)
+        public async Task<Genre> GetGenreByName(string name)
         {
             _logger.LogInformation($"Getting genre by name: {name}.");
 
-            return await _movieContext.Genre.Where(g => g.GenreType.Contains(name)).ToListAsync();
+            return await _movieContext.Genre.Where(g => g.GenreType == name).FirstOrDefaultAsync();
         }
     }
 }
