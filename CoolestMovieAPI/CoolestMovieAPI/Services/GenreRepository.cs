@@ -16,7 +16,7 @@ namespace CoolestMovieAPI.Services
         {
         }
 
-        public async Task<IList<Genre>> GetAllGenres()
+        public async Task<IList<Genre>> GetAllGenre()
         {
             var query = _movieContext.Genre;
 
@@ -37,15 +37,6 @@ namespace CoolestMovieAPI.Services
             _logger.LogInformation($"Getting genre by name: {name}.");
 
             return await _movieContext.Genre.Where(g => g.GenreType.Contains(name)).ToListAsync();
-        }
-
-
-        //for cleanup. technical problems with github desktop.
-        //have to have this method until merge of MOV-206, where this method is removed.
-        public async Task<IList<Genre>> GetMoviesByGenre(string name)
-        {
-
-            return await ;
         }
     }
 }
