@@ -18,12 +18,12 @@ namespace CoolestMovieAPI.Controllers
 {
     [Route("api/v1.0/[controller]")]
     [ApiController]
-    public class GenreController : ControllerBase
+    public class GenresController : ControllerBase
     {
         private readonly IGenreRepository _genreRepository;
         private readonly IMapper _mapper;
 
-        public GenreController(IGenreRepository genreRepository, IMapper mapper)
+        public GenresController(IGenreRepository genreRepository, IMapper mapper)
         {
             _genreRepository = genreRepository;
             _mapper = mapper;
@@ -52,7 +52,7 @@ namespace CoolestMovieAPI.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetGenreIdAsync")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<GenreDTO>> GetById(int id)
         {
             try
@@ -74,29 +74,5 @@ namespace CoolestMovieAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
-
-        [HttpGet("{searchgenre}", Name = "GetGenreByName")]
-        public async Task<ActionResult<GenreDTO>> GetByName([FromQuery] string name)
-        {
-            try
-            {
-                var result = await _genreRepository.GetGenreByName(name);
-                var mappedResult = _mapper.Map<GenreDTO>(result);
-
-                if (mappedResult == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(mappedResult);
-                }
-            }
-            catch (Exception e)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
-            }
-        }
-
     }
 }

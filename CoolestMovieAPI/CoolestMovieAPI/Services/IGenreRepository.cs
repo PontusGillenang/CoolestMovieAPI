@@ -10,6 +10,5 @@ namespace CoolestMovieAPI.Services
     {
         Task<IList<Genre>> GetAllGenre();
         Task<Genre> GetGenreById(int id);
-        Task<Genre> GetGenreByName(string name);
     }
 }
