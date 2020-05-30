@@ -91,12 +91,36 @@ namespace CoolestMovieAPI.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database faliure, cannot create item. {e.Message}");
             }
+            return BadRequest();
         }
 
         [HttpPut("{genreid}", Name = "UpdateGenre")]
         public async Task<ActionResult> PutGenre(int genreid, GenreDTO genreDTO)
         {
+            try
+            {
+                var oldGenre = await _genreRepository.GetGenreById(genreid);
+                if(oldGenre == null)
+                {
+                    return NotFound($"Could not find genre with id: {genreid}"):
+                }
 
+                var newGenre = _mapper.Map(genreDTO, oldGenre);
+                _genreRepository.Update(newGenre);
+
+                if(await _genreRepository.Save())
+                {
+                    return NoContent();
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database faliure, could not update item. {e.Message}");
+            }
+            return BadRequest();
         }
+
+        [HttpDelete("{genreid}", Name = "DeleteGenre")]
+
     }
 }
