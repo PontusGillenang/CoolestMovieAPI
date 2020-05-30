@@ -74,5 +74,29 @@ namespace CoolestMovieAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
+
+        [HttpPost(Name = "CreateGenre")]
+        public async Task<ActionResult<GenreDTO>> PostGenre(GenreDTO genreDTO)
+        {
+            try
+            {
+                var mappedEntity = _mapper.Map<Genre>(genreDTO);
+                _genreRepository.Add(mappedEntity);
+                if(await _genreRepository.Save())
+                {
+                    return Created($"/api/v1.0/movies/{mappedEntity.GenreID}", _mapper.Map<GenreDTO>(mappedEntity));
+                }
+            }
+            catch(Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database faliure, cannot create item. {e.Message}");
+            }
+        }
+
+        [HttpPut("{genreid}", Name = "UpdateGenre")]
+        public async Task<ActionResult> PutGenre(int genreid, GenreDTO genreDTO)
+        {
+
+        }
     }
 }
