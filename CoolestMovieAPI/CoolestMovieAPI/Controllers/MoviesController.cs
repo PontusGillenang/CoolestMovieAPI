@@ -438,6 +438,30 @@ namespace CoolestMovieAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
+
+        [HttpGet("genre")]
+        public async Task<ActionResult<IList<MovieDTO>>> GetByGenre([FromQuery]string name)
+        {
+            try
+            {
+                var results = await _movieRepository.GetMoviesByGenre(name);
+                IEnumerable<MovieDTO> mappedResults = _mapper.Map<IList<MovieDTO>>(results);
+                IEnumerable<MovieDTO> hateoasResults = mappedResults.Select(m => HateoasGetAllMethodLinks(m));
+
+                if (mappedResults.IsNullOrEmpty())
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(hateoasResults);
+                }
+            }
+            catch(Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure, could not retrieve movies by genre. {e.Message}");
+            }
+        }
         
         [HttpPost(Name = "CreateItem")]
         public async Task<ActionResult<MovieDTO>> PostMovie(MovieDTO movieDTO)
