@@ -239,5 +239,12 @@ namespace CoolestMovieAPI.Services
 
             return query;
         }
+
+        public async Task<IList<Movie>> GetMoviesByGenre(string name)
+        {
+            _logger.LogInformation($"Getting movies by genre: {name}");
+
+            return await _movieContext.Movies.Where(x => x.MovieGenre.Any(mg => mg.Genre.GenreType == name)).ToListAsync();
+        }
     }
 }
