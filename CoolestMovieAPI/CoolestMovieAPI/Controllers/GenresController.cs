@@ -74,5 +74,79 @@ namespace CoolestMovieAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure: {e.Message}");
             }
         }
+
+        [HttpPost(Name = "CreateGenre")]
+        public async Task<ActionResult<GenreDTO>> PostGenre(GenreDTO genreDTO)
+        {
+            try
+            {
+                var mappedEntity = _mapper.Map<Genre>(genreDTO);
+                _genreRepository.Add(mappedEntity);
+                
+                if(await _genreRepository.Save())
+                {
+                    return Created($"/api/v1.0/genres/{mappedEntity.GenreID}", _mapper.Map<GenreDTO>(mappedEntity));
+                }
+            }
+            catch(Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure, cannot create item. {e.Message}");
+            }
+            return BadRequest();
+        }
+
+        [HttpPut("{genreid}", Name = "UpdateGenre")]
+        public async Task<ActionResult> PutGenre(int genreid, GenreDTO genreDTO)
+        {
+            try
+            {
+                var oldGenre = await _genreRepository.GetGenreById(genreid);
+               
+                if(oldGenre == null)
+                {
+                    return NotFound($"Could not find any genre with id: {genreid}");
+                }
+
+                var newGenre = _mapper.Map(genreDTO, oldGenre);
+                _genreRepository.Update(newGenre);
+
+                if(await _genreRepository.Save())
+                {
+                    return NoContent();
+                }
+            }
+            catch(Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure, could not update item. {e.Message}");
+            }
+            return BadRequest();
+        }
+
+        [HttpDelete("{genreid}", Name = "DeleteGenre")]
+        public async Task<ActionResult> DeleteGenre(int genreid)
+        {
+            try
+            {
+                var oldGenre = await _genreRepository.GetGenreById(genreid);
+                
+                if(oldGenre == null)
+                {
+                    return NotFound($"Could not find any genre with id: {genreid}");
+                }
+
+                _genreRepository.Delete(oldGenre);
+
+                if(await _genreRepository.Save())
+                {
+                    return NoContent();
+                }
+            }
+            catch(Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Database failure, could not delete item. {e.Message}");
+            }
+            return BadRequest();
+        }
+
     }
 }
