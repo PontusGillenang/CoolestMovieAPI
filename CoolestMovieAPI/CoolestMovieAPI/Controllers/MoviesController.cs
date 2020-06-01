@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolestMovieAPI.Controllers
 {
@@ -32,6 +33,7 @@ namespace CoolestMovieAPI.Controllers
         }
        
 
+        [Authorize("read:messages")]
         [HttpGet(Name = "GetAll")]
         public async Task<ActionResult<IList<MovieDTO>>> GetAll()
         {

@@ -1,25 +1,63 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using CoolestMovieAPI.Auth;
 using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using CoolestTrailerAPI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace CoolestMovieAPI
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+            IdentityModelEventSource.ShowPII = true;
+        }
+
+        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        {
+        {    
+            string domain = $"https://{Configuration["Auth0:Domain"]}/";
+ 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));
+            });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.Authority = domain;
+                options.Audience = Configuration["Auth0:Audience"];
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = ClaimTypes.NameIdentifier
+                };
+            });
+            
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+
             services.AddDbContext<MovieContext>();
             
             services.AddScoped<IMovieRepository, MovieRepository>();
@@ -52,6 +90,9 @@ namespace CoolestMovieAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseSwagger();
             app.UseSwaggerUI(options =>
