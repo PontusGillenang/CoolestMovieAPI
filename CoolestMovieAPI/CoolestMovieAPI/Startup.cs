@@ -12,6 +12,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Protocols;
+using System.IO;
 
 namespace CoolestMovieAPI
 {
@@ -33,6 +37,19 @@ namespace CoolestMovieAPI
 
             services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("config.json");
+                var config = builder.Build();
+                
+                options.Authority = config.GetSection("Auth0").GetSection("Domain").Value;
+                options.Audience = config.GetSection("Auth0").GetSection("Audience").Value;
+            });
+
             services.AddControllers()
                     .AddNewtonsoftJson(options =>
                     {
@@ -53,6 +70,9 @@ namespace CoolestMovieAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
