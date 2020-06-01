@@ -105,8 +105,44 @@ Se över hur modellerna ser ut för databasen och DTO's så att alla grunder är
 
 * **Har det kommit upp nya saker som skall läggas till på er backlog?**
 
-
 Issue: Länkar i DTO's (HATEOAS). 
 Issue: Dokumentation för hur vårt API fungerar. 
+
+# Sprint Review 2020-06-01
+
+## Dagordning
+
+* **Val av sekreterare**
+* **Blev alla issues klara?**
+  *Om inte, varför
+  Icke klara issues återförs till backlog, efter att de har uppdaterats. Har vissa
+  delar klarats av? Skall vi ha en ny tidsuppskattning? Vad behövs för att vi
+  skall klara detta issue nästa gång?*
+* **Höll eran tidsplanering för era issues.**
+* **Bedöm vad ni kan göra bättre i nästa sprint**
+* **Har det kommit upp nya saker som skall läggas till på er backlog?**
+
+## Start
+
+* Sekreterare för dagen: **Micael Wollter (aohzork)**.
+
+Under sprintens gång bestämdes att vi skulle förlänga deadline från fredag till 29/5 till måndag 1/6. Vi ägnade veckan åt att implementera swagger. Implementatering av Hateos samt gjorde klart befintliga issues i sprinten, samt var och en fick lägga till nya issues och göra dem om man kom på något mer som behövdes göras.
+Strukturering och katalogisering av backloggen skedde även.
+
+
+* **Blev alla issues klara?**
+
+
+Alla issues blev klara och är mergade in i master.
+
+
+* **Bedöm vad ni kan göra bättre i nästa sprint**
+
+
+Ev. förbättringar av befintlig kod om behov finns. Implementation av authentisering.
+
+* **Har det kommit upp nya saker som skall läggas till på er backlog?**
+
+Issues som rör Authentiering.
 
 
