@@ -65,7 +65,7 @@ namespace CoolestMovieAPI.Services
                 mmd => mmd.md.Director.DirectorID,
                 d => d.DirectorID,
                 (mmd, d) => new { mmd, d })
-                .Where(d => d.d.DirectorName == name)
+                .Where(d => d.d.DirectorName.Contains(name))
                 .Select(x => new Movie
                 {
                     MovieID = x.mmd.m.MovieID,
