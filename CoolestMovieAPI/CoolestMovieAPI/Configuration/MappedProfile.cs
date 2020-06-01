@@ -27,6 +27,9 @@ namespace CoolestMovieAPI.Configuration
 
             CreateMap<Trailer, TrailerDTO>()
                 .ReverseMap();
+
+            CreateMap<Genre, GenreDTO>()
+                .ReverseMap();
         }
     }
 }
