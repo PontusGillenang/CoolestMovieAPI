@@ -93,7 +93,7 @@ namespace CoolestMovieAPI.Services
                 mma => mma.ma.Actor.ActorID,
                 a => a.ActorID,
                 (mma, a) => new { mma, a })
-                .Where(d => d.a.ActorName == actorName)
+                .Where(d => d.a.ActorName.Contains(actorName))
                 .Select(x => new Movie
                 {
                     MovieID = x.mma.m.MovieID,
