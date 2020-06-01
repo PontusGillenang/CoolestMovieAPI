@@ -46,7 +46,7 @@ namespace CoolestMovieAPI.Services
             _logger.LogInformation($"Getting movie by title: {title}");
 
             var query = await _movieContext.Movies
-                .Where(m => m.MovieTitle == title)
+                .Where(m => m.MovieTitle.Contains(title))
                 .ToListAsync();
 
             return query;
