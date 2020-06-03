@@ -26,5 +26,6 @@ namespace CoolestMovieAPI.Services
         Task<IList<Movie>> GetMoviesByLengthGreaterThan(TimeSpan length);
         Task<IList<Movie>> GetMoviesByLengthLessThan(TimeSpan length);
         Task<IList<Movie>> GetMoviesByLengthSpan(TimeSpan length, TimeSpan maxLength);
+        Task<IList<Movie>> GetMoviesByGenre(string name);
     }
 }

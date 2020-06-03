@@ -10,9 +10,10 @@ using CoolestMovieAPI.HATEOAS;
 
 namespace CoolestMovieAPI.DTO
 {
-    public class GenreDTO
+    public class MovieGenreDTO
     {
-        public int GenreID { get; set; }
-        public string GenreType { get; set; }
+        public int MovieGenreID { get; set; }
+        public Movie Movie { get; set; }
+        public Genre Genre { get; set; }
     }
 }

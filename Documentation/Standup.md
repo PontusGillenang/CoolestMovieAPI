@@ -335,8 +335,8 @@
   * Make an issue for AutoMapper both creation and implementation.
 
   What will I do next?
-  
-  
+
+
   * Review Pull Requests and Merge them, resolve conflict errors
   * MOV-173 - Put Method for DirectorsController
   * MOV-174 - Post Method for DirectorsController
@@ -369,8 +369,8 @@ and talking about what to do next. We will also create a new sprint for this wit
   What have I done since last standup? 
 
   * Review Pull Requests and Merge them, resolve conflict errors
-  
-  
+
+
   **Pontus** 
 
   What have I done since last standup? 
@@ -398,7 +398,7 @@ and talking about what to do next. We will also create a new sprint for this wit
   **Anton** 
 
   What have I done since last standup? 
-  
+
   * Review Pull Requests and Merge them, resolve conflict errors
   * Update ActorController and ActorRepository for DTOs and AutoMapper
   * Post Method for ActorController
@@ -412,10 +412,10 @@ and talking about what to do next. We will also create a new sprint for this wit
   * MOV-195 - HATEOAS for ActorController
 
   **MurreCigarr** 
-  
-  
+
+
   What have I done since last standup? 
-  
+
   * Welcome to the group!
 
   What will I do next?
@@ -423,12 +423,12 @@ and talking about what to do next. We will also create a new sprint for this wit
   * MOV-197 - Rewrite TrailerController
   * MOV-198 - HATEOAS for TrailerController
 
-  
+
   **Micael** 
-  
+
 
   What have I done since last standup? 
-  
+
   * Welcome to the group!
 
   What will I do next?
@@ -438,7 +438,7 @@ and talking about what to do next. We will also create a new sprint for this wit
   * MOV-194 - Create HATEOAS link proposal
   * MOV-199 - HATEOAS for MovieController
   * MOV-183 - Implement HATEOAS proof of concept
-  
+
   
 
 ### Secretary notes...
@@ -462,8 +462,8 @@ We reviewd and merged pull requests:
 
   * MOV-197-TrailerController
   * MOV-198/666-TrailerControllerHATOEAS
-  
-  
+
+
   **Micael** 
 
   What have I done since last standup? 
@@ -489,7 +489,7 @@ We reviewd and merged pull requests:
   **Anton** 
 
   What have I done since last standup? 
-  
+
   * MOV-193 Delete request ActorController
   * MOV-195 Implemented HATEOAS links for ActorController
   * MOV-186 Update Gearhost DB with data
@@ -497,9 +497,56 @@ We reviewd and merged pull requests:
   * MOV-200 Small cleanup in GetMethods in ActorController
 
   **What will we do**
-  
+
   * Look into Swagger implementation together...
   * Divide tasks to each person
   * Create tasks in Jira and assig to each person
+
+### Secretary notes...
+
+## Standup - 2020-06-01
+
+* Secretary - Micael Wollter (aohzork)
+
+We reviewd and merged pull requests:
+
+  * see below...
+
+
+
+* Each person
+
+
+  **Murat** 
+
+  What have I done since last standup? 
+
+  * N/A
+
+
+  **Micael** 
+
+  What have I done since last standup? 
+
+  * MOV-203 to MOV-211
+
+
+
+  **Fredrik**
+
+  What have I done since last standup? 
+
+  * N/A
+
+  **Anton** 
+
+  What have I done since last standup? 
+
+  * N/A
+
+  **What will we do**
+
+  * Implement Auth0. The team decided to implement Auth0 out of three different authentication options.
+  * Further implementation and refractoring if any teammember sees fit.
 
 ### Secretary notes...
