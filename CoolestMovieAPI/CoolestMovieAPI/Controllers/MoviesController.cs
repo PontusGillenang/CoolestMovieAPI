@@ -3,6 +3,7 @@ using Castle.Core.Internal;
 using CoolestMovieAPI.DTO;
 using CoolestMovieAPI.Models;
 using CoolestMovieAPI.Services;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
+using CoolestMovieAPI.Pagination;
 
 namespace CoolestMovieAPI.Controllers
 {
@@ -29,15 +31,18 @@ namespace CoolestMovieAPI.Controllers
         }
        
 
-        [HttpGet(Name = "GetAll")]
-        [Authorize]
-        public async Task<ActionResult<IList<MovieDTO>>> GetAll()
+        [HttpGet(Name = "GetPageLinkHeaders")]
+        public async Task<ActionResult<IList<MovieDTO>>> GetAll([FromQuery] PaginationParameters paginationParameters)
         {
             try
             {
-                var results = await _movieRepository.GetAllMovies();
+                var results = await _movieRepository.GetAllMovies(paginationParameters);
                 IEnumerable<MovieDTO> mappedResults = _mapper.Map<IList<MovieDTO>>(results);
                 IEnumerable<MovieDTO> hateoasResults = mappedResults.Select(m => HateoasGetAllMethodLinks(m));
+
+                var totalMovieCount = await _movieRepository.GetMovieCount();
+
+                var links = GetPaginationLinks(paginationParameters, totalMovieCount);
 
                 if (mappedResults.IsNullOrEmpty())
                 {
@@ -45,7 +50,11 @@ namespace CoolestMovieAPI.Controllers
                 }
                 else
                 {
-                    return Ok(hateoasResults);
+                    return Ok(new
+                    {
+                        links = links,
+                        results = hateoasResults
+                    });
                 }
             }
             catch (Exception e)

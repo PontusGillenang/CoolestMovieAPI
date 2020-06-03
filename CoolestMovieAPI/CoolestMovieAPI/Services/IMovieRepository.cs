@@ -1,4 +1,5 @@
 ﻿using CoolestMovieAPI.Models;
+using CoolestMovieAPI.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,7 +8,8 @@ namespace CoolestMovieAPI.Services
 {
     public interface IMovieRepository : IBaseRepository
     {
-        Task<IList<Movie>> GetAllMovies();
+        Task<IList<Movie>> GetAllMovies(PaginationParameters paginationParameters);
+        Task<int> GetMovieCount();
         Task<Movie> GetMovieById(int id);
         Task<IList<Movie>> GetMovieByTitle(string title);
         Task<IList<Movie>> GetByActor(string actorName);
