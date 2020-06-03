@@ -2,6 +2,7 @@
 using CoolestMovieAPI.DTO;
 using CoolestMovieAPI.Models;
 using CoolestMovieAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -123,6 +124,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<ActorDTO>> PostActor(ActorDTO actorDto)
         {
             try
@@ -145,6 +147,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpPut("{actorId}")]
+        [Authorize]
         public async Task<ActionResult> PutActor(int actorId, ActorDTO actorDto)
         {
             try
@@ -173,6 +176,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpDelete("{actorId}")]
+        [Authorize]
         public async Task<ActionResult> DeleteActor(int actorId)
         {
             try
