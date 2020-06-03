@@ -2,12 +2,10 @@
 using Castle.Core.Internal;
 using CoolestMovieAPI.DTO;
 using CoolestMovieAPI.Models;
-using CoolestMovieAPI.MovieDbContext;
 using CoolestMovieAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
