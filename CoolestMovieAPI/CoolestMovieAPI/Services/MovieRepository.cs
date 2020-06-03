@@ -1,9 +1,6 @@
-﻿using CoolestMovieAPI.DTO;
-using CoolestMovieAPI.Models;
+﻿using CoolestMovieAPI.Models;
 using CoolestMovieAPI.MovieDbContext;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
