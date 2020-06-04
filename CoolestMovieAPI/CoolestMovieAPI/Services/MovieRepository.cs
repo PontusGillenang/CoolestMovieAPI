@@ -1,5 +1,6 @@
 ﻿using CoolestMovieAPI.Models;
 using CoolestMovieAPI.MovieDbContext;
+using CoolestMovieAPI.Pagination;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,12 +16,21 @@ namespace CoolestMovieAPI.Services
         public MovieRepository(MovieContext movieContext, ILogger<MovieRepository> logger) : base (movieContext, logger)
         {}
         
-        public async Task<IList<Movie>> GetAllMovies()          
+        public async Task<IList<Movie>> GetAllMovies(PaginationParameters paginationParameters)          
         {
-                _logger.LogInformation($"Getting all movies!");
-                
                 var query = await _movieContext.Movies
+                    .Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize)
+                    .Take(paginationParameters.PageSize)
                     .ToListAsync();
+
+                _logger.LogInformation($"Getting {query.Count()} movies");
+                
+                return query;
+        }
+
+        public async Task<int> GetMovieCount()
+        {
+                var query = await _movieContext.Movies.CountAsync();
 
                 return query;
         }

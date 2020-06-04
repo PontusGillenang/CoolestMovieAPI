@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using CoolestMovieAPI.HATEOAS;
 using CoolestMovieAPI.DTO;
+using CoolestMovieAPI.Pagination;
+using System;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace CoolestMovieAPI.Controllers
 {
@@ -59,6 +62,8 @@ namespace CoolestMovieAPI.Controllers
         /// </summary>
         /// <param name="movie"></param>
         /// <returns></returns>
+
+
         internal MovieDTO HateoasGetSingleMethodLinks(MovieDTO movie)
         {
             MovieDTO movieDto = movie;
@@ -68,6 +73,58 @@ namespace CoolestMovieAPI.Controllers
             movieDto.Links.Add(UrlLinkCrud("_update", "GetIdAsync", "UpdateItem", new { id = movieDto.MovieID }));
             movieDto.Links.Add(UrlLinkCrud("_delete", "GetIdAsync", "DeleteItem", new { id = movieDto.MovieID }));
             return movieDto;
+        }
+
+        internal Dictionary<string, Uri> GetPaginationLinks(PaginationParameters paginationParameters, int totalMovieCount)
+        {
+            // Intatiate the link list
+            var linkList = new Dictionary<string, Uri>();
+
+            // Get the number of pages with current pageSize
+            var pageCount = totalMovieCount > 0
+                ? (int) Math.Ceiling(totalMovieCount/(double) paginationParameters.PageSize)
+                : 0;
+
+            // Create the base URL
+            string baseUrl = string.Concat(
+                    Request.Scheme,
+                    "://",
+                    Request.Host.ToUriComponent(),
+                    Request.PathBase.ToUriComponent(),
+                    Request.Path.ToUriComponent());
+
+
+
+            // Create first page link
+            var parameters = new Dictionary<string, string>() { { "pageNumber", "1" } };
+            parameters.Add("pageSize", $"{paginationParameters.PageSize}");
+
+            linkList.Add("First page", new Uri(QueryHelpers.AddQueryString(baseUrl, parameters)));
+
+
+            // Create last page link
+            if (paginationParameters.PageNumber != pageCount)
+            {
+                parameters["pageNumber"] = $"{pageCount}";
+                linkList.Add("Last page", new Uri(QueryHelpers.AddQueryString(baseUrl, parameters)));
+            }
+
+
+            // Create previous page link
+            if (paginationParameters.PageNumber > 1)
+            {
+                parameters["pageNumber"] = $"{paginationParameters.PageNumber - 1}";
+                linkList.Add("Previous page", new Uri(QueryHelpers.AddQueryString(baseUrl, parameters)));
+            }
+
+
+            // Create next page link
+            if (paginationParameters.PageNumber < pageCount)
+            {
+                parameters["pageNumber"] = $"{paginationParameters.PageNumber + 1}";
+                linkList.Add("Next page", new Uri(QueryHelpers.AddQueryString(baseUrl, parameters)));
+            }
+            return linkList;
         }
     }
 }
