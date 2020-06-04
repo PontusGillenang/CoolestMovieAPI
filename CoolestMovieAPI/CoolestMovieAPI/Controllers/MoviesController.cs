@@ -31,7 +31,7 @@ namespace CoolestMovieAPI.Controllers
         }
        
 
-        [HttpGet(Name = "GetPageLinkHeaders")]
+        [HttpGet(Name = "GetAll")]
         public async Task<ActionResult<IList<MovieDTO>>> GetAll([FromQuery] PaginationParameters paginationParameters)
         {
             try
