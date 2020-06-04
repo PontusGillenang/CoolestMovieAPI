@@ -65,7 +65,7 @@ namespace CoolestMovieAPI.Controllers
                 }
                 else
                 {
-                    return Ok(HateoasMainLinks(mappedResult));
+                    return Ok(HateoasGetSingleMethodLinks(mappedResult));
                 }
             }
             catch (Exception exception)

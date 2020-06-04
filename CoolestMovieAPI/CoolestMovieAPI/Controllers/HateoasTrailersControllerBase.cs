@@ -26,13 +26,30 @@ namespace CoolestMovieAPI.Controllers
             return new Link(url, relation, method);
         }
 
+        internal Link UrlLinkCrud(string relation, string routeName, string crudRouteName, object values)
+        {
+            var route = _routes.FirstOrDefault(f => f.AttributeRouteInfo.Name == routeName);
+            var crudRoute = _routes.FirstOrDefault(f => f.AttributeRouteInfo.Name == crudRouteName);
+            var method = crudRoute.ActionConstraints.OfType<HttpMethodActionConstraint>().First().HttpMethods.First();
+            var url = Url.Link(routeName, values).ToLower();
+            return new Link(url, relation, method);
+        }
+
         internal TrailerDTO HateoasMainLinks(TrailerDTO trailer)
         {
             TrailerDTO trailerDto = trailer;
 
             trailerDto.Links.Add(UrlLink("all", "GetAllTrailers", null));
-            trailerDto.Links.Add(UrlLink("_self", "GetTrailerByIdAsync", new { id = trailerDto.MovieID }));
 
+            return trailerDto;
+        }
+
+        internal TrailerDTO HateoasGetSingleMethodLinks(TrailerDTO trailerDto)
+        {
+            trailerDto.Links.Add(UrlLink("all", "GetAllTrailers", null));
+            trailerDto.Links.Add(UrlLink("_self", "GetTrailerByIdAsync", new { id = trailerDto.MovieID }));
+            trailerDto.Links.Add(UrlLinkCrud("_update", "GetTrailerByIdAsync", "UpdateTrailer", new { id = trailerDto.MovieID }));
+            trailerDto.Links.Add(UrlLinkCrud("_delete", "GetTrailerByIdAsync", "DeleteTrailer", new { id = trailerDto.MovieID }));
             return trailerDto;
         }
     }

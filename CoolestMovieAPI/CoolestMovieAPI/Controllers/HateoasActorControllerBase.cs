@@ -26,6 +26,15 @@ namespace CoolestMovieAPI.Controllers
             return new Link(url, relation, method);
         }
 
+        internal Link UrlLinkCrud(string relation, string routeName, string crudRouteName, object values)
+        {
+            var route = _routes.FirstOrDefault(f => f.AttributeRouteInfo.Name == routeName);
+            var crudRoute = _routes.FirstOrDefault(f => f.AttributeRouteInfo.Name == crudRouteName);
+            var method = crudRoute.ActionConstraints.OfType<HttpMethodActionConstraint>().First().HttpMethods.First();
+            var url = Url.Link(routeName, values).ToLower();
+            return new Link(url, relation, method);
+        }
+
         /// <summary>
         /// Use this method for your mainlinks. Eg CRUD, just add
         /// more links to your CRUD methods inside
@@ -35,9 +44,8 @@ namespace CoolestMovieAPI.Controllers
         /// <returns></returns>
         internal ActorDTO HateoasMainLinks(ActorDTO actorDto)
         {
-
-            actorDto.Links.Add(UrlLink("all", "GetAll", null));
-            actorDto.Links.Add(UrlLink("_self", "GetIdAsync", new { id = actorDto.ActorId }));
+            actorDto.Links.Add(UrlLink("_self", "GetActorById", new { id = actorDto.ActorId }));
+            //actorDto.Links.Add(UrlLink("all", "GetAllActors", null));
 
             return actorDto;
         }
@@ -50,11 +58,14 @@ namespace CoolestMovieAPI.Controllers
         /// </summary>
         /// <param name="actor"></param>
         /// <returns></returns>
-        internal ActorDTO HateoasSideLinks(ActorDTO actorDto)
+        internal ActorDTO HateoasGetSingleMethodLinks(ActorDTO actorDto)
         {
-            throw new System.NotImplementedException();
+            actorDto.Links.Add(UrlLink("all", "GetAllActors", null));
+            actorDto.Links.Add(UrlLink("_self", "GetActorById", new { id = actorDto.ActorId }));
+            actorDto.Links.Add(UrlLinkCrud("_update", "GetActorById", "UpdateActor", new { id = actorDto.ActorId }));
+            actorDto.Links.Add(UrlLinkCrud("_delete", "GetActorById", "DeleteActor", new { id = actorDto.ActorId }));
 
-            //return actorDto;
+            return actorDto;
         }
     }
 }
