@@ -2,6 +2,7 @@
 using CoolestMovieAPI.DTO;
 using CoolestMovieAPI.Models;
 using CoolestMovieAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -48,6 +49,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<MovieDirectorDTO>> PostMovieDirector(int movieId, int directorId)
         {
             try
