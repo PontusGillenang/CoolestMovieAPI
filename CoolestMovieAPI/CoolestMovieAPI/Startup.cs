@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using System;
 
 namespace CoolestMovieAPI
 {
@@ -54,6 +55,7 @@ namespace CoolestMovieAPI
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Movie API", Version = "v1" });
+                options.MapType<TimeSpan>(() => new OpenApiSchema { Type = typeof(TimeSpan).Name } );
             });
         }
 

@@ -3,6 +3,7 @@ using Castle.Core.Internal;
 using CoolestMovieAPI.DTO;
 using CoolestMovieAPI.Models;
 using CoolestMovieAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -72,6 +73,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpPost(Name = "CreateGenre")]
+        [Authorize]
         public async Task<ActionResult<GenreDTO>> PostGenre(GenreDTO genreDTO)
         {
             try
@@ -92,6 +94,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpPut("{genreid}", Name = "UpdateGenre")]
+        [Authorize]
         public async Task<ActionResult> PutGenre(int genreid, GenreDTO genreDTO)
         {
             try
@@ -119,6 +122,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpDelete("{genreid}", Name = "DeleteGenre")]
+        [Authorize]
         public async Task<ActionResult> DeleteGenre(int genreid)
         {
             try

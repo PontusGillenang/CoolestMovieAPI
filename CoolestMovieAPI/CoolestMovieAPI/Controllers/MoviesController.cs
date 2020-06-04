@@ -472,6 +472,7 @@ namespace CoolestMovieAPI.Controllers
         }
         
         [HttpPost(Name = "CreateItem")]
+        [Authorize]
         public async Task<ActionResult<MovieDTO>> PostMovie(MovieDTO movieDTO)
         {
             try
@@ -492,6 +493,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpPut("{movieId}", Name = "UpdateItem")]
+        [Authorize]
         public async Task<ActionResult> PutMovie(int movieId, MovieDTO movieDTO)
         {
             try
@@ -518,6 +520,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpDelete("{movieId}", Name = "DeleteItem")]
+        [Authorize]
         public async Task<ActionResult> DeleteMovie(int movieId)
         {
             try

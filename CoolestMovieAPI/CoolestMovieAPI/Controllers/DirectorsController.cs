@@ -3,6 +3,7 @@ using Castle.Core.Internal;
 using CoolestMovieAPI.DTO;
 using CoolestMovieAPI.Models;
 using CoolestMovieAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -124,6 +125,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<DirectorDTO>> PostDirector(DirectorDTO directorDTO)
         {
             try
@@ -144,6 +146,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<ActionResult> PutDirector(int id, DirectorDTO directorDTO)
         {
             try
@@ -169,6 +172,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult> DeleteDirector(int id)
         {
             try

@@ -10,6 +10,7 @@ using AutoMapper;
 using CoolestTrailerAPI.DTO;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolestMovieAPI.Controllers
 {
@@ -83,6 +84,7 @@ namespace CoolestMovieAPI.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<TrailerDTO>> PostActor(TrailerDTO trailerDto)
         {
             try
@@ -104,6 +106,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpPut("{trailerId}")]
+        [Authorize]
         public async Task<ActionResult> UpdateTrailer(int trailerId, TrailerDTO trailerDto)
         {
             try
@@ -129,6 +132,7 @@ namespace CoolestMovieAPI.Controllers
         }
 
         [HttpDelete("{trailerId}")]
+        [Authorize]
         public async Task<ActionResult> DeleteTrailer(int trailerId)
         {
             try
