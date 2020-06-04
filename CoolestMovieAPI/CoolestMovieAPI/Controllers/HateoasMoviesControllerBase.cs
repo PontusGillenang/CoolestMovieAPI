@@ -99,49 +99,32 @@ namespace CoolestMovieAPI.Controllers
             var parameters = new Dictionary<string, string>() { { "pageNumber", "1" } };
             parameters.Add("pageSize", $"{paginationParameters.PageSize}");
 
-            var newUrl = new Uri(QueryHelpers.AddQueryString(baseUrl, parameters));
-
-            linkList.Add("First page", newUrl);
-
+            linkList.Add("First page", new Uri(QueryHelpers.AddQueryString(baseUrl, parameters)));
 
 
             // Create last page link
-            parameters = new Dictionary<string, string>() { { "pageNumber", $"{pageCount}" } };
-            parameters.Add("pageSize", $"{paginationParameters.PageSize}");
-
-            newUrl = new Uri(QueryHelpers.AddQueryString(baseUrl, parameters));
-
-            linkList.Add("Last page", newUrl);
-
+            if (paginationParameters.PageNumber != pageCount)
+            {
+                parameters["pageNumber"] = $"{pageCount}";
+                linkList.Add("Last page", new Uri(QueryHelpers.AddQueryString(baseUrl, parameters)));
+            }
 
 
             // Create previous page link
             if (paginationParameters.PageNumber > 1)
             {
-                parameters = new Dictionary<string, string>() { { "pageNumber", $"{paginationParameters.PageNumber - 1}" } };
-                parameters.Add("pageSize", $"{paginationParameters.PageSize}");
-
-                newUrl = new Uri(QueryHelpers.AddQueryString(baseUrl, parameters));
-
-                linkList.Add("Previous page", newUrl);
+                parameters["pageNumber"] = $"{paginationParameters.PageNumber - 1}";
+                linkList.Add("Previous page", new Uri(QueryHelpers.AddQueryString(baseUrl, parameters)));
             }
-
 
 
             // Create next page link
             if (paginationParameters.PageNumber < pageCount)
             {
-                parameters = new Dictionary<string, string>() { { "pageNumber", $"{paginationParameters.PageNumber + 1}" } };
-                parameters.Add("pageSize", $"{paginationParameters.PageSize}");
-
-                newUrl = new Uri(QueryHelpers.AddQueryString(baseUrl, parameters));
-
-                linkList.Add("Next page", newUrl);
+                parameters["pageNumber"] = $"{paginationParameters.PageNumber + 1}";
+                linkList.Add("Next page", new Uri(QueryHelpers.AddQueryString(baseUrl, parameters)));
             }
             return linkList;
         }
-
-
-        
     }
 }
