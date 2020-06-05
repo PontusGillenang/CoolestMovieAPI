@@ -146,3 +146,39 @@ Ev. förbättringar av befintlig kod om behov finns. Implementation av authentis
 Issues som rör Authentiering.
 
 
+# Sprint Review 2020-06-05
+
+## Dagordning
+
+* **Val av sekreterare**
+* **Blev alla issues klara?**
+  *Om inte, varför
+  Icke klara issues återförs till backlog, efter att de har uppdaterats. Har vissa
+  delar klarats av? Skall vi ha en ny tidsuppskattning? Vad behövs för att vi
+  skall klara detta issue nästa gång?*
+* **Höll eran tidsplanering för era issues.**
+* **Bedöm vad ni kan göra bättre i nästa sprint**
+* **Har det kommit upp nya saker som skall läggas till på er backlog?**
+
+## Start
+
+* Sekreterare för dagen: **Murat Kugic (muratkugic)**.
+
+Pagination implementerad, implementering av auth0, ytterligare HATEOAS implementering, Clean-up av filer.
+
+
+* **Blev alla issues klara?**
+
+
+Alla issues blev klara och är mergade in i master.
+
+
+* **Bedöm vad ni kan göra bättre i nästa sprint**
+
+
+Gentlemen, it has been a privilege coding with you. -Titanic
+
+* **Har det kommit upp nya saker som skall läggas till på er backlog?**
+
+N/A
+
