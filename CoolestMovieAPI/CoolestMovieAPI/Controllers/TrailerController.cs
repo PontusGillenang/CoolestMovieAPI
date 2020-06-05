@@ -56,7 +56,7 @@ namespace CoolestMovieAPI.Controllers
 
                 if (mappedResult == null) return NotFound();
 
-                return Ok(HateoasMainLinks(mappedResult));
+                return Ok(HateoasGetSingleMethodLinks(mappedResult));
             }
             catch (Exception e)
             {
@@ -105,7 +105,7 @@ namespace CoolestMovieAPI.Controllers
             return BadRequest();
         }
 
-        [HttpPut("{trailerId}")]
+        [HttpPut("{trailerId}", Name ="UpdateTrailer")]
         [Authorize]
         public async Task<ActionResult> UpdateTrailer(int trailerId, TrailerDTO trailerDto)
         {
@@ -131,7 +131,7 @@ namespace CoolestMovieAPI.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("{trailerId}")]
+        [HttpDelete("{trailerId}", Name ="DeleteTrailer")]
         [Authorize]
         public async Task<ActionResult> DeleteTrailer(int trailerId)
         {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CoolestMovieAPI.HATEOAS;
-using CoolestTrailerAPI.DTO;
+using CoolestMovieAPI.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace CoolestMovieAPI.Controllers
 {
-    public class HateoasTrailersControllerBase : ControllerBase
+    public class HateoasGenresControllerBase : ControllerBase
     {
         private readonly IReadOnlyList<ActionDescriptor> _routes;
 
-        public HateoasTrailersControllerBase(IActionDescriptorCollectionProvider actionDescriptorCollectionProvider)
+        public HateoasGenresControllerBase(IActionDescriptorCollectionProvider actionDescriptorCollectionProvider)
         {
             _routes = actionDescriptorCollectionProvider.ActionDescriptors.Items;
         }
@@ -35,22 +35,21 @@ namespace CoolestMovieAPI.Controllers
             return new Link(url, relation, method);
         }
 
-        internal TrailerDTO HateoasMainLinks(TrailerDTO trailer)
+        internal GenreDTO HateoasGetAllMethodLinks(GenreDTO genreDto)
         {
-            TrailerDTO trailerDto = trailer;
+            genreDto.Links.Add(UrlLink("_self", "GetGenreByIdAsync", new { id = genreDto.GenreID }));
 
-            trailerDto.Links.Add(UrlLink("all", "GetAllTrailers", null));
-
-            return trailerDto;
+            return genreDto;
         }
 
-        internal TrailerDTO HateoasGetSingleMethodLinks(TrailerDTO trailerDto)
+        internal GenreDTO HateoasGetSingleMethodLinks(GenreDTO genreDto)
         {
-            trailerDto.Links.Add(UrlLink("all", "GetAllTrailers", null));
-            trailerDto.Links.Add(UrlLink("_self", "GetTrailerByIdAsync", new { id = trailerDto.MovieID }));
-            trailerDto.Links.Add(UrlLinkCrud("_update", "GetTrailerByIdAsync", "UpdateTrailer", new { id = trailerDto.MovieID }));
-            trailerDto.Links.Add(UrlLinkCrud("_delete", "GetTrailerByIdAsync", "DeleteTrailer", new { id = trailerDto.MovieID }));
-            return trailerDto;
+            genreDto.Links.Add(UrlLink("all", "GetAllGenre", null));
+            genreDto.Links.Add(UrlLink("_self", "GetGenreByIdAsync", new { id = genreDto.GenreID }));
+            genreDto.Links.Add(UrlLinkCrud("_update", "GetGenreByIdAsync", "UpdateGenre", new { id = genreDto.GenreID }));
+            genreDto.Links.Add(UrlLinkCrud("_delete", "GetGenreByIdAsync", "DeleteGenre", new { id = genreDto.GenreID }));
+
+            return genreDto;
         }
     }
 }

@@ -58,7 +58,7 @@ namespace CoolestMovieAPI.Controllers
 
                 var mappedResults = _mapper.Map<ActorDTO>(result);
 
-                return Ok(HateoasMainLinks(mappedResults));
+                return Ok(HateoasGetSingleMethodLinks(mappedResults));
             }
 
             catch (Exception e)
@@ -146,7 +146,7 @@ namespace CoolestMovieAPI.Controllers
             return BadRequest();
         }
 
-        [HttpPut("{actorId}")]
+        [HttpPut("{actorId}", Name = "UpdateActor")]
         [Authorize]
         public async Task<ActionResult> PutActor(int actorId, ActorDTO actorDto)
         {
@@ -175,7 +175,7 @@ namespace CoolestMovieAPI.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("{actorId}")]
+        [HttpDelete("{actorId}", Name = "DeleteActor")]
         [Authorize]
         public async Task<ActionResult> DeleteActor(int actorId)
         {
